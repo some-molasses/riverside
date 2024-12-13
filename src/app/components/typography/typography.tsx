@@ -1,7 +1,7 @@
 import React from "react";
 import "./typography.scss";
 
-type TypographyVariant = "h1" | "h2" | "regular";
+type TypographyVariant = "h1" | "h2" | "regular" | "regular-light";
 
 export const Typography: React.FC<{
   children: React.ReactNode;
@@ -15,6 +15,8 @@ export const Typography: React.FC<{
         return "type-h2";
       case "regular":
         return "type-regular";
+      case "regular-light":
+        return "type-regular-light";
     }
   };
 

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Typography } from "../typography/typography";
 import "./top-nav.scss";
 
@@ -5,9 +6,9 @@ export const TopNav: React.FC<{}> = () => {
   return (
     <div id="top-nav">
       <div id="top-nav-left">
-        <a href="/">
+        <Link href="/">
           <Typography variant="h2">some-molasses</Typography>
-        </a>
+        </Link>
       </div>
       <div id="top-nav-items">
         <NavItem>employers</NavItem>
@@ -25,7 +26,7 @@ const NavItem: React.FC<{
 }> = ({ children }) => {
   return (
     <button className="top-nav-item">
-      <Typography variant="regular">{children}</Typography>
+      <Typography variant="regular-light">{children}</Typography>
     </button>
   );
 };

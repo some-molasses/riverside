@@ -1,16 +1,28 @@
 .typography {
   &.type-h1 {
     font-family: var(--title-font);
-    font-size: 32px;
+    font-size: 32pt;
+    font-weight: 300;
   }
 
   &.type-h2 {
     font-family: var(--title-font);
-    font-size: 20px;
+    font-size: 16pt;
+    font-weight: 300;
   }
 
-  &.type-regular {
+  &.type-regular,
+  &.type-regular-light {
     font-family: var(--body-font);
-    font-size: 12px;
+    font-size: 12pt;
+    font-weight: 300;
   }
+
+  &.type-regular-light {
+    font-weight: 300;
+  }
+}
+
+h2 {
+  margin-bottom: 8px;
 }

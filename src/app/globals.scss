@@ -35,6 +35,11 @@ button {
   font-family: inherit;
 }
 
+ul {
+  padding: 8px 0;
+  padding-left: 24px;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

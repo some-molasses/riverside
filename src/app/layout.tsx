@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Nunito_Sans, Quicksand } from "next/font/google";
+import { Quicksand, Nunito_Sans, Nunito } from "next/font/google";
 import "./globals.scss";
 import { TopNav } from "./components/top-nav/top-nav";
 
@@ -8,7 +8,7 @@ const titleFont = Quicksand({
   subsets: ["latin"],
 });
 
-const bodyFont = Nunito_Sans({
+const bodyFont = Nunito({
   variable: "--body-font",
   subsets: ["latin"],
 });
