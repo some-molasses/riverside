@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Quicksand, Nunito_Sans, Nunito } from "next/font/google";
-import "./globals.scss";
+import { Nunito, Quicksand } from "next/font/google";
 import { TopNav } from "./components/top-nav/top-nav";
+import "./globals.scss";
 
 const titleFont = Quicksand({
   variable: "--title-font",

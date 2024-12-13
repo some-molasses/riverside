@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { Content } from "./components/content/content";
 import {
   Heading1,
   Heading2,
@@ -6,7 +8,6 @@ import {
   Span,
 } from "./components/typography/variants/typography-variants";
 import "./home.scss";
-import Image from "next/image";
 
 export default function Home() {
   return (
@@ -14,16 +15,18 @@ export default function Home() {
       <div className="img-container">
         <Image src="/fall/october.jpg" alt="" fill />
       </div>
-      <div id="content">
+      <Content>
         <div id="titles">
           <Heading1>river stanley</Heading1>
           <Span>software developer, writer, occasional leader</Span>
         </div>
         {/* @todo add links to all sections */}
         <SoftwareSection />
+        <hr />
         <WritingSection />
+        <hr />
         <LeaderSection />
-      </div>
+      </Content>
     </div>
   );
 }
@@ -68,7 +71,7 @@ const WritingSection: React.FC<{}> = ({}) => {
         <HomepageListItem>short story author</HomepageListItem>
         <HomepageListItem>occasional poet</HomepageListItem>
         <HomepageListItem>
-          accidental international M&M's journalist
+          accidental international M&M&apos;s journalist
         </HomepageListItem>
       </ul>
       <Paragraph>

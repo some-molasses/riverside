@@ -11,10 +11,10 @@ export const TopNav: React.FC<{}> = () => {
         </Link>
       </div>
       <div id="top-nav-items">
-        <NavItem>employers</NavItem>
-        <NavItem>readers</NavItem>
-        <NavItem>players</NavItem>
-        <NavItem>portfolio</NavItem>
+        <NavItem href="/resume">employers</NavItem>
+        <NavItem href="/portfolio?filter=readers">readers</NavItem>
+        <NavItem href="/portfolio?filter=players">players</NavItem>
+        <NavItem href="/portfolio">portfolio</NavItem>
       </div>
     </div>
   );
@@ -22,11 +22,11 @@ export const TopNav: React.FC<{}> = () => {
 
 const NavItem: React.FC<{
   children: React.ReactNode;
-  // label: string;
-}> = ({ children }) => {
+  href: string;
+}> = ({ children, href }) => {
   return (
-    <button className="top-nav-item">
+    <Link href={href} className="top-nav-item">
       <Typography variant="regular-light">{children}</Typography>
-    </button>
+    </Link>
   );
 };

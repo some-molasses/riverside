@@ -10,9 +10,10 @@
     padding: 24px 32px;
     background-color: var(--background);
     transition: var(--transition);
+    display: inline-block;
 
     &:hover {
-      background-color: var(--background-hover);
+      background-color: var(--background-faint);
       cursor: pointer;
     }
   }
