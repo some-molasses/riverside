@@ -1,0 +1,19 @@
+#top-nav {
+  padding: 0 32px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .top-nav-item {
+    padding: 24px 32px;
+    background-color: var(--background);
+    transition: var(--transition);
+
+    &:hover {
+      background-color: var(--background-hover);
+      cursor: pointer;
+    }
+  }
+}

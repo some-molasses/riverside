@@ -1,0 +1,16 @@
+.typography {
+  &.type-h1 {
+    font-family: var(--title-font);
+    font-size: 32px;
+  }
+
+  &.type-h2 {
+    font-family: var(--title-font);
+    font-size: 20px;
+  }
+
+  &.type-regular {
+    font-family: var(--body-font);
+    font-size: 12px;
+  }
+}

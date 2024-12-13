@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Spartan } from "next/font/google";
-import "./globals.css";
+import { Nunito_Sans, Quicksand } from "next/font/google";
+import "./globals.scss";
+import { TopNav } from "./components/top-nav/top-nav";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const titleFont = Quicksand({
+  variable: "--title-font",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const bodyFont = Nunito_Sans({
+  variable: "--body-font",
   subsets: ["latin"],
 });
 
@@ -24,7 +25,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${titleFont.variable} ${bodyFont.variable}`}>
+        <TopNav />
         {children}
       </body>
     </html>
