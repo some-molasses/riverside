@@ -1,5 +1,6 @@
-#content {
+.content {
   margin: 32px auto;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   max-width: var(--content-width);

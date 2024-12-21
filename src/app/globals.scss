@@ -36,9 +36,23 @@ button {
   font-family: inherit;
 }
 
+input {
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  padding: 12px;
+  background-color: var(--background-faint);
+}
+
 ul {
   padding: 8px 0;
   padding-left: 24px;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: var(--background-faint);
 }
 
 @media (prefers-color-scheme: dark) {

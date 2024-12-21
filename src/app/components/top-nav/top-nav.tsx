@@ -7,7 +7,9 @@ export const TopNav: React.FC<{}> = () => {
     <div id="top-nav">
       <div id="top-nav-left">
         <Link href="/">
-          <Typography variant="h2">some-molasses</Typography>
+          <Typography variant="regular" id="nav-title">
+            some-molasses
+          </Typography>
         </Link>
       </div>
       <div id="top-nav-items">

@@ -8,24 +8,30 @@ export const Heading1: React.FC<{ children: React.ReactNode }> = ({
   </h1>
 );
 
-export const Heading2: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => (
-  <h2>
+export const Heading2: React.FC<{
+  children: React.ReactNode;
+  className: string;
+}> = ({ children, className }) => (
+  <h2 className={className}>
     <Typography variant="h2">{children}</Typography>
   </h2>
 );
 
-export const Paragraph: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => (
-  <p>
+export const Paragraph: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+}> = ({ children, className }) => (
+  <p className={className}>
     <Typography variant="regular">{children}</Typography>
   </p>
 );
 
-export const Span: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <span>
-    <Typography variant="regular">{children}</Typography>
+export const Span: React.FC<{
+  children: React.ReactNode;
+  variant?: "regular" | "regular-light";
+  className?: string;
+}> = ({ children, variant, className }) => (
+  <span className={className}>
+    <Typography variant={variant ?? "regular"}>{children}</Typography>
   </span>
 );

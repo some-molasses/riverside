@@ -5,8 +5,9 @@ type TypographyVariant = "h1" | "h2" | "regular" | "regular-light";
 
 export const Typography: React.FC<{
   children: React.ReactNode;
+  id?: string;
   variant: TypographyVariant;
-}> = ({ children, variant }) => {
+}> = ({ children, variant, id }) => {
   const getClassName = () => {
     switch (variant) {
       case "h1":
@@ -20,5 +21,9 @@ export const Typography: React.FC<{
     }
   };
 
-  return <span className={`typography ${getClassName()}`}>{children}</span>;
+  return (
+    <span className={`typography ${getClassName()}`} id={id}>
+      {children}
+    </span>
+  );
 };

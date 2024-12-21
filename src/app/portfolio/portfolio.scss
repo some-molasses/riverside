@@ -1,2 +1,62 @@
-#content {
+#portfolio-page {
+  #titles {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #search-container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    gap: 8px;
+  }
+
+  #top-divider {
+    margin: 16px 0;
+  }
+
+  #results {
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background-color: var(--background-faint);
+  }
+
+  .search-result {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 32px;
+    padding: 16px;
+
+    background-color: var(--background);
+    cursor: pointer;
+
+    &:hover {
+      .result-title {
+        color: var(--light-1);
+      }
+    }
+
+    .result-title {
+      transition: var(--transition);
+      margin: 0;
+    }
+
+    .result-subtitle-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .result-description {
+      margin-top: 8px;
+    }
+  }
 }

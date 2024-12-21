@@ -14,12 +14,13 @@
   &.type-regular,
   &.type-regular-light {
     font-family: var(--body-font);
-    font-size: 12pt;
+    font-size: 11pt;
     font-weight: 300;
   }
 
   &.type-regular-light {
     font-weight: 300;
+    color: var(--text-faint);
   }
 }
 
