@@ -1,10 +1,4 @@
 #portfolio-page {
-  #titles {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
   #search-container {
     display: flex;
     flex-direction: column;
@@ -27,15 +21,17 @@
 
   .search-result {
     list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    gap: 32px;
-    padding: 16px;
 
-    background-color: var(--background);
-    cursor: pointer;
+    .search-result-inner {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      gap: 32px;
+      padding: 16px;
+      background-color: var(--background);
+      cursor: pointer;
+    }
 
     &:hover {
       .result-title {

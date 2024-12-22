@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Content } from "../components/content/content";
 import { Page } from "../components/page/page";
 import {
@@ -50,28 +51,33 @@ const SearchResult: React.FC<{
 }> = ({ name, subtitle, date, snippet }) => {
   return (
     <li className="search-result">
-      <div className="result-text-panel">
-        <Heading2 className="result-title">{name}</Heading2>
-        <div className="result-subtitle-row">
-          <Span className="result-subtitle">{subtitle}</Span>
-          <Span className="result-date">
-            {date.toLocaleDateString("en-CA", {
-              month: "long",
-              year: "numeric",
-            })}
-          </Span>
+      <Link
+        className="search-result-inner"
+        href={`work/writing/${name.toLowerCase().replaceAll(` `, "-")}`}
+      >
+        <div className="result-text-panel">
+          <Heading2 className="result-title">{name}</Heading2>
+          <div className="result-subtitle-row">
+            <Span className="result-subtitle">{subtitle}</Span>
+            <Span className="result-date">
+              {date.toLocaleDateString("en-CA", {
+                month: "long",
+                year: "numeric",
+              })}
+            </Span>
+          </div>
+          <Paragraph className="result-description">{snippet}</Paragraph>
         </div>
-        <Paragraph className="result-description">{snippet}</Paragraph>
-      </div>
-      <div className="result-image">
-        <div
-          style={{
-            width: 150,
-            height: 150,
-            background: `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`,
-          }}
-        />
-      </div>
+        <div className="result-image">
+          <div
+            style={{
+              width: 150,
+              height: 150,
+              background: `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`,
+            }}
+          />
+        </div>
+      </Link>
     </li>
   );
 };
