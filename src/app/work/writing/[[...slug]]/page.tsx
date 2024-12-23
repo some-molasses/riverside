@@ -10,21 +10,24 @@ import "./writing.scss";
 export default async function WritingWork({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
+  const work = await WritingIndexer.getWriting(slug.join("/"));
 
-  const work = await WritingIndexer.getWriting(
-    `mathnews/v156/i6/the-last-rabbit`,
-  );
+  const formatWriting = (text: string) => {
+    return text.replaceAll(/-\/-/g, "<hr/>");
+  };
 
   if (work === null) {
     return null;
   }
 
-  const { title, subtitle, date, body } = work;
+  const { title, subtitle, body } = work;
 
-  const result = (await remark().use(remarkHtml).process(body)).toString();
+  const result = formatWriting(
+    (await remark().use(remarkHtml).process(body)).toString(),
+  );
 
   return (
     <Page id="writing-work-page">

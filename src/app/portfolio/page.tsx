@@ -53,7 +53,7 @@ const SearchResult: React.FC<{
     <li className="search-result">
       <Link
         className="search-result-inner"
-        href={`work/writing/${name.toLowerCase().replaceAll(` `, "-")}`}
+        href={`work/writing/${`mathnews/v156/i6/the-last-rabbit`}`}
       >
         <div className="result-text-panel">
           <Heading2 className="result-title">{name}</Heading2>
