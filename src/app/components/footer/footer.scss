@@ -1,0 +1,13 @@
+#footer {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  justify-content: center;
+
+  .footer-item {
+    border: 1px solid var(--text-faint);
+    height: 48px;
+    width: 48px;
+    text-align: center;
+  }
+}
