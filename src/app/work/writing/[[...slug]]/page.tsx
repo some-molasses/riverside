@@ -2,9 +2,9 @@ import { Content } from "@/app/components/content/content";
 import { Footer } from "@/app/components/footer/footer";
 import { Page } from "@/app/components/page/page";
 import { Titles } from "@/app/components/titles/titles";
+import { SearchEngine } from "@/app/search-engine/search-engine";
 import { remark } from "remark";
 import remarkHtml from "remark-html";
-import { WritingGetter } from "../../../../../writing-database/getter";
 import "./writing.scss";
 
 export default async function WritingWork({
@@ -13,7 +13,7 @@ export default async function WritingWork({
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
-  const work = await WritingGetter.getWriting(slug.join("/"));
+  const work = await SearchEngine.getItem(slug.join("/"));
 
   const formatWriting = (text: string) => {
     return text.replaceAll(/-\/-/g, "<hr/>");

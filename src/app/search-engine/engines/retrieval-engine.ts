@@ -3,20 +3,12 @@ import fs from "fs";
 import { access, readFile } from "fs/promises";
 import path from "path";
 
-export class WritingGetter {
-  static readonly WRITING_DIRECTORY = "writing-database";
-
-  static async getWriting(slug: string): Promise<SearchItem | null> {
-    const mainPath = path.join(
-      process.cwd(),
-      this.WRITING_DIRECTORY,
-      slug,
-      "main.md",
-    );
+export class RetrievalEngine {
+  static async retrieveItem(itempath: string): Promise<SearchItem | null> {
+    const mainPath = path.join(process.cwd(), itempath, "main.md");
     const metadataPath = path.join(
       process.cwd(),
-      this.WRITING_DIRECTORY,
-      slug,
+      itempath,
       "item-metadata.json",
     );
 

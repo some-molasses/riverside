@@ -12,14 +12,15 @@ type RetreivableItem = {
 };
 
 export class IndexingEngine {
+  static items: RetreivableItem[] = [];
+
   static async indexAllItems() {
-    // find all indexable items
-    const items = [
+    this.items = [
       ...(await this.findAllItemsInDirectory(["writing-database"])),
       ...(await this.findAllItemsInDirectory(["src/app"])),
     ];
 
-    console.log(items);
+    console.log("items", this.items);
   }
 
   /**

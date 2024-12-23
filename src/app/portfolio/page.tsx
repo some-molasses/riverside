@@ -10,8 +10,8 @@ import {
 import { SearchEngine } from "../search-engine/search-engine";
 import "./portfolio.scss";
 
-export default function Portfolio() {
-  SearchEngine.init();
+export default async function Portfolio() {
+  const items = await SearchEngine.retrieveAllItems();
 
   return (
     <Page id="portfolio-page">
@@ -28,18 +28,15 @@ export default function Portfolio() {
         </div>
         <hr id="top-divider" />
         <ul id="results">
-          <SearchResult
-            name="The Last Rabbit"
-            subtitle="writing"
-            date={new Date(2024, 11)}
-            snippet="The animals were leaving. None of the local housecats remember the time before. In the before, the valley was full of wild creatures. Raccoons, turtles, the heron, and most importantly, the rabbit. None remain. None of the others are the subject of stories, legends even, told at the housecats’ secret midnight meets."
-          />
-          <SearchResult
-            name="The First Rabbit"
-            subtitle="game"
-            date={new Date(2023, 2)}
-            snippet="did you ever hear the tragedy of darth plagueis the wise?"
-          />
+          {items.map((item) => (
+            <SearchResult
+              key={item.metadata.title}
+              name={item.metadata.title}
+              subtitle={item.metadata.subtitle}
+              date={new Date(item.metadata.date)}
+              snippet="The animals were leaving. None of the local housecats remember the time before. In the before, the valley was full of wild creatures. Raccoons, turtles, the heron, and most importantly, the rabbit. None remain. None of the others are the subject of stories, legends even, told at the housecats’ secret midnight meets."
+            />
+          ))}
         </ul>
       </Content>
     </Page>
@@ -48,10 +45,11 @@ export default function Portfolio() {
 
 const SearchResult: React.FC<{
   name: string;
-  subtitle: string;
+  subtitle?: string;
   date: Date;
   snippet: string;
 }> = ({ name, subtitle, date, snippet }) => {
+  console.log(name);
   return (
     <li className="search-result">
       <Link
