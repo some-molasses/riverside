@@ -55,6 +55,17 @@ hr {
   background-color: var(--background-faint);
 }
 
+br {
+  height: 1em;
+  line-height: 40px;
+  display: block;
+  content: "";
+}
+
+p {
+  line-height: 1.5em;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
