@@ -7,9 +7,12 @@ import {
   Paragraph,
   Span,
 } from "../components/typography/variants/typography-variants";
+import { SearchEngine } from "../search-engine/search-engine";
 import "./portfolio.scss";
 
 export default function Portfolio() {
+  SearchEngine.init();
+
   return (
     <Page id="portfolio-page">
       <Content>

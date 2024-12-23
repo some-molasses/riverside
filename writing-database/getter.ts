@@ -1,24 +1,12 @@
+import { SearchItem, SearchItemMetadata } from "@/app/search-engine/types";
 import fs from "fs";
 import { access, readFile } from "fs/promises";
 import path from "path";
 
-type WritingMetadata = {
-  title: string;
-  subtitle?: string;
-  date: string;
-};
-
-type WritingWork = {
-  title: string;
-  subtitle?: string;
-  date: Date;
-  body: string;
-};
-
-export class WritingIndexer {
+export class WritingGetter {
   static readonly WRITING_DIRECTORY = "writing-database";
 
-  static async getWriting(slug: string): Promise<WritingWork | null> {
+  static async getWriting(slug: string): Promise<SearchItem | null> {
     const mainPath = path.join(
       process.cwd(),
       this.WRITING_DIRECTORY,
@@ -49,7 +37,7 @@ export class WritingIndexer {
     const main = readFile(mainPath).then((res) => res.toString());
     const meta = readFile(metadataPath).then((res) =>
       JSON.parse(res.toString()),
-    ) as Promise<WritingMetadata>;
+    ) as Promise<SearchItemMetadata>;
 
     return {
       title: (await meta).title,
