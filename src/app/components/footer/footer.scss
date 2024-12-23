@@ -1,13 +1,14 @@
 #footer {
   display: flex;
-  gap: 16px;
+  gap: 24px;
   margin-top: 16px;
   justify-content: center;
 
   .footer-item {
-    border: 1px solid var(--text-faint);
-    height: 48px;
-    width: 48px;
-    text-align: center;
+    height: 32px;
+    width: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
