@@ -33,7 +33,8 @@
       cursor: pointer;
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       .result-title {
         color: var(--light-1);
       }

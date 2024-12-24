@@ -1,26 +1,19 @@
 import { existsSync, Stats } from "fs";
 import { lstat, readdir, readFile } from "fs/promises";
 import path from "path";
-import { SearchItemMetadata } from "../types";
+import { RetreivableItem } from "../types";
 
 const METADATA_FILENAME = "item-metadata.json";
 const ACCEPTED_FILENAMES = ["page.tsx", "main.md"];
 
-type RetreivableItem = {
-  location: string;
-  metadata: SearchItemMetadata;
-};
-
 export class IndexingEngine {
   static items: RetreivableItem[] = [];
 
-  static async indexAllItems() {
+  static async indexAllItems(): Promise<void> {
     this.items = [
       ...(await this.findAllItemsInDirectory(["writing-database"])),
       ...(await this.findAllItemsInDirectory(["src/app"])),
     ];
-
-    console.log("items", this.items);
   }
 
   /**

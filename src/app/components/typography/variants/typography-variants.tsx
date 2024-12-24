@@ -10,7 +10,7 @@ export const Heading1: React.FC<{ children: React.ReactNode }> = ({
 
 export const Heading2: React.FC<{
   children: React.ReactNode;
-  className: string;
+  className?: string;
 }> = ({ children, className }) => (
   <h2 className={className}>
     <Typography variant="h2">{children}</Typography>

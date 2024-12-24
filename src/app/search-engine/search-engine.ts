@@ -1,6 +1,6 @@
 import { IndexingEngine } from "./engines/indexing-engine";
 import { RetrievalEngine } from "./engines/retrieval-engine";
-import { SearchItem } from "./types";
+import { RetreivableItem, RetrievedItem } from "./types";
 
 export class SearchEngine {
   static initialized: boolean = false;
@@ -14,14 +14,14 @@ export class SearchEngine {
     this.initialized = true;
   }
 
-  static async retrieveAllItems() {
+  static async retrieveAllItems(): Promise<RetreivableItem[]> {
     await this.conditionalInit();
     return IndexingEngine.items.sort((a, b) =>
       new Date(b.metadata.date) < new Date(a.metadata.date) ? -1 : 1,
     );
   }
 
-  static async getItem(path: string): Promise<SearchItem> {
+  static async getItem(path: string): Promise<RetrievedItem> {
     await this.conditionalInit();
     const item = await RetrievalEngine.retrieveItem(path);
 

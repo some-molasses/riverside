@@ -1,10 +1,10 @@
-import { SearchItem, SearchItemMetadata } from "@/app/search-engine/types";
+import { RetrievedItem, SearchItemMetadata } from "@/app/search-engine/types";
 import fs from "fs";
 import { access, readFile } from "fs/promises";
 import path from "path";
 
 export class RetrievalEngine {
-  static async retrieveItem(itempath: string): Promise<SearchItem | null> {
+  static async retrieveItem(itempath: string): Promise<RetrievedItem | null> {
     const mainPath = path.join(process.cwd(), itempath, "main.md");
     const metadataPath = path.join(
       process.cwd(),
