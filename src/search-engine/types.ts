@@ -10,7 +10,7 @@ export type RetrievedItem = Omit<SearchItemMetadata, "date"> & {
   body: string;
 };
 
-export type RetreivableItem = {
+export type RetrievableItem = {
   location: string;
   metadata: SearchItemMetadata;
 };

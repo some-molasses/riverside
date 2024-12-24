@@ -2,7 +2,7 @@ import { Content } from "@/app/components/content/content";
 import { Footer } from "@/app/components/footer/footer";
 import { Page } from "@/app/components/page/page";
 import { Titles } from "@/app/components/titles/titles";
-import { SearchEngine } from "@/app/search-engine/search-engine";
+import { SearchRetrievalEngine } from "@/search-engine/search-retrieval-engine";
 import { remark } from "remark";
 import remarkHtml from "remark-html";
 import "./writing.scss";
@@ -13,7 +13,9 @@ export default async function WritingWork({
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
-  const work = await SearchEngine.getItem(slug.join("/"));
+  const work = await new SearchRetrievalEngine().getItem(
+    "writing-database/" + slug.join("/"),
+  );
 
   const formatWriting = (text: string) => {
     return text.replaceAll(/-\/-/g, "<hr/>");

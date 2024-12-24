@@ -1,4 +1,4 @@
-**Ingredients**
+### Ingredients
 
 - some \\(n\\) tomatoes
 - 1 chopped onion
@@ -8,7 +8,7 @@
 - an entire handful of cold herbs, chopped (e.g. basil, parsley, cilantro, mint)
 - whatever else u want \<3
 
-**Instructions**
+### Instructions
 
 1. in a large pot, add chopped onion, garlic, and spices. Stir and let cook for the next few minutes.
 2. add tomatoes, hot peppers, and leaves

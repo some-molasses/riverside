@@ -1,3 +1,5 @@
+import { SearchRetrievalEngine } from "@/search-engine/search-retrieval-engine";
+import { RetrievableItem } from "@/search-engine/types";
 import Image from "next/image";
 import Link from "next/link";
 import { Content } from "../components/content/content";
@@ -8,12 +10,10 @@ import {
   Paragraph,
   Span,
 } from "../components/typography/variants/typography-variants";
-import { SearchEngine } from "../search-engine/search-engine";
-import { RetreivableItem } from "../search-engine/types";
 import "./portfolio.scss";
 
 export default async function Portfolio() {
-  const items = await SearchEngine.retrieveAllItems();
+  const items = await new SearchRetrievalEngine().retrieveAllItems();
 
   return (
     <Page id="portfolio-page">
@@ -44,28 +44,44 @@ export default async function Portfolio() {
 }
 
 const SearchResult: React.FC<{
-  item: RetreivableItem;
+  item: RetrievableItem;
   snippet: string;
 }> = ({ item, snippet }) => {
   const { title, subtitle, date } = item.metadata;
+  const href = `work/writing/${item.location
+    .replace("writing-database", "")
+    .replace("main.md", "")}`;
 
   return (
     <li className="search-result">
-      <Link
-        className="search-result-inner"
-        href={`work/writing/${`mathnews/v156/i6/the-last-rabbit`}`}
-      >
+      <Link className="search-result-inner" href={href}>
         <div className="result-text-panel">
-          <Heading2 className="result-title">{title}</Heading2>
-          <div className="result-subtitle-row">
-            <Span className="result-subtitle">{subtitle}</Span>
-            <Span className="result-date">
-              {new Date(date).toLocaleDateString("en-CA", {
-                month: "long",
-                year: "numeric",
-              })}
-            </Span>
-          </div>
+          {subtitle ? (
+            <>
+              <Heading2 className="result-title">{title}</Heading2>
+              <div className="result-subtitle-row">
+                <Span className="result-subtitle">{subtitle}</Span>
+                <Span className="result-date">
+                  {new Date(date).toLocaleDateString("en-CA", {
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </Span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="result-subtitle-row">
+                <Heading2 className="result-title">{title}</Heading2>
+                <Span className="result-date">
+                  {new Date(date).toLocaleDateString("en-CA", {
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </Span>
+              </div>
+            </>
+          )}
           <Paragraph className="result-description">{snippet}</Paragraph>
         </div>
         {item.metadata.thumbnail ? (
