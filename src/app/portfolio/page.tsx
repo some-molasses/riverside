@@ -48,13 +48,21 @@ const SearchResult: React.FC<{
   snippet: string;
 }> = ({ item, snippet }) => {
   const { title, subtitle, date } = item.metadata;
-  const href = `work/writing/${item.location
-    .replace("writing-database", "")
-    .replace("main.md", "")}`;
+
+  const getHref = () => {
+    if (item.location.includes("writing-database")) {
+      return `work/writing/${item.location
+        .replace("writing-database", "")
+        .replace("main.md", "")
+        .replace("page.tsx", "")}`;
+    } else {
+      return item.location.replace("src\\app", "").replace("page.tsx", "");
+    }
+  };
 
   return (
     <li className="search-result">
-      <Link className="search-result-inner" href={href}>
+      <Link className="search-result-inner" href={getHref()}>
         <div className="result-text-panel">
           {subtitle ? (
             <>
@@ -86,13 +94,6 @@ const SearchResult: React.FC<{
         </div>
         {item.metadata.thumbnail ? (
           <div className="result-image">
-            {/* <div
-              style={{
-                width: 150,
-                height: 150,
-                background: `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`,
-              }}
-            /> */}
             <Image
               src={item.metadata.thumbnail.replace("public/", "/")}
               alt=""
