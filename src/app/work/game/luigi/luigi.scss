@@ -1,0 +1,29 @@
+h2 {
+  margin: auto;
+  padding: 0 1em 1em 24px;
+  font-size: 2em;
+  font-family: Encode Sans;
+}
+
+#canvasBox {
+  display: block;
+  width: max-content;
+  margin: auto;
+  padding-top: 1em;
+}
+
+canvas {
+  border: 4px solid #d3d3d3;
+  background-color: #f1f1f1;
+  z-index: 5;
+}
+
+#controls {
+  text-align: center;
+  padding: 0.5em 1em 0 24px;
+}
+
+.sprite {
+  display: none;
+  z-index: -10;
+}

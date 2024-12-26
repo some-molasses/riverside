@@ -1,0 +1,11 @@
+.center-overflow {
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+
+.center-overflow-inner {
+  display: block;
+  width: 100vw;
+  margin: 0 -1000px;
+}
