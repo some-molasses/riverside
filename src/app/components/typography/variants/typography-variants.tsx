@@ -17,6 +17,15 @@ export const Heading2: React.FC<{
   </h2>
 );
 
+export const Heading3: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+}> = ({ children, className }) => (
+  <h3 className={className}>
+    <Typography variant="h3">{children}</Typography>
+  </h3>
+);
+
 export const Paragraph: React.FC<{
   children: React.ReactNode;
   className?: string;

@@ -1,0 +1,76 @@
+#resume-page {
+  section {
+    margin: 12px 0;
+
+    h2 {
+      margin-bottom: 4px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--light-1);
+      text-transform: lowercase;
+    }
+  }
+
+  #education-section {
+    #degrees-list {
+      padding: 0;
+
+      li {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin: 12px 0;
+        gap: 8px;
+
+        .uni-icon {
+          $size: 40px;
+          width: $size;
+          height: $size;
+          background-color: var(--light-1);
+        }
+
+        .details {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+
+        .left,
+        .right {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .right {
+          align-items: flex-end;
+        }
+      }
+    }
+  }
+
+  #experience-section {
+    .experience-item {
+      margin: 8px 0;
+
+      .titles {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .left {
+          display: flex;
+          flex-direction: column;
+        }
+        .right {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      li {
+        margin: 4px 0;
+        font-size: 11pt;
+      }
+    }
+  }
+}
