@@ -81,8 +81,6 @@ export class SearchIndexer {
 
       const metadata = JSON.parse(metadataFile.toString());
 
-      console.log(directoryPath);
-
       return [
         {
           // intentionally do not join with process.cwd()

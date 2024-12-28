@@ -17,6 +17,15 @@ export const Heading2: React.FC<{
   </h2>
 );
 
+export const Heading3: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+}> = ({ children, className }) => (
+  <h3 className={className}>
+    <Typography variant="h3">{children}</Typography>
+  </h3>
+);
+
 export const Paragraph: React.FC<{
   children: React.ReactNode;
   className?: string;
@@ -29,9 +38,10 @@ export const Paragraph: React.FC<{
 export const Span: React.FC<{
   children: React.ReactNode;
   variant?: "regular" | "regular-light";
+  id?: string;
   className?: string;
-}> = ({ children, variant, className }) => (
-  <span className={className}>
+}> = ({ children, variant, id, className }) => (
+  <span className={className} id={id}>
     <Typography variant={variant ?? "regular"}>{children}</Typography>
   </span>
 );
