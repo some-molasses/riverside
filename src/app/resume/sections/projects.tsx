@@ -1,15 +1,13 @@
-import {
-  Heading2,
-  Span,
-} from "@/app/components/typography/variants/typography-variants";
-import { ItemTitle } from "../components/item-title";
+import { Heading2 } from "@/app/components/typography/variants/typography-variants";
+import { HL } from "../components/highlight/highlight";
+import { ItemTitle } from "../components/item-title/item-title";
 
 export const ProjectsSection: React.FC = () => {
   return (
     <section id="projects-section">
       <Heading2>Projects</Heading2>
       <div>
-        <Project name="better-walks" date="2024">
+        <Project name="better-walks" date="2024 – 2025">
           <li>
             Designed and developed a <HL terms="frontend">React Native</HL>{" "}
             mobile app to navigate users through real-world scavenger hunts
@@ -24,7 +22,7 @@ export const ProjectsSection: React.FC = () => {
             <HL terms="backend gis">GIS data</HL>
           </li>
         </Project>
-        <Project name="MathSoc Website" date="2024">
+        <Project name="MathSoc Website" date="2022 – 2025">
           <li>
             <HL terms="project">Led teams of software developers</HL> to
             redevelop the website of the University of Waterloo Undergraduate
@@ -81,10 +79,4 @@ const Project: React.FC<{
       </div>
     </div>
   );
-};
-
-const HL: React.FC<{ children: React.ReactNode; terms: string }> = ({
-  children,
-}) => {
-  return <Span className="highlight">{children}</Span>;
 };

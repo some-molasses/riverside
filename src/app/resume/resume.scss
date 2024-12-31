@@ -61,6 +61,10 @@
     .skill {
       color: var(--light-1);
     }
+
+    #skills-body {
+      margin-top: 4px;
+    }
   }
 
   $item-font-size: 11pt;
@@ -143,9 +147,5 @@
         font-size: $item-font-size;
       }
     }
-  }
-
-  .highlight {
-    color: var(--light-1);
   }
 }

@@ -1,0 +1,11 @@
+#resume-page {
+  .highlight {
+    color: var(--light-1);
+    cursor: pointer;
+    transition: var(--transition);
+
+    &.active {
+      color: var(--light-2);
+    }
+  }
+}

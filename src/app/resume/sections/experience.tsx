@@ -1,8 +1,6 @@
-import {
-  Heading2,
-  Span,
-} from "@/app/components/typography/variants/typography-variants";
-import { ItemTitle } from "../components/item-title";
+import { Heading2 } from "@/app/components/typography/variants/typography-variants";
+import { HL } from "../components/highlight/highlight";
+import { ItemTitle } from "../components/item-title/item-title";
 
 export const ExperienceSection: React.FC = () => {
   return (
@@ -17,26 +15,32 @@ export const ExperienceSection: React.FC = () => {
         >
           <li>
             Played a key role in implementing a card rewards engine overhaul,{" "}
-            <HL terms="backend">processing 80 000+ daily transactions</HL> and
-            enabling features including{" "}
-            <HL terms="backend">ATM reimbursements</HL>, cashback, and
+            <HL terms="backend payments">
+              processing 80 000+ daily transactions
+            </HL>{" "}
+            and enabling features including{" "}
+            <HL terms="backend payments">ATM reimbursements</HL>, cashback, and
             account-level rewards
           </li>
           <li>
-            <HL terms="project">Independently architected and implemented</HL> a
-            rewards summarization system, delivering real-time, dynamic product
-            content in-app to overcome mobile app update challenges
+            <HL terms="project payments">
+              Independently architected and implemented
+            </HL>{" "}
+            a rewards summarization system, delivering real-time, dynamic
+            product content in-app to overcome mobile app update challenges
           </li>
           <li>
-            <HL terms="backend project">
+            <HL terms="backend project payments">
               Oversaw the migration of 1000+ credit cards
             </HL>{" "}
             to a new engine while ensuring minimal user disruption
           </li>
           <li>
             Proactively addressed and resolved{" "}
-            <HL terms="quality">cross-team concerns and system errors</HL>,
-            reducing service failure resolution times
+            <HL terms="quality payments">
+              cross-team concerns and system errors
+            </HL>
+            , reducing service failure resolution times
           </li>
         </ExperienceItem>
         <ExperienceItem
@@ -46,20 +50,22 @@ export const ExperienceSection: React.FC = () => {
           company="Faire"
         >
           <li>
-            <HL terms="backend">Implemented processes</HL> using{" "}
-            <HL terms="database">DynamoDB</HL> and{" "}
-            <HL terms="database">Redis</HL> to process up to{" "}
-            <HL terms="database">
+            <HL terms="backend search">Implemented processes</HL> using{" "}
+            <HL terms="database search">DynamoDB</HL> and{" "}
+            <HL terms="database search">Redis</HL> to process up to{" "}
+            <HL terms="database search">
               1.8 M real-time search update records daily
             </HL>
           </li>
           <li>
-            <HL terms="project">Led a full-stack initiative</HL> to split
+            <HL terms="project search">Led a full-stack initiative</HL> to split
             non-essential logic out of the search critical path, leading to a{" "}
-            <HL terms="project">~8% improvement towards our target latency</HL>
+            <HL terms="project search">
+              ~8% improvement towards our target latency
+            </HL>
           </li>
           <li>
-            <HL terms="project backend">
+            <HL terms="project backend search">
               Investigated and implemented parallelization improvements
             </HL>{" "}
             across a complex, mature search infrastructure to achieve sufficient
@@ -67,9 +73,9 @@ export const ExperienceSection: React.FC = () => {
           </li>
           <li>
             Implemented and monitored{" "}
-            <HL terms="quality">metrics dashboards</HL> through{" "}
-            <HL terms="quality">Datadog</HL> to ensure services operated at
-            target levels
+            <HL terms="quality search">metrics dashboards</HL> through{" "}
+            <HL terms="quality search">Datadog</HL> to ensure services operated
+            at target levels
           </li>
         </ExperienceItem>
         <ExperienceItem
@@ -122,9 +128,9 @@ export const ExperienceSection: React.FC = () => {
             friction and <HL terms="a11y">increase conversion</HL>.
           </li>
           <li>
-            Overhauled a <HL terms="php">PHP</HL> component library to implement{" "}
-            <HL terms="php">object-oriented programming</HL> principles,
-            decreasing ticket cycle time.
+            Overhauled a <HL terms="php frontend">PHP</HL> component library to
+            implement <HL terms="php frontend">object-oriented programming</HL>{" "}
+            principles, decreasing ticket cycle time.
           </li>
           <li>
             <HL terms="project">Collaborated with external teams</HL> to clarify
@@ -209,10 +215,4 @@ const ExperienceItem: React.FC<{
       </div>
     </div>
   );
-};
-
-const HL: React.FC<{ children: React.ReactNode; terms: string }> = ({
-  children,
-}) => {
-  return <Span className="highlight">{children}</Span>;
 };

@@ -2,7 +2,7 @@ import {
   Heading2,
   Span,
 } from "@/app/components/typography/variants/typography-variants";
-import { ItemTitle } from "../components/item-title";
+import { ItemTitle } from "../components/item-title/item-title";
 
 export const EducationSection: React.FC = () => {
   return (
