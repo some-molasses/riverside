@@ -12,17 +12,15 @@ export const Markdown: React.FC<{ src?: string; contents?: string }> = async ({
   }
 
   const formatWriting = (text: string) => {
-    return text.replaceAll(/-\/-/g, "<hr/>");
+    return text
+      .replaceAll(/-\/-/g, "<hr/>")
+      .replaceAll(/❦/g, "<hr/>")
+      .replaceAll(/\[([0-9]+)\]/g, (_, n) => `<sup>${n}</sup>`);
   };
 
   const result = formatWriting(
     (await remark().use(remarkHtml).process(contents)).toString(),
   );
 
-  return (
-    <div
-      id="writing-work-body"
-      dangerouslySetInnerHTML={{ __html: result }}
-    ></div>
-  );
+  return <div dangerouslySetInnerHTML={{ __html: result }}></div>;
 };

@@ -2,6 +2,7 @@ export type SearchItemMetadata = {
   title: string;
   subtitle?: string;
   date: string;
+  tags: string[];
   thumbnail?: string;
 };
 
