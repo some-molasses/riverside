@@ -12,6 +12,8 @@
   }
 
   #education-section {
+    margin-bottom: 0;
+
     #degrees-list {
       padding: 0;
 
@@ -67,13 +69,74 @@
   #projects-section {
     display: flex;
     flex-direction: column;
-    gap: 1px;
-    background-color: var(--background-faint);
 
     .experience-item,
     .project-item {
       background-color: var(--background);
-      padding: 8px 0;
+      display: flex;
+      flex-direction: row;
+
+      &:not(:first-child) {
+        .item-right {
+          border-top: 1px solid var(--background-faint);
+        }
+
+        .item-left {
+          .line-top {
+            background-color: var(--light-1);
+          }
+        }
+      }
+
+      &:last-child {
+        .line-bottom {
+          background-image: linear-gradient(
+            180deg,
+            var(--light-1),
+            var(--background)
+          );
+        }
+      }
+
+      .item-left {
+        $line-w: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-right: 16px;
+
+        .line-item,
+        .line-bottom {
+          background-color: var(--light-1);
+        }
+
+        .line-top {
+          width: $line-w;
+          height: 16px;
+          background-color: var(--background);
+        }
+
+        .line-item {
+          $size: 32px;
+          width: $size;
+          min-height: $size;
+          height: $size;
+          display: block;
+        }
+
+        .line-bottom {
+          width: $line-w;
+          height: 100%;
+        }
+      }
+
+      .item-right {
+        padding-top: 8px;
+      }
+
+      ul {
+        padding-left: 12px;
+      }
 
       li {
         margin: 4px 0;
