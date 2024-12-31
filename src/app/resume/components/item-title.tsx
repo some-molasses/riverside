@@ -17,10 +17,12 @@ export const ItemTitle: React.FC<{
         {noH3 ? <Span>{title}</Span> : <Heading3>{title}</Heading3>}
         <Span>{topRight}</Span>
       </div>
-      <div className="bottom-row">
-        <Span>{bottomLeft}</Span>
-        <Span>{bottomRight}</Span>
-      </div>
+      {bottomLeft || bottomRight ? (
+        <div className="bottom-row">
+          <Span>{bottomLeft}</Span>
+          <Span>{bottomRight}</Span>
+        </div>
+      ) : null}
     </div>
   );
 };

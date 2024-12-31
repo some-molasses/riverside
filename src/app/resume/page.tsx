@@ -5,6 +5,7 @@ import { Titles } from "../components/titles/titles";
 import "./resume.scss";
 import { EducationSection } from "./sections/education";
 import { ExperienceSection } from "./sections/experience";
+import { ProjectsSection } from "./sections/projects";
 import { SkillsSection } from "./sections/skills";
 
 export default function Resume() {
@@ -18,6 +19,7 @@ export default function Resume() {
         <EducationSection />
         <SkillsSection />
         <ExperienceSection />
+        <ProjectsSection />
         <Footer />
       </Content>
     </Page>
