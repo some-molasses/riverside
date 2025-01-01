@@ -3,7 +3,34 @@
     margin-bottom: 1em;
   }
 
+  .titles {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--background-faint);
+  }
+
   #writing-work-body {
     margin-top: 16px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-transform: lowercase;
+  }
+
+  .postscript {
+    font-size: 10pt;
+    font-style: italic;
+  }
+
+  .caption {
+    font-size: 10pt;
+    text-align: center;
+    width: 100%;
+  }
+
+  img {
+    width: 100%;
+    padding: 0 24px;
   }
 }

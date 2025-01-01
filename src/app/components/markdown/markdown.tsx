@@ -15,7 +15,15 @@ export const Markdown: React.FC<{ src?: string; contents?: string }> = async ({
     return text
       .replaceAll(/-\/-/g, "<hr/>")
       .replaceAll(/❦/g, "<hr/>")
-      .replaceAll(/\[([0-9]+)\]/g, (_, n) => `<sup>${n}</sup>`);
+      .replaceAll(/\[([0-9]+)\]/g, (_, n) => `<sup>${n}</sup>`)
+      .replace(
+        /--postscript--(.*)/s,
+        (_, ps) => `<div class="postscript">${ps}</div>`,
+      )
+      .replaceAll(
+        /\[caption\]\(([^\)]+)\)/gs,
+        (_, caption) => `<div class="caption">${caption}</div>`,
+      );
   };
 
   const result = formatWriting(

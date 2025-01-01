@@ -7,7 +7,7 @@ They’re the best Noor Food Markets this city has ever seen.
 There’s a lot that’s bizarre about Noor Food Market. For one, whose idea was it to make two of them? To get the full Noor Food Market experience, you have to enter one store, get your groceries, go through the checkout, then walk outside, down the sidewalk, just to enter the second Noor Food Market. Topping it off? Between Noor Food Market and Noor Food Market Two, there’s a random pharmacy third wheeling.
 
 ![image](/works/writing/mathnews/noor.png)
-_HOW DID HE GET THERE_
+[caption](HOW DID HE GET THERE)
 
 This pharmacy amuses me to no end. How did it end up between two Noor Food Markets? Who came first? Do they talk? Is it like being in a car’s middle seat? Is the pharmacist the middle child? I want answers.
 
@@ -41,6 +41,6 @@ The point is to try. Not to be perfect. Not to reach some unattainable standard,
 
 In the end, I don’t mind if the tomatoes are a bit mushy. It makes for better soup.
 
-_postscript:_
+--postscript--
 
-1. _I found Zehrs, T&T, and Walmart to be 31.34%, 24.41%, and 22.30% more expensive per pound of produce on average. My data collection methods were probably super flawed though, so take those metrics with an entire soup ladle of salt._
+1. I found Zehrs, T&T, and Walmart to be 31.34%, 24.41%, and 22.30% more expensive per pound of produce on average. My data collection methods were probably super flawed though, so take those metrics with an entire soup ladle of salt.
