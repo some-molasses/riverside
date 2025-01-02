@@ -8,14 +8,22 @@
     border-bottom: 1px solid var(--background-faint);
   }
 
-  #writing-work-body {
-    margin-top: 16px;
-  }
-
   h1,
   h2,
   h3 {
     text-transform: lowercase;
+  }
+
+  #writing-work-body {
+    margin-top: 16px;
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 16px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--background-faint);
+    }
   }
 
   .postscript {
