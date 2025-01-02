@@ -76,7 +76,7 @@ const WritingSection: React.FC<{}> = ({}) => {
         </HomepageListItem>
       </ul>
       <Paragraph>
-        <Link href="/">see my written works.</Link>
+        <Link href="/portfolio?filter=writing">see my written works.</Link>
       </Paragraph>
     </section>
   );
@@ -102,7 +102,7 @@ const LeaderSection: React.FC<{}> = ({}) => {
         </HomepageListItem>
       </ul>
       <Paragraph>
-        <Link href="/">reach out.</Link>
+        <Link href="mailto:river.stanley@uwaterloo.ca">reach out.</Link>
       </Paragraph>
     </section>
   );
