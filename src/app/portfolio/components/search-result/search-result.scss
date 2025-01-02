@@ -1,0 +1,45 @@
+#portfolio-page {
+  .search-result {
+    list-style: none;
+
+    .search-result-inner {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      gap: 32px;
+      padding: 16px;
+      background-color: var(--background);
+      cursor: pointer;
+    }
+
+    &:hover,
+    &:focus-visible {
+      .result-title {
+        color: var(--light-1);
+      }
+    }
+
+    .result-text-panel {
+      width: 100%;
+    }
+
+    .result-title {
+      transition: var(--transition);
+      margin: 0;
+    }
+
+    .result-subtitle-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+      width: 100%;
+    }
+
+    .result-description {
+      margin-top: 8px;
+      font-size: 10pt;
+    }
+  }
+}

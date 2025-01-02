@@ -1,6 +1,6 @@
 import { Content } from "@/app/components/content/content";
 import { Footer } from "@/app/components/footer/footer";
-import { Markdown } from "@/app/components/markdown/markdown";
+import { ServerSideMarkdown } from "@/app/components/markdown/server-markdown";
 import { Page } from "@/app/components/page/page";
 import { Titles } from "@/app/components/titles/titles";
 import { SearchRetrievalEngine } from "@/search-engine/search-retrieval-engine";
@@ -27,7 +27,7 @@ export default async function WritingWork({
       <Content>
         <Titles title={title} subtitle={subtitle} />
         <div id="writing-work-body">
-          <Markdown contents={body} />
+          <ServerSideMarkdown contents={body} />
         </div>
         <Footer />
       </Content>

@@ -1,15 +1,22 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { remark } from "remark";
 import remarkHtml from "remark-html";
 
-export const Markdown: React.FC<{ src?: string; contents?: string }> = async ({
-  src,
-  contents,
-}) => {
-  if (src && contents) {
-    throw new Error(
-      "only one of src or contents can be passed to Markdown component",
-    );
-  }
+export const ClientSideMarkdown: React.FC<{
+  contents?: string;
+}> = ({ contents }) => {
+  const [result, setResult] = useState<string>("");
+
+  useEffect(() => {
+    remark()
+      .use(remarkHtml)
+      .process(contents)
+      .then((markdown) => {
+        setResult(formatWriting(markdown.toString()));
+      });
+  }, [contents]);
 
   const formatWriting = (text: string) => {
     return text
@@ -25,10 +32,6 @@ export const Markdown: React.FC<{ src?: string; contents?: string }> = async ({
         (_, caption) => `<div class="caption">${caption}</div>`,
       );
   };
-
-  const result = formatWriting(
-    (await remark().use(remarkHtml).process(contents)).toString(),
-  );
 
   return <div dangerouslySetInnerHTML={{ __html: result }}></div>;
 };
