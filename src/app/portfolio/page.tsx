@@ -3,6 +3,7 @@ import { RetrievableItem } from "@/search-engine/types";
 import Image from "next/image";
 import Link from "next/link";
 import { Content } from "../components/content/content";
+import { Markdown } from "../components/markdown/markdown";
 import { Page } from "../components/page/page";
 import {
   Heading1,
@@ -90,7 +91,9 @@ const SearchResult: React.FC<{
               </div>
             </>
           )}
-          <Paragraph className="result-description">{snippet}</Paragraph>
+          <Paragraph className="result-description">
+            <Markdown contents={snippet ?? undefined} />
+          </Paragraph>
         </div>
         {item.metadata.thumbnail ? (
           <div className="result-image">

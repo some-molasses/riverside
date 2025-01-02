@@ -87,14 +87,7 @@ export class SearchIndexer {
 
       let description: string | null = null;
       if (fileName === "main.md") {
-        description = (await mainFile)
-          .slice(0, 300) // first n characters
-          .split(" ") // split on spaces
-          .slice(0, -1) // remove last word because it is likely cut off;
-          .join(" ");
-
-        console.log(description);
-        console.log();
+        description = this.getDescription(await mainFile);
       }
 
       return [
@@ -108,5 +101,32 @@ export class SearchIndexer {
     }
 
     return [];
+  }
+
+  /**
+   * Returns a basic, query-unbiased description of the item
+   */
+  private getDescription(itemBody: string): string {
+    const tokens = itemBody
+      .slice(0, 300) // first n characters
+      .split(/\s/) // split on spaces
+      .slice(0, -1); // remove last word because it is likely cut off;
+
+    let endToken = tokens.length; // exclusive
+
+    tokens.forEach((token, index) => {
+      if (token.includes("#") && index > 20) {
+        endToken = index;
+      }
+    });
+
+    const desc =
+      tokens
+        .slice(0, endToken) // slice unwanted tokens
+        .map((token) => token.replaceAll(/\#/g, "").trim()) // remove heading format
+        .join(" ")
+        .trim() + "...";
+
+    return desc;
   }
 }
