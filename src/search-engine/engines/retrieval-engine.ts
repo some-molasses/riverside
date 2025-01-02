@@ -7,7 +7,10 @@ import fs from "fs";
 import { access, readFile } from "fs/promises";
 import path from "path";
 import { SearchIndexer } from "../search-indexer";
-import { SearchRetrievalEngine } from "../search-retrieval-engine";
+import {
+  RetrievalOptions,
+  SearchRetrievalEngine,
+} from "../search-retrieval-engine";
 
 export class RetrievalEngine {
   engine: SearchRetrievalEngine;
@@ -24,10 +27,30 @@ export class RetrievalEngine {
     );
   }
 
-  async retrieveAllItems(): Promise<RetrievableItem[]> {
-    return this.items.sort((a, b) =>
-      new Date(b.metadata.date) < new Date(a.metadata.date) ? -1 : 1,
-    );
+  async retrieveAllItems(
+    options: RetrievalOptions,
+  ): Promise<RetrievableItem[]> {
+    return this.items
+      .filter((item) => {
+        if (options.tags.length === 0) {
+          return true;
+        }
+
+        if (!item.metadata.tags) {
+          return false;
+        }
+
+        for (const tag of options.tags) {
+          if (item.metadata.tags.includes(tag)) {
+            return true;
+          }
+        }
+
+        return false;
+      })
+      .sort((a, b) =>
+        new Date(b.metadata.date) < new Date(a.metadata.date) ? -1 : 1,
+      );
   }
 
   async retrieveItem(itempath: string): Promise<RetrievedItem | null> {
@@ -61,6 +84,7 @@ export class RetrievalEngine {
       title: (await meta).title,
       subtitle: (await meta).subtitle,
       date: new Date((await meta).date),
+      tags: (await meta).tags ?? [],
       body: await main,
     };
   }

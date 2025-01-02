@@ -1,6 +1,10 @@
 import { RetrievalEngine } from "./engines/retrieval-engine";
 import { RetrievableItem, RetrievedItem } from "./types";
 
+export interface RetrievalOptions {
+  tags: string[];
+}
+
 export class SearchRetrievalEngine {
   initialized: boolean = false;
 
@@ -19,9 +23,11 @@ export class SearchRetrievalEngine {
     this.initialized = true;
   }
 
-  async retrieveAllItems(): Promise<RetrievableItem[]> {
+  async retrieveAllItems(
+    options: RetrievalOptions,
+  ): Promise<RetrievableItem[]> {
     await this.conditionalInit();
-    return await this.retrievalEngine.retrieveAllItems();
+    return await this.retrievalEngine.retrieveAllItems(options);
   }
 
   async getItem(path: string): Promise<RetrievedItem> {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import useSWR from "swr";
 import { Content } from "../components/content/content";
@@ -12,12 +13,18 @@ import { ResultList } from "./components/result-list/result-list";
 import "./portfolio.scss";
 
 export default function Portfolio() {
+  const searchParams = useSearchParams();
+
   const fetcher = useCallback(async (url: string) => {
     const res = await fetch(url);
     return await res.json();
   }, []);
 
-  const { data, isLoading } = useSWR("/api/search/items", fetcher);
+  const filters = searchParams.get("filter") ?? "";
+  const { data, isLoading } = useSWR(
+    `/api/search/items?tags=${filters}`,
+    fetcher,
+  );
 
   return (
     <Page id="portfolio-page">

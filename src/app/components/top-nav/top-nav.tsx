@@ -14,8 +14,8 @@ export const TopNav: React.FC<{}> = () => {
       </div>
       <div id="top-nav-items">
         <NavItem href="/resume">employers</NavItem>
-        <NavItem href="/portfolio?filter=readers">readers</NavItem>
-        <NavItem href="/portfolio?filter=players">players</NavItem>
+        <NavItem href="/portfolio?filter=writing">readers</NavItem>
+        <NavItem href="/portfolio?filter=game">players</NavItem>
         <NavItem href="/portfolio">portfolio</NavItem>
       </div>
     </div>
