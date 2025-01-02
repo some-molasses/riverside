@@ -34,7 +34,7 @@ export default async function Portfolio() {
             <SearchResult
               key={item.location}
               item={item}
-              snippet="The animals were leaving. None of the local housecats remember the time before. In the before, the valley was full of wild creatures. Raccoons, turtles, the heron, and most importantly, the rabbit. None remain. None of the others are the subject of stories, legends even, told at the housecats’ secret midnight meets."
+              snippet={item.description}
             />
           ))}
         </ul>
@@ -45,7 +45,7 @@ export default async function Portfolio() {
 
 const SearchResult: React.FC<{
   item: RetrievableItem;
-  snippet: string;
+  snippet: string | null;
 }> = ({ item, snippet }) => {
   const { title, subtitle, date } = item.metadata;
 

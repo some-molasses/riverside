@@ -65,6 +65,7 @@ export class SearchIndexer {
     if (lstat.isDirectory()) {
       return await this.findAllItemsInDirectory([...directoryPath, fileName]);
     } else if (SearchIndexer.ACCEPTED_FILENAMES.includes(fileName)) {
+      const mainPath = path.join(process.cwd(), ...directoryPath, fileName);
       const metadataPath = path.join(
         process.cwd(),
         ...directoryPath,
@@ -77,15 +78,31 @@ export class SearchIndexer {
         return [];
       }
 
-      const metadataFile = await readFile(metadataPath);
+      const mainFile = readFile(mainPath).then((file) => file.toString());
+      const metadata = readFile(metadataPath).then((file) =>
+        JSON.parse(file.toString()),
+      );
 
-      const metadata = JSON.parse(metadataFile.toString());
+      await Promise.all([mainFile, metadata]);
+
+      let description: string | null = null;
+      if (fileName === "main.md") {
+        description = (await mainFile)
+          .slice(0, 300) // first n characters
+          .split(" ") // split on spaces
+          .slice(0, -1) // remove last word because it is likely cut off;
+          .join(" ");
+
+        console.log(description);
+        console.log();
+      }
 
       return [
         {
           // intentionally do not join with process.cwd()
           location: path.join(...directoryPath, fileName),
-          metadata,
+          metadata: await metadata,
+          description,
         },
       ];
     }

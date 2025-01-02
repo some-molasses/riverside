@@ -14,4 +14,5 @@ export type RetrievedItem = Omit<SearchItemMetadata, "date"> & {
 export type RetrievableItem = {
   location: string;
   metadata: SearchItemMetadata;
+  description: string | null;
 };
