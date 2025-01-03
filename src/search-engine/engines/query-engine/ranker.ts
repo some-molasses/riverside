@@ -16,9 +16,18 @@ export class Ranker {
       (term) => this.queryEngine.engine.lexiconReader.invertedIndex[term],
     );
 
-    const items: Set<number> = new Set(
-      postingsLists.filter((_, index) => index % 2 === 0).flat(),
-    ); // document ids are stored at even indices
+    const items: Set<number> = new Set();
+
+    postingsLists.forEach((list) => {
+      list.forEach((id, index) => {
+        if (index % 2 === 0) {
+          // document ids are stored at even indices
+          items.add(id);
+        }
+      });
+    });
+
+    console.log(postingsLists, items);
 
     return Array.from(items);
   }
