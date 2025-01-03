@@ -3,7 +3,7 @@ import {
   Heading2,
   Span,
 } from "@/app/components/typography/variants/typography-variants";
-import { RetrievableItem } from "@/search-engine/types";
+import { RetrievableItem } from "@/search-engine/engines/shared/retrievable-item";
 import Image from "next/image";
 import Link from "next/link";
 import "./search-result.scss";

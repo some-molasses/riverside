@@ -1,4 +1,4 @@
-import { RetrievableItem } from "@/search-engine/types";
+import { RetrievableItem } from "@/search-engine/engines/shared/retrievable-item";
 import { SearchResult } from "../search-result/search-result";
 
 export const ResultList: React.FC<{ items: RetrievableItem[] }> = ({
@@ -10,7 +10,7 @@ export const ResultList: React.FC<{ items: RetrievableItem[] }> = ({
         <SearchResult
           key={item.location}
           item={item}
-          snippet={item.description}
+          snippet={item.getDescription()}
         />
       ))}
     </ul>
