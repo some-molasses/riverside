@@ -65,8 +65,13 @@ export class QueryEngine {
     options: RetrievalOptions,
   ): Promise<QueryResult[]> {
     return await Promise.all(
-      ids
-        .map((id) => this.engine.metadataReader.getMetadataById(id))
+      (
+        await Promise.all(
+          ids.map(
+            async (id) => await this.engine.metadataReader.getMetadataById(id),
+          ),
+        )
+      )
         .filter((metadata) => {
           if (options.tags.length === 0) {
             return true;

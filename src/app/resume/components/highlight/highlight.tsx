@@ -25,7 +25,6 @@ export const HL: React.FC<{ children: React.ReactNode; terms: string }> = ({
       const likeHighlights = Array.from(
         document.querySelectorAll(`.highlight.term-${term}`),
       );
-      console.log(`.highlight.term-${term}`);
 
       for (const hl of likeHighlights) {
         hl.classList.add("active");

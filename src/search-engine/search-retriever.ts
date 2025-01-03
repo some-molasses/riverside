@@ -15,11 +15,27 @@ export class SearchRetriever {
   metadataReader: MetadataReader = new MetadataReader(this);
   lexiconReader: LexiconReader = new LexiconReader(this);
 
-  async query(query: string): Promise<QueryResult[]> {
-    return this.queryEngine.query(query, { tags: [] });
+  async init() {
+    await this.metadataReader.init();
+    await this.lexiconReader.init();
+  }
+
+  async query(
+    query: string | null,
+    options: RetrievalOptions,
+  ): Promise<QueryResult[]> {
+    await this.init();
+
+    if (!query) {
+      return this.queryEngine.retrieveAllItems(options);
+    }
+
+    return this.queryEngine.query(query, options);
   }
 
   async retrieveItem(path: string): Promise<RetrievableItem> {
+    await this.init();
+
     const item = await this.queryEngine.retrieveItem(path);
 
     if (!item) {
@@ -27,9 +43,5 @@ export class SearchRetriever {
     }
 
     return item;
-  }
-
-  async retrieveAllItems(options: RetrievalOptions): Promise<QueryResult[]> {
-    return await this.queryEngine.retrieveAllItems(options);
   }
 }

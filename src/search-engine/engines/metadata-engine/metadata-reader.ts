@@ -33,9 +33,7 @@ export class MetadataReader {
     this._isInitialized = true;
   }
 
-  getMetadataById(id: number): RetrievableItemMetadata {
-    this.init();
-
+  async getMetadataById(id: number): Promise<RetrievableItemMetadata> {
     if (this._idsToMetadata[id] === undefined) {
       throw new Error(`item with ID ${id} not found.`);
     }

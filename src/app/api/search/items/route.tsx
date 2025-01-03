@@ -7,7 +7,9 @@ export async function GET(request: NextRequest) {
     .split(",")
     .filter((tag) => !!tag);
 
-  const items = await new SearchRetriever().retrieveAllItems({ tags });
+  const query = searchParams.get("q");
+
+  const items = await new SearchRetriever().query(query, { tags });
 
   return Response.json({ items });
 }
