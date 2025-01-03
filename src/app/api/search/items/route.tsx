@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
 
   const query = searchParams.get("q");
 
+  // @todo don't re-initialize the retriever every time
   const items = await new SearchRetriever().query(query, { tags });
 
   return Response.json({ items });

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { Content } from "../components/content/content";
 import { Page } from "../components/page/page";
@@ -12,7 +12,13 @@ import {
 import { ResultList } from "./components/result-list/result-list";
 import "./portfolio.scss";
 
+const INPUT_TIMEOUT = 500;
+
 export default function Portfolio() {
+  const [query, setQuery] = useState<string>("");
+  const [lastUpdate, setLastUpdate] = useState<number>(0);
+  const input = useRef<HTMLInputElement>(null);
+
   const searchParams = useSearchParams();
 
   const fetcher = useCallback(async (url: string) => {
@@ -22,9 +28,25 @@ export default function Portfolio() {
 
   const filters = searchParams.get("filter") ?? "";
   const { data, isLoading } = useSWR(
-    `/api/search/items?tags=${filters}`,
+    `/api/search/items?tags=${filters}&q=${query}`,
     fetcher,
   );
+
+  const handleInput = () => {
+    setLastUpdate(Date.now());
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      // if (Date.now() - INPUT_TIMEOUT > lastUpdate) {
+      setQuery(input.current?.value ?? "");
+      // }
+    }, INPUT_TIMEOUT);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [lastUpdate]);
 
   return (
     <Page id="portfolio-page">
@@ -34,7 +56,12 @@ export default function Portfolio() {
           <Span>a database of many things I have done</Span>
         </div>
         <div id="search-container">
-          <input id="search" placeholder="search anything..."></input>
+          <input
+            id="search"
+            placeholder="search anything..."
+            onChange={() => handleInput()}
+            ref={input}
+          />
           <Span variant="regular-light">
             this search functionality implemented with no external libraries.
           </Span>
