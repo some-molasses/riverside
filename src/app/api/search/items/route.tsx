@@ -1,4 +1,4 @@
-import { SearchRetrievalEngine } from "@/search-engine/search-retrieval-engine";
+import { SearchRetriever } from "@/search-engine/search-retriever";
 import { type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     .split(",")
     .filter((tag) => !!tag);
 
-  const items = await new SearchRetrievalEngine().retrieveAllItems({ tags });
+  const items = await new SearchRetriever().retrieveAllItems({ tags });
 
   return Response.json({ items });
 }

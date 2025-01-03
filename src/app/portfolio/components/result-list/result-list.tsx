@@ -1,17 +1,11 @@
-import { RetrievableItem } from "@/search-engine/engines/shared/retrievable-item";
+import { QueryResult } from "@/search-engine/engines/shared/query-result";
 import { SearchResult } from "../search-result/search-result";
 
-export const ResultList: React.FC<{ items: RetrievableItem[] }> = ({
-  items,
-}) => {
+export const ResultList: React.FC<{ items: QueryResult[] }> = ({ items }) => {
   return (
     <ul id="results">
       {items?.map((item) => (
-        <SearchResult
-          key={item.location}
-          item={item}
-          snippet={item.getDescription()}
-        />
+        <SearchResult key={item.metadata.id} item={item} />
       ))}
     </ul>
   );

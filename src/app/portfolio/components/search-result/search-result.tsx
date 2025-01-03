@@ -3,25 +3,26 @@ import {
   Heading2,
   Span,
 } from "@/app/components/typography/variants/typography-variants";
-import { RetrievableItem } from "@/search-engine/engines/shared/retrievable-item";
+import { QueryResult } from "@/search-engine/engines/shared/query-result";
 import Image from "next/image";
 import Link from "next/link";
 import "./search-result.scss";
 
 export const SearchResult: React.FC<{
-  item: RetrievableItem;
-  snippet: string | null;
-}> = ({ item, snippet }) => {
+  item: QueryResult;
+}> = ({ item }) => {
   const { title, subtitle, date } = item.metadata;
 
   const getHref = () => {
-    if (item.location.includes("writing-database")) {
-      return `work/writing/${item.location
+    if (item.metadata.location.includes("writing-database")) {
+      return `work/writing/${item.metadata.location
         .replace("writing-database", "")
         .replace("main.md", "")
         .replace("page.tsx", "")}`;
     } else {
-      return item.location.replace("src\\app", "").replace("page.tsx", "");
+      return item.metadata.location
+        .replace("src\\app", "")
+        .replace("page.tsx", "");
     }
   };
 
@@ -56,7 +57,7 @@ export const SearchResult: React.FC<{
             </>
           )}
           <div className="result-description">
-            <ClientSideMarkdown contents={snippet ?? undefined} />
+            <ClientSideMarkdown contents={item.description ?? undefined} />
           </div>
         </div>
         {item.metadata.thumbnail ? (

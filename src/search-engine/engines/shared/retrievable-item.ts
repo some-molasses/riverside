@@ -1,5 +1,6 @@
 import fs from "fs";
 import { access, readFile } from "fs/promises";
+import { LexiconEngine } from "../lexicon-engine/lexicon-engine";
 
 // As found in item-metadata.json files
 export type RetrievableItemConfig = {
@@ -87,12 +88,7 @@ export class RetrievableItem {
       throw new Error(`Unexpected item format found: ${this.location}`);
     }
 
-    const tokens = contents
-      .toLowerCase()
-      .replaceAll(/\s/g, " ")
-      .split(" ")
-      .map((word) => word.matchAll(/([a-z0-9]+)/g))
-      .flatMap((matches) => Array.from(matches).map((match) => match[0]));
+    const tokens = LexiconEngine.tokenize(contents);
 
     return tokens;
   }
@@ -100,8 +96,8 @@ export class RetrievableItem {
   /**
    * @returns a basic, query-unbiased description of the item
    */
-  getDescription(itemBody: string): string {
-    const tokens = itemBody
+  async getDescription(): Promise<string> {
+    const tokens = (await this.getBody())
       .slice(0, 300) // first n characters
       .split(/\s/) // split on spaces
       .slice(0, -1); // remove last word because it is likely cut off;

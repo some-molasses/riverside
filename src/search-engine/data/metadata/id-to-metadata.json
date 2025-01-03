@@ -7,7 +7,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": -1,
+    "id": 0,
     "location": "writing-database\\mathnews\\v156\\i1\\gespeg\\main.md"
   },
   {
@@ -18,7 +18,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": -1,
+    "id": 1,
     "location": "writing-database\\mathnews\\v156\\i2\\gespeg\\main.md"
   },
   {
@@ -29,7 +29,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": -1,
+    "id": 2,
     "location": "writing-database\\mathnews\\v156\\i3\\gespeg\\main.md"
   },
   {
@@ -39,7 +39,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": -1,
+    "id": 3,
     "location": "writing-database\\mathnews\\v156\\i4\\uncapturable\\main.md"
   },
   {
@@ -50,13 +50,13 @@
       "writing",
       "mathNEWS"
     ],
-    "id": -1,
+    "id": 4,
     "location": "writing-database\\mathnews\\v156\\i5\\noor-food-market\\main.md"
   },
   {
     "title": "sinusoidal soup",
     "date": "November 19 2024",
-    "id": -1,
+    "id": 5,
     "location": "writing-database\\mathnews\\v156\\i6\\sinusoidal-soup\\main.md"
   },
   {
@@ -66,7 +66,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": -1,
+    "id": 6,
     "location": "writing-database\\mathnews\\v156\\i6\\the-last-rabbit\\main.md"
   },
   {
@@ -76,7 +76,7 @@
     "tags": [
       "game"
     ],
-    "id": -1,
+    "id": 7,
     "location": "src\\app\\work\\game\\luigi\\page.tsx"
   }
 ]

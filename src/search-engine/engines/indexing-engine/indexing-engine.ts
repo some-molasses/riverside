@@ -28,6 +28,10 @@ export class IndexingEngine {
       ...(await this.findAllItemsInDirectory(["src/app"])),
     ];
 
+    // assign IDs
+    items.forEach((item, index) => (item.metadata.id = index));
+
+    // register metadata / tokens
     await Promise.all(
       items.flatMap((item) => {
         return [

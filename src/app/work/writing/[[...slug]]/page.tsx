@@ -3,7 +3,7 @@ import { Footer } from "@/app/components/footer/footer";
 import { ServerSideMarkdown } from "@/app/components/markdown/server-markdown";
 import { Page } from "@/app/components/page/page";
 import { Titles } from "@/app/components/titles/titles";
-import { SearchRetrievalEngine } from "@/search-engine/search-retrieval-engine";
+import { SearchRetriever } from "@/search-engine/search-retriever";
 import "./writing.scss";
 
 export default async function WritingWork({
@@ -12,7 +12,7 @@ export default async function WritingWork({
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
-  const work = await new SearchRetrievalEngine().getItem(
+  const work = await new SearchRetriever().retrieveItem(
     "writing-database/" + slug.join("/"),
   );
 
