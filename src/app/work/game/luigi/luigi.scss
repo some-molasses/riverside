@@ -1,7 +1,6 @@
 #luigi-page {
   h2 {
     margin: auto;
-    padding: 0 1em 1em 24px;
     font-size: 2em;
     font-family: Encode Sans;
   }
@@ -20,8 +19,8 @@
   }
 
   #controls {
-    text-align: center;
-    padding: 0.5em 1em 0 24px;
+    text-align: left;
+    // padding: 0.5em 1em 0 24px;
   }
 
   .sprite {

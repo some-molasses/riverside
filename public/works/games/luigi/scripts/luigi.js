@@ -599,7 +599,6 @@ function runLuigiGame() {
   }
 
   function updateGameArea() {
-    console.log("updating");
     gameBox.erase();
     player.speedX = 0;
     player.speedY = 0;
@@ -2855,17 +2854,6 @@ function runLuigiGame() {
           ),
         );
         break;
-        deafult: bricks.push(
-          new component(
-            100,
-            hInput * 50,
-            "/works/games/luigi/images/pipefour.png",
-            xInput * 50 - 50,
-            750 - yInput * 50,
-            "image",
-          ),
-        );
-        break;
     }
     bricks.push(type);
     bricks[bricks.length - 2].itemRise = exitPoint;
@@ -2968,7 +2956,6 @@ function runLuigiGame() {
     document.getElementById("/works/games/luigi/images/groundimage.png"),
     "repeat",
   );
-  debugger;
   var underGroundPattern = gameBoxCtx.createPattern(
     document.getElementById("/works/games/luigi/images/undergroundimage.png"),
     "repeat",

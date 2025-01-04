@@ -65,6 +65,16 @@ br {
 
 p {
   line-height: 1.5em;
+  margin: 1em 0;
+}
+
+code {
+  background-color: var(--background-faint);
+  color: var(--light-1);
+  padding: 2px;
+  border-radius: 2px;
+  font-family: var(--body-font);
+  font-size: 11pt;
 }
 
 @media (prefers-color-scheme: dark) {

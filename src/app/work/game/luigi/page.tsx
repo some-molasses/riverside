@@ -4,6 +4,7 @@
 import { CenterOverflow } from "@/app/components/center-overflow/center-overflow";
 import { Content } from "@/app/components/content/content";
 import { Footer } from "@/app/components/footer/footer";
+import { ClientSideMarkdown } from "@/app/components/markdown/client-markdown";
 import { Page } from "@/app/components/page/page";
 import { Titles } from "@/app/components/titles/titles";
 import { Heading2 } from "@/app/components/typography/variants/typography-variants";
@@ -16,6 +17,10 @@ export default function Luigi() {
       <Content>
         <Titles title={"Mario 1-1"} />
 
+        <div id="controls">
+          <Heading2>A/D TO MOVE, W TO JUMP, S TO SHOOT FIREBALLS</Heading2>
+        </div>
+
         <CenterOverflow>
           <div id="canvasBox">
             <Images />
@@ -24,9 +29,7 @@ export default function Luigi() {
           </div>
         </CenterOverflow>
 
-        <div id="controls">
-          <Heading2>A/D TO MOVE, W TO JUMP, S TO SHOOT FIREBALLS</Heading2>
-        </div>
+        <ClientSideMarkdown src="/works/games/luigi/description.md" />
 
         <Footer />
       </Content>

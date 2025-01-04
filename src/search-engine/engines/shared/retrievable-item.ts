@@ -9,6 +9,7 @@ export type RetrievableItemConfig = {
   date: string;
   tags: string[];
   thumbnail?: string;
+  description?: string;
 };
 
 // Stored in metadata file

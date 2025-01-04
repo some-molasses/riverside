@@ -1,4 +1,5 @@
 import { MarkdownFormatter } from "./markdown-formatter";
+import "./markdown.scss";
 
 export const ServerSideMarkdown: React.FC<{
   contents?: string;

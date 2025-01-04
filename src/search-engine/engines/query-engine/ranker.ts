@@ -27,8 +27,6 @@ export class Ranker {
       });
     });
 
-    console.log(postingsLists, items);
-
     return Array.from(items);
   }
 }

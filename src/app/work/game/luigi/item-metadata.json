@@ -2,5 +2,6 @@
   "title": "Mario 1-1",
   "date": "Fall 2017",
   "thumbnail": "public/works/games/luigi/images/thumbnail.png",
+  "description": "public/works/games/luigi/description.md",
   "tags": ["game"]
 }
