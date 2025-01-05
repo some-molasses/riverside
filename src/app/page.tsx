@@ -69,10 +69,16 @@ const WritingSection: React.FC<{}> = ({}) => {
         creator of silly little writings for a world in need
       </Paragraph>
       <ul className="homepage-list">
-        <HomepageListItem>short story author</HomepageListItem>
-        <HomepageListItem>occasional poet</HomepageListItem>
         <HomepageListItem>
-          accidental international M&M&apos;s journalist
+          <Link href="/portfolio?filter=short-story">short story author</Link>
+        </HomepageListItem>
+        <HomepageListItem>
+          <Link href="/portfolio?filter=poem">occasional poet</Link>
+        </HomepageListItem>
+        <HomepageListItem>
+          <Link href="https://www.google.com/search?q=university+of+waterloo+vending+machines+facial+recognition">
+            accidental international M&M&apos;s journalist
+          </Link>
         </HomepageListItem>
       </ul>
       <Paragraph>
