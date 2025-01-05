@@ -50,7 +50,7 @@ export class OutputEngine {
     );
   }
 
-  private async getMetadata(ids: number[]) {
+  private async getMetadata(ids: number[]): Promise<RetrievableItemMetadata[]> {
     return Promise.all(
       await Promise.all(
         ids.map(
@@ -60,10 +60,10 @@ export class OutputEngine {
     );
   }
 
-  private async filterItemByMetadata(
+  private filterItemByMetadata(
     metadata: RetrievableItemMetadata,
     options: RetrievalOptions,
-  ) {
+  ): boolean {
     if (options.tags.length === 0) {
       return true;
     }
