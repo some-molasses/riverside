@@ -45,8 +45,8 @@ export const SearchResult: React.FC<{
             </>
           ) : (
             <>
+              <Heading2 className="result-title">{title}</Heading2>
               <div className="result-subtitle-row">
-                <Heading2 className="result-title">{title}</Heading2>
                 <Span className="result-date">
                   {new Date(date).toLocaleDateString("en-CA", {
                     month: "long",

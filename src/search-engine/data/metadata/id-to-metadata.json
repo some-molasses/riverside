@@ -1,5 +1,26 @@
 [
   {
+    "title": "the m&m machines are watching you",
+    "date": "February 13 2024",
+    "tags": [
+      "writing",
+      "mathNEWS"
+    ],
+    "id": 0,
+    "location": "writing-database\\mathnews\\v154\\i3\\mnm-machines\\main.md"
+  },
+  {
+    "title": "the edge of the edge of the world",
+    "date": "June 25 2024",
+    "thumbnail": "public/works/writing/mathnews/edge-1.jpeg",
+    "tags": [
+      "writing",
+      "mathNEWS"
+    ],
+    "id": 1,
+    "location": "writing-database\\mathnews\\v155\\i4\\edge-of-the-edge\\main.md"
+  },
+  {
     "title": "the land they call Gespe'g: 1/3",
     "subtitle": "beyond the Appalachian wall",
     "date": "September 13 2024",
@@ -8,7 +29,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 0,
+    "id": 2,
     "location": "writing-database\\mathnews\\v156\\i1\\gespeg\\main.md"
   },
   {
@@ -20,7 +41,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 1,
+    "id": 3,
     "location": "writing-database\\mathnews\\v156\\i2\\gespeg\\main.md"
   },
   {
@@ -32,7 +53,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 2,
+    "id": 4,
     "location": "writing-database\\mathnews\\v156\\i3\\gespeg\\main.md"
   },
   {
@@ -42,7 +63,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 3,
+    "id": 5,
     "location": "writing-database\\mathnews\\v156\\i4\\uncapturable\\main.md"
   },
   {
@@ -54,13 +75,13 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 4,
+    "id": 6,
     "location": "writing-database\\mathnews\\v156\\i5\\noor-food-market\\main.md"
   },
   {
     "title": "sinusoidal soup",
     "date": "November 19 2024",
-    "id": 5,
+    "id": 7,
     "location": "writing-database\\mathnews\\v156\\i6\\sinusoidal-soup\\main.md"
   },
   {
@@ -70,18 +91,29 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 6,
+    "id": 8,
     "location": "writing-database\\mathnews\\v156\\i6\\the-last-rabbit\\main.md"
   },
   {
     "title": "Mario 1-1",
-    "date": "Fall 2017",
+    "date": "October 2017",
     "thumbnail": "public/works/games/luigi/images/thumbnail.png",
     "description": "public/works/games/luigi/description.md",
     "tags": [
       "game"
     ],
-    "id": 7,
+    "id": 9,
     "location": "src\\app\\work\\game\\luigi\\page.tsx"
+  },
+  {
+    "title": "Lunar Defence",
+    "date": "May 2017",
+    "thumbnail": "public/works/games/lunar-defence/images/thumbnail.png",
+    "description": "public/works/games/lunar-defence/description.md",
+    "tags": [
+      "game"
+    ],
+    "id": 10,
+    "location": "src\\app\\work\\game\\lunar-defence\\page.tsx"
   }
 ]

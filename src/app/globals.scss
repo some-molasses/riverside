@@ -74,7 +74,21 @@ code {
   padding: 2px;
   border-radius: 2px;
   font-family: var(--body-font);
-  font-size: 11pt;
+  font-size: 10pt;
+}
+
+pre > code {
+  width: 100%;
+  display: block;
+  font-family: monospace;
+  line-height: 1.5em;
+  padding: 12px;
+}
+
+blockquote {
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px solid var(--background-faint);
 }
 
 @media (prefers-color-scheme: dark) {
