@@ -35,6 +35,10 @@ export class RetrievableItem {
     return this.metadata.subtitle;
   }
 
+  get descriptionSrc(): string | undefined {
+    return this.metadata.description;
+  }
+
   get date(): Date {
     return new Date(this.metadata.date);
   }
@@ -56,9 +60,9 @@ export class RetrievableItem {
   }
 
   /**
-   * @returns the contents of the item
+   * @returns the contents or textual description of the item
    */
-  async getBody(): Promise<string> {
+  async getTextBody(): Promise<string> {
     if (this._body !== undefined) {
       return this._body;
     }
@@ -69,7 +73,9 @@ export class RetrievableItem {
       throw new Error(`${this.location} not found`);
     }
 
-    this._body = await readFile(this.location).then((file) => file.toString());
+    const source = this.descriptionSrc ? this.descriptionSrc : this.location;
+
+    this._body = await readFile(source).then((file) => file.toString());
 
     return this._body!;
   }
@@ -78,16 +84,7 @@ export class RetrievableItem {
    * @returns a list of tokens for this item
    */
   async getTokens(): Promise<string[]> {
-    let contents: string;
-
-    if (this.location.includes(".ts")) {
-      console.warn("handle games somehow");
-      return [];
-    } else if (this.location.includes("main.md")) {
-      contents = await this.getBody();
-    } else {
-      throw new Error(`Unexpected item format found: ${this.location}`);
-    }
+    const contents = await this.getTextBody();
 
     const tokens = LexiconEngine.tokenize(contents);
 
@@ -98,7 +95,7 @@ export class RetrievableItem {
    * @returns a basic, query-unbiased description of the item
    */
   async getDescription(): Promise<string> {
-    const tokens = (await this.getBody())
+    const tokens = (await this.getTextBody())
       .slice(0, 300) // first n characters
       .split(/\s/) // split on spaces
       .slice(0, -1); // remove last word because it is likely cut off;

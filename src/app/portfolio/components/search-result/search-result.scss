@@ -42,5 +42,16 @@
       margin-top: 8px;
       font-size: 10pt;
     }
+
+    .result-image {
+      position: relative;
+      width: 150px;
+      // height: 125px;
+
+      img {
+        object-fit: cover;
+        // height:;
+      }
+    }
   }
 }

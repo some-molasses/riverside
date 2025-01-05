@@ -20,14 +20,14 @@ export default async function WritingWork({
     return null;
   }
 
-  const { title, subtitle, body } = work;
+  const { title, subtitle } = work;
 
   return (
     <Page id="writing-work-page">
       <Content>
         <Titles title={title} subtitle={subtitle} />
         <div id="writing-work-body">
-          <ServerSideMarkdown contents={body} />
+          <ServerSideMarkdown contents={await work.getTextBody()} />
         </div>
         <Footer />
       </Content>

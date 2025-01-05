@@ -65,8 +65,7 @@ export const SearchResult: React.FC<{
             <Image
               src={item.metadata.thumbnail.replace("public/", "/")}
               alt=""
-              width={125}
-              height={125}
+              fill
             />
           </div>
         ) : null}
