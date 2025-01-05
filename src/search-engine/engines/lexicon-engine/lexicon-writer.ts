@@ -14,6 +14,7 @@ export class LexiconWriter {
   idToTerms: string[] = [];
 
   invertedIndex: PostingsList[] = [];
+  docLengths: number[] = [];
 
   constructor(indexer: SearchIndexer) {
     this.indexer = indexer;
@@ -35,12 +36,19 @@ export class LexiconWriter {
 
       this.invertedIndex[termId].push(item.id, count);
     }
+
+    this.docLengths[item.id] = termIds.length;
   }
 
   /**
    * Writes the inverted index and lexicon to the doucment store
    */
   writeLexicon() {
+    writeFileSync(
+      MetadataEngine.FILEPATHS.DOC_LENGTHS,
+      JSON.stringify(this.docLengths),
+    );
+
     writeFileSync(
       MetadataEngine.FILEPATHS.INVERTED_INDEX,
       JSON.stringify(this.invertedIndex),

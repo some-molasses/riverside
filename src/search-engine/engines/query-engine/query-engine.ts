@@ -11,12 +11,13 @@ import {
 import { Ranker } from "./ranker";
 
 export class QueryEngine {
-  engine: SearchRetriever;
+  retriever: SearchRetriever;
 
-  ranker: Ranker = new Ranker(this);
+  ranker: Ranker;
 
   constructor(engine: SearchRetriever) {
-    this.engine = engine;
+    this.retriever = engine;
+    this.ranker = new Ranker(this);
   }
 
   async query(
@@ -24,16 +25,16 @@ export class QueryEngine {
     options: RetrievalOptions,
   ): Promise<QueryResult[]> {
     const tokens = LexiconEngine.tokenize(query);
-    const termIds = this.engine.lexiconReader.tokensToTermIds(tokens);
+    const termIds = this.retriever.lexiconReader.tokensToTermIds(tokens);
 
-    const rankedResults = this.ranker.booleanOR(termIds);
+    const rankedResults = this.ranker.rankBM25(termIds);
 
     return this.retrieveItemsByIDs(rankedResults, options);
   }
 
   async retrieveAllItems(options: RetrievalOptions): Promise<QueryResult[]> {
     const documentIds = Array.from(
-      Array(this.engine.metadataReader.documentCount).keys(),
+      Array(this.retriever.metadataReader.documentCount).keys(),
     );
 
     return this.retrieveItemsByIDs(documentIds, options);
@@ -68,7 +69,8 @@ export class QueryEngine {
       (
         await Promise.all(
           ids.map(
-            async (id) => await this.engine.metadataReader.getMetadataById(id),
+            async (id) =>
+              await this.retriever.metadataReader.getMetadataById(id),
           ),
         )
       )

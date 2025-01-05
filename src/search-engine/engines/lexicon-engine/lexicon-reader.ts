@@ -13,6 +13,7 @@ export class LexiconReader {
 
   private _isInitialized: boolean = false;
   private _lexicon: Record<string, number> = {};
+  private _documentLengths: number[] = [];
 
   constructor(retriever: SearchRetriever) {
     this.retriever = retriever;
@@ -29,6 +30,9 @@ export class LexiconReader {
     this.invertedIndex = JSON.parse(
       (await readFile(MetadataEngine.FILEPATHS.INVERTED_INDEX)).toString(),
     );
+    this._documentLengths = JSON.parse(
+      (await readFile(MetadataEngine.FILEPATHS.DOC_LENGTHS)).toString(),
+    );
 
     this._isInitialized = true;
   }
@@ -40,5 +44,20 @@ export class LexiconReader {
     return tokens
       .map((token) => this._lexicon[token])
       .filter((termId) => termId !== undefined); // filter terms not found
+  }
+
+  get collectionSize(): number {
+    return this._documentLengths.length;
+  }
+
+  get averageDocumentLength(): number {
+    return (
+      this._documentLengths.reduce((acc, l) => acc + l, 0) /
+      this._documentLengths.length
+    );
+  }
+
+  getDocumentLength(documentId: number): number {
+    return this._documentLengths[documentId];
   }
 }
