@@ -35,10 +35,6 @@ export class RetrievableItem {
     return this.metadata.subtitle;
   }
 
-  get descriptionSrc(): string | undefined {
-    return this.metadata.description;
-  }
-
   get date(): Date {
     return new Date(this.metadata.date);
   }
@@ -49,6 +45,10 @@ export class RetrievableItem {
 
   get location(): string {
     return this.metadata.location;
+  }
+
+  get source(): string {
+    return this.metadata.description ?? this.metadata.location;
   }
 
   get tags(): string[] {
@@ -73,9 +73,7 @@ export class RetrievableItem {
       throw new Error(`${this.location} not found`);
     }
 
-    const source = this.descriptionSrc ? this.descriptionSrc : this.location;
-
-    this._body = await readFile(source).then((file) => file.toString());
+    this._body = await readFile(this.source).then((file) => file.toString());
 
     return this._body!;
   }

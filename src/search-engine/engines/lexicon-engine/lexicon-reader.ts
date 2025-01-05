@@ -1,6 +1,7 @@
 import { SearchRetriever } from "@/search-engine/search-retriever";
 import { readFile } from "fs/promises";
 import { MetadataEngine } from "../metadata-engine/metadata-engine";
+import { RetrievableItem } from "../shared/retrievable-item";
 import { PostingsList } from "./lexicon-engine";
 
 /**
@@ -59,5 +60,25 @@ export class LexiconReader {
 
   getDocumentLength(documentId: number): number {
     return this._documentLengths[documentId];
+  }
+
+  getTermFrequency(term: string, item: RetrievableItem): number {
+    const termId = this._lexicon[term];
+    const postings = this.invertedIndex[termId];
+
+    for (let i = 0; i < postings.length; i += 2) {
+      if (postings[i] === item.id) {
+        return postings[i + 1];
+      }
+    }
+
+    return 0;
+  }
+
+  getDocumentFrequency(term: string): number {
+    const termId = this._lexicon[term];
+    const postings = this.invertedIndex[termId];
+
+    return postings.length / 2;
   }
 }

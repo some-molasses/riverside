@@ -9,7 +9,10 @@ export class QueryResult {
     this.description = description;
   }
 
-  static async construct(item: RetrievableItem): Promise<QueryResult> {
-    return new QueryResult(item, await item.getDescription());
+  static async construct(
+    item: RetrievableItem,
+    description: string,
+  ): Promise<QueryResult> {
+    return new QueryResult(item, description);
   }
 }

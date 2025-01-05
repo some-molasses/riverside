@@ -1,4 +1,3 @@
-import { ClientSideMarkdown } from "@/app/components/markdown/client-markdown";
 import {
   Heading2,
   Span,
@@ -57,7 +56,11 @@ export const SearchResult: React.FC<{
             </>
           )}
           <div className="result-description">
-            <ClientSideMarkdown contents={item.description ?? undefined} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: item.description ?? undefined,
+              }}
+            />
           </div>
         </div>
         {item.metadata.thumbnail ? (

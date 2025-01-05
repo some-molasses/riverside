@@ -17,5 +17,9 @@
     flex-direction: column;
     gap: 1px;
     background-color: var(--background-faint);
+
+    .query-term {
+      color: var(--light-1);
+    }
   }
 }

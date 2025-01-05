@@ -29,7 +29,11 @@ export class QueryEngine {
 
     const rankedResults = this.ranker.rankBM25(termIds);
 
-    return this.retrieveItemsByIDs(rankedResults, options);
+    return this.retriever.outputEngine.retrieveItems(
+      rankedResults,
+      query,
+      options,
+    );
   }
 
   async retrieveAllItems(options: RetrievalOptions): Promise<QueryResult[]> {
@@ -37,7 +41,7 @@ export class QueryEngine {
       Array(this.retriever.metadataReader.documentCount).keys(),
     );
 
-    return this.retrieveItemsByIDs(documentIds, options);
+    return this.retriever.outputEngine.retrieveItems(documentIds, "", options);
   }
 
   async retrieveItem(itempath: string): Promise<RetrievableItem | null> {
@@ -58,46 +62,6 @@ export class QueryEngine {
       await config,
       -1, // @todo set ids
       path.join(process.cwd(), itempath, "main.md"),
-    );
-  }
-
-  private async retrieveItemsByIDs(
-    ids: number[],
-    options: RetrievalOptions,
-  ): Promise<QueryResult[]> {
-    return await Promise.all(
-      (
-        await Promise.all(
-          ids.map(
-            async (id) =>
-              await this.retriever.metadataReader.getMetadataById(id),
-          ),
-        )
-      )
-        .filter((metadata) => {
-          if (options.tags.length === 0) {
-            return true;
-          }
-
-          if (!metadata.tags) {
-            return false;
-          }
-
-          for (const tag of options.tags) {
-            if (metadata.tags.includes(tag)) {
-              return true;
-            }
-          }
-
-          return false;
-        })
-        .sort((a, b) => (new Date(b.date) < new Date(a.date) ? -1 : 1))
-        .map(
-          async (metadata) =>
-            await QueryResult.construct(
-              RetrievableItem.constructFromMetadata(metadata),
-            ),
-        ),
     );
   }
 }
