@@ -1,12 +1,32 @@
 [
   {
+    "title": "market trail review",
+    "date": "January 15 2024",
+    "tags": [
+      "writing",
+      "mathNEWS"
+    ],
+    "id": 0,
+    "location": "writing-database\\mathnews\\v154\\i1\\market-trail\\main.md"
+  },
+  {
+    "title": "finding the best Picard's Peanut",
+    "date": "January 29 2024",
+    "tags": [
+      "writing",
+      "mathNEWS"
+    ],
+    "id": 1,
+    "location": "writing-database\\mathnews\\v154\\i2\\picards\\main.md"
+  },
+  {
     "title": "the m&m machines are watching you",
     "date": "February 13 2024",
     "tags": [
       "writing",
       "mathNEWS"
     ],
-    "id": 0,
+    "id": 2,
     "location": "writing-database\\mathnews\\v154\\i3\\mnm-machines\\main.md"
   },
   {
@@ -17,7 +37,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 1,
+    "id": 3,
     "location": "writing-database\\mathnews\\v155\\i4\\edge-of-the-edge\\main.md"
   },
   {
@@ -29,7 +49,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 2,
+    "id": 4,
     "location": "writing-database\\mathnews\\v156\\i1\\gespeg\\main.md"
   },
   {
@@ -41,7 +61,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 3,
+    "id": 5,
     "location": "writing-database\\mathnews\\v156\\i2\\gespeg\\main.md"
   },
   {
@@ -53,7 +73,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 4,
+    "id": 6,
     "location": "writing-database\\mathnews\\v156\\i3\\gespeg\\main.md"
   },
   {
@@ -63,7 +83,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 5,
+    "id": 7,
     "location": "writing-database\\mathnews\\v156\\i4\\uncapturable\\main.md"
   },
   {
@@ -75,13 +95,13 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 6,
+    "id": 8,
     "location": "writing-database\\mathnews\\v156\\i5\\noor-food-market\\main.md"
   },
   {
     "title": "sinusoidal soup",
     "date": "November 19 2024",
-    "id": 7,
+    "id": 9,
     "location": "writing-database\\mathnews\\v156\\i6\\sinusoidal-soup\\main.md"
   },
   {
@@ -91,7 +111,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 8,
+    "id": 10,
     "location": "writing-database\\mathnews\\v156\\i6\\the-last-rabbit\\main.md"
   },
   {
@@ -102,7 +122,7 @@
     "tags": [
       "game"
     ],
-    "id": 9,
+    "id": 11,
     "location": "src\\app\\work\\game\\luigi\\page.tsx"
   },
   {
@@ -113,7 +133,7 @@
     "tags": [
       "game"
     ],
-    "id": 10,
+    "id": 12,
     "location": "src\\app\\work\\game\\lunar-defence\\page.tsx"
   }
 ]
