@@ -25,6 +25,7 @@ export class MarkdownFormatter {
       .replaceAll(/-\/-/g, "<hr/>")
       .replaceAll(/❦/g, "<hr/>")
       .replaceAll(/\[([0-9]+)\]/g, (_, n) => `<sup>${n}</sup>`)
+      .replaceAll(/\~\~([^\~]+)\~\~/g, (_, contents) => `<s>${contents}</s>`)
       .replace(
         /--postscript--(.*)/s,
         (_, ps) => `<div class="postscript">${ps}</div>`,

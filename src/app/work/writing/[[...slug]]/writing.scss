@@ -22,17 +22,44 @@
       padding-bottom: 4px;
       border-bottom: 1px solid var(--background-faint);
     }
-  }
 
-  .postscript {
-    font-size: 10pt;
-    overflow-wrap: break-word;
+    font-size: 11pt;
+
+    li {
+      margin: 8px 0;
+    }
+
+    ol,
+    ul {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    &.poem {
+      blockquote {
+        border-left: none;
+      }
+    }
+
+    .postscript {
+      font-size: 8pt;
+      overflow-wrap: break-word;
+
+      // border-top: 1px solid var(--background-faint);
+      // padding-top: 8px;
+      // margin-top: 8px;
+
+      ol {
+        padding-top: 0;
+      }
+    }
   }
 
   .caption {
     font-size: 10pt;
     text-align: center;
     width: 100%;
+    margin-top: -12px;
   }
 
   img {
