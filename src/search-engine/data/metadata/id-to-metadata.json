@@ -248,5 +248,16 @@
     ],
     "id": 22,
     "location": "src\\app\\work\\game\\lunar-defence\\page.tsx"
+  },
+  {
+    "title": "Pac-man",
+    "date": "September 2021",
+    "thumbnail": "public/works/games/pacman-2/images/thumbnail.png",
+    "description": "public/works/games/pacman-2/description.md",
+    "tags": [
+      "game"
+    ],
+    "id": 23,
+    "location": "src\\app\\work\\game\\pacman-2\\page.tsx"
   }
 ]
