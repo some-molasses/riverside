@@ -634,13 +634,12 @@ export class Molasses {
   /**
    * @requires The sought-after input element is, in fact, an input element
    */
-  static getInputElementById = function (
-    id: string,
-  ): HTMLInputElement | undefined {
+  static getInputElementById = function (id: string): HTMLInputElement {
     const el = document.getElementById(id);
     if (el instanceof HTMLInputElement) {
       return el as HTMLInputElement;
     } else {
+      // @ts-expect-error not an html element
       return undefined;
     }
   };

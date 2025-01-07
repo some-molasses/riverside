@@ -228,6 +228,17 @@
     "location": "writing-database\\mathnews\\v156\\i6\\the-last-rabbit\\main.md"
   },
   {
+    "title": "Infection Model",
+    "date": "April 2021",
+    "thumbnail": "public/works/gadgets/infection/image.png",
+    "description": "public/works/gadgets/infection/description.md",
+    "tags": [
+      "coding"
+    ],
+    "id": 21,
+    "location": "src\\app\\work\\gadgets\\infection\\page.tsx"
+  },
+  {
     "title": "Mario 1-1",
     "date": "October 2017",
     "thumbnail": "public/works/games/luigi/images/thumbnail.png",
@@ -236,7 +247,7 @@
       "game",
       "coding"
     ],
-    "id": 21,
+    "id": 22,
     "location": "src\\app\\work\\game\\luigi\\page.tsx"
   },
   {
@@ -248,7 +259,7 @@
       "game",
       "coding"
     ],
-    "id": 22,
+    "id": 23,
     "location": "src\\app\\work\\game\\lunar-defence\\page.tsx"
   },
   {
@@ -260,7 +271,7 @@
       "game",
       "coding"
     ],
-    "id": 23,
+    "id": 24,
     "location": "src\\app\\work\\game\\pacman-2\\page.tsx"
   }
 ]
