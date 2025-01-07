@@ -233,7 +233,8 @@
     "thumbnail": "public/works/games/luigi/images/thumbnail.png",
     "description": "public/works/games/luigi/description.md",
     "tags": [
-      "game"
+      "game",
+      "coding"
     ],
     "id": 21,
     "location": "src\\app\\work\\game\\luigi\\page.tsx"
@@ -244,18 +245,20 @@
     "thumbnail": "public/works/games/lunar-defence/images/thumbnail.png",
     "description": "public/works/games/lunar-defence/description.md",
     "tags": [
-      "game"
+      "game",
+      "coding"
     ],
     "id": 22,
     "location": "src\\app\\work\\game\\lunar-defence\\page.tsx"
   },
   {
-    "title": "Pac-man",
+    "title": "Pac-Man",
     "date": "September 2021",
-    "thumbnail": "public/works/games/pacman-2/images/thumbnail.png",
+    "thumbnail": "public/works/games/pacman-2/images/showcase-v2.png",
     "description": "public/works/games/pacman-2/description.md",
     "tags": [
-      "game"
+      "game",
+      "coding"
     ],
     "id": 23,
     "location": "src\\app\\work\\game\\pacman-2\\page.tsx"

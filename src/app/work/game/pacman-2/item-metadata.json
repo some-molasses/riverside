@@ -1,7 +1,7 @@
 {
-  "title": "Pac-man",
+  "title": "Pac-Man",
   "date": "September 2021",
-  "thumbnail": "public/works/games/pacman-2/images/thumbnail.png",
+  "thumbnail": "public/works/games/pacman-2/images/showcase-v2.png",
   "description": "public/works/games/pacman-2/description.md",
-  "tags": ["game"]
+  "tags": ["game", "coding"]
 }

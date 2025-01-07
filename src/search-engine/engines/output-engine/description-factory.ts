@@ -24,14 +24,16 @@ export class DescriptionFactory {
   async getDescription(item: RetrievableItem, query: string): Promise<string> {
     const itemContents = await item.getTextBody();
 
+    const cleanedBody = itemContents // try to remove images, captions, etc.
+      .replaceAll(/!?\[.*\]/g, "")
+      .replaceAll(/\(.*\)/g, "");
+
     const sentences: DescriptionFactory.Sentence[] = this.mergeSentences(
-      Array.from(itemContents.matchAll(/[^.!?]+[.!?]/g)).map(
-        (match, index) => ({
-          string: match[0].substring(0, match[0].length - 1).trim(),
-          punctuation: match[0][match[0].length - 1],
-          index,
-        }),
-      ),
+      Array.from(cleanedBody.matchAll(/[^.!?]+[.!?]/g)).map((match, index) => ({
+        string: match[0].substring(0, match[0].length - 1).trim(),
+        punctuation: match[0][match[0].length - 1],
+        index,
+      })),
     );
 
     const bestSentences = this.selectSentences(
