@@ -1,11 +1,15 @@
-import { Molasses } from "../../../../molasses";
-import { Canvas } from "../../../../components/canvas.component";
-import { PacmanEntityEnum, PacmanDirectionEnum, PacmanStateEnum } from "../../helper";
+import { Canvas } from "@/app/work/utils/components/canvas.component";
+import { Molasses } from "@/app/work/utils/molasses";
+import {
+  PacmanDirectionEnum,
+  PacmanEntityEnum,
+  PacmanStateEnum,
+} from "../../helper";
 import { PacmanConstants } from "../constants";
-import { PacmanEntity } from "./entity";
 import { PacmanMapNode } from "../map-node";
 import { PacmanSprites } from "../sprites";
 import { PacmanState } from "../state";
+import { PacmanEntity } from "./entity";
 
 interface PacmanCharacterCreationData {
   name: PacmanEntityEnum;
@@ -20,8 +24,8 @@ interface PacmanCharacterCreationData {
 
 export class PacmanCharacter extends PacmanEntity {
   home: {
-    x: number,
-    y: number,
+    x: number;
+    y: number;
   };
   homeNodeID: string;
   initialDirection: PacmanDirectionEnum;
@@ -31,8 +35,8 @@ export class PacmanCharacter extends PacmanEntity {
   distanceTravelledToDest: number = 0;
   distanceToDest: number = 0;
 
-  aimDirection: PacmanDirectionEnum = null;
-  direction: PacmanDirectionEnum = PacmanDirectionEnum.STILL;
+  aimDirection: PacmanDirectionEnum | null = null;
+  direction: PacmanDirectionEnum | null = PacmanDirectionEnum.STILL;
   stupidifier: number = 0;
 
   isFrozen: boolean;
@@ -43,7 +47,14 @@ export class PacmanCharacter extends PacmanEntity {
   respawnTime: number = -1;
 
   constructor(data: PacmanCharacterCreationData) {
-    super(data.x, data.y, PacmanCharacter.WIDTH, PacmanCharacter.WIDTH, data.colour, data.name);
+    super(
+      data.x,
+      data.y,
+      PacmanCharacter.WIDTH,
+      PacmanCharacter.WIDTH,
+      data.colour,
+      data.name,
+    );
     this.home = { x: data.x, y: data.y };
 
     this.currentNodeID = data.startNodeID;
@@ -60,8 +71,8 @@ export class PacmanCharacter extends PacmanEntity {
   }
 
   get displayPos() {
-    let centerer = (PacmanConstants.HALL_WIDTH - this.width) / 2;
-    return { x: this.x + centerer, y: this.y + centerer }
+    const centerer = (PacmanConstants.HALL_WIDTH - this.width) / 2;
+    return { x: this.x + centerer, y: this.y + centerer };
   }
 
   get homeNode(): PacmanMapNode {
@@ -70,25 +81,26 @@ export class PacmanCharacter extends PacmanEntity {
 
   get isFleeing(): boolean {
     return (
-      this.name != PacmanEntityEnum.PLAYER
-      && Molasses.orEquals(PacmanState.gameState, [PacmanStateEnum.CHASE, PacmanStateEnum.GHOST_DEATH_PAUSE])
-      && (this.respawnTime < PacmanState.chaseStartTime
-        || PacmanState.lifeStartTime + this.startDelay > PacmanState.chaseStartTime)
-      && !this.isDead)
+      this.name != PacmanEntityEnum.PLAYER &&
+      Molasses.orEquals(PacmanState.gameState, [
+        PacmanStateEnum.CHASE,
+        PacmanStateEnum.GHOST_DEATH_PAUSE,
+      ]) &&
+      (this.respawnTime < PacmanState.chaseStartTime ||
+        PacmanState.lifeStartTime + this.startDelay >
+          PacmanState.chaseStartTime) &&
+      !this.isDead
+    );
   }
-
 
   get isPlayer(): boolean {
     return this.name === PacmanEntityEnum.PLAYER;
   }
 
   get speed(): number {
-    if (this.isDead)
-      return PacmanCharacter.BASE_RETURN_SPEED;
-    if (this.isFleeing)
-      return PacmanCharacter.CHASE_SPEED;
-    else
-      return PacmanCharacter.BASE_SPEED;
+    if (this.isDead) return PacmanCharacter.BASE_RETURN_SPEED;
+    if (this.isFleeing) return PacmanCharacter.CHASE_SPEED;
+    else return PacmanCharacter.BASE_SPEED;
   }
 
   getImage() {
@@ -127,12 +139,19 @@ export class PacmanCharacter extends PacmanEntity {
       }
     }
 
-    src += "/"
+    src += "/";
 
     // state (normally direction)
     if (this.isFleeing) {
-      if ((PacmanState.chaseStartTime + PacmanConstants.CHASE_LEN * 0.75) < PacmanState.animationNow) {
-        if ((PacmanState.animationNow - PacmanState.chaseStartTime) % (4 * PacmanConstants.CHARACTER_ANIMATION_UPDATE_INTERVAL) < 2 * PacmanConstants.CHARACTER_ANIMATION_UPDATE_INTERVAL) {
+      if (
+        PacmanState.chaseStartTime + PacmanConstants.CHASE_LEN * 0.75 <
+        PacmanState.animationNow
+      ) {
+        if (
+          (PacmanState.animationNow - PacmanState.chaseStartTime) %
+            (4 * PacmanConstants.CHARACTER_ANIMATION_UPDATE_INTERVAL) <
+          2 * PacmanConstants.CHARACTER_ANIMATION_UPDATE_INTERVAL
+        ) {
           src += "b";
         } else {
           src += "w";
@@ -164,11 +183,11 @@ export class PacmanCharacter extends PacmanEntity {
       }
     }
 
-
     // animation
     if (!this.isDead) {
       if (this.isPlayer) {
-        const interval = PacmanConstants.CHARACTER_ANIMATION_UPDATE_INTERVAL / 2,
+        const interval =
+            PacmanConstants.CHARACTER_ANIMATION_UPDATE_INTERVAL / 2,
           frame = PacmanState.animationNow % (4 * interval);
 
         if (frame < interval) {
@@ -182,7 +201,11 @@ export class PacmanCharacter extends PacmanEntity {
           return src;
         }
       } else {
-        if (PacmanState.animationNow % (2 * PacmanConstants.CHARACTER_ANIMATION_UPDATE_INTERVAL) < PacmanConstants.CHARACTER_ANIMATION_UPDATE_INTERVAL) {
+        if (
+          PacmanState.animationNow %
+            (2 * PacmanConstants.CHARACTER_ANIMATION_UPDATE_INTERVAL) <
+          PacmanConstants.CHARACTER_ANIMATION_UPDATE_INTERVAL
+        ) {
           src += "1";
         } else {
           src += "2";
@@ -199,9 +222,13 @@ export class PacmanCharacter extends PacmanEntity {
     this._drawNormal(canvas, this.getImage());
   }
 
-  protected _drawNormal(this: PacmanCharacter, canvas: Canvas, image: HTMLImageElement) {
-    let pos = this.displayPos;
-    canvas.drawImage(image, pos.x, pos.y, null, null);
+  protected _drawNormal(
+    this: PacmanCharacter,
+    canvas: Canvas,
+    image: HTMLImageElement,
+  ) {
+    const pos = this.displayPos;
+    canvas.drawImage(image, pos.x, pos.y, undefined, undefined);
   }
 
   equals(this: PacmanCharacter, character: PacmanCharacter) {
@@ -212,7 +239,13 @@ export class PacmanCharacter extends PacmanEntity {
    * Moves this character by its speed
    */
   move(this: PacmanCharacter, directFn: () => void): void {
-    if (!this.isFrozen && (Molasses.Array.contains([PacmanStateEnum.NORMAL, PacmanStateEnum.CHASE], PacmanState.gameState))) {
+    if (
+      !this.isFrozen &&
+      Molasses.Array.contains(
+        [PacmanStateEnum.NORMAL, PacmanStateEnum.CHASE],
+        PacmanState.gameState,
+      )
+    ) {
       switch (this.direction) {
         case PacmanDirectionEnum.UP:
           this.y -= this.speed;
@@ -237,7 +270,7 @@ export class PacmanCharacter extends PacmanEntity {
       if (!this.isFrozen) {
         directFn();
         // (this as PacmanGhost & PacmanCharacter).direct();
-      };
+      }
       this.moveToNode(this.currentNodeID);
     }
   }
@@ -267,7 +300,7 @@ export class PacmanCharacter extends PacmanEntity {
   /**
    * Resets this Character's home to its current position
    */
-  resetHome = function (): void {
+  resetHome(): void {
     this.home.x = this.x;
     this.home.y = this.y;
   }
@@ -280,8 +313,7 @@ export class PacmanCharacter extends PacmanEntity {
     this.isDead = false;
     this.direction = this.initialDirection;
     this.aimDirection = null;
-    if (moveHome)
-      this.moveToHome();
+    if (moveHome) this.moveToHome();
   }
 
   get currentNode(): PacmanMapNode {
@@ -292,8 +324,10 @@ export class PacmanCharacter extends PacmanEntity {
     return PacmanMapNode.getNodeByID(this.destinationNodeID);
   }
 
-  get hasDestination(): Boolean {
-    return (this.destinationNodeID != null && this.destinationNodeID != undefined);
+  get hasDestination(): boolean {
+    return (
+      this.destinationNodeID != null && this.destinationNodeID != undefined
+    );
   }
 
   static WIDTH: number = PacmanConstants.CHARACTER_DIAMETER;

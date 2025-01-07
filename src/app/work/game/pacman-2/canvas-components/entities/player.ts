@@ -1,14 +1,18 @@
-import { Canvas } from "../../../../components/canvas.component";
-import { PacmanEntityEnum, PacmanDirectionEnum, PacmanStateEnum } from "../../helper";
-import { PacmanCharacter } from "./character";
+import { Canvas } from "@/app/work/utils/components/canvas.component";
+import {
+  PacmanDirectionEnum,
+  PacmanEntityEnum,
+  PacmanStateEnum,
+} from "../../helper";
+import { PacmanRestartTypesEnum } from "../../pacman-v2";
 import { PacmanConstants } from "../constants";
 import { PacmanMapNode } from "../map-node";
 import { PacmanSprites } from "../sprites";
 import { PacmanState } from "../state";
-import { PacmanRestartTypesEnum } from "../../page";
+import { PacmanCharacter } from "./character";
 
 export class PacmanPlayer extends PacmanCharacter {
-  deathTime: number = null;
+  deathTime: number | null = null;
   remainingRevives: number = 2;
 
   constructor() {
@@ -27,20 +31,26 @@ export class PacmanPlayer extends PacmanCharacter {
    * Sets the character's new destination node
    */
   direct(this: PacmanPlayer): void {
-    const currentNode: PacmanMapNode = PacmanMapNode.getNodeByID(this.currentNodeID);
+    const currentNode: PacmanMapNode = PacmanMapNode.getNodeByID(
+      this.currentNodeID,
+    );
 
     // determine exit
-    const exitID = currentNode.exitAt(this.aimDirection);
-    const exitValid = !(this.currentNodeID == "bp" && exitID == "bo" && !this.isDead);
+    const exitID = currentNode.exitAt(this.aimDirection!);
+    const exitValid = !(
+      this.currentNodeID == "bp" &&
+      exitID == "bo" &&
+      !this.isDead
+    );
 
-    if (exitValid
-      && exitID != null) {
+    if (exitValid && exitID != null) {
       this.destinationNodeID = exitID;
       this.direction = this.aimDirection;
 
       this.distanceToDest = currentNode.distanceToNode(exitID);
-    } else { // player defaults to going through
-      const throughID = currentNode.exitAt(this.direction);
+    } else {
+      // player defaults to going through
+      const throughID = currentNode.exitAt(this.direction!);
       if (throughID != null) {
         this.destinationNodeID = throughID;
 
@@ -55,7 +65,8 @@ export class PacmanPlayer extends PacmanCharacter {
           this.currentNodeID = "bl";
           this.direct();
           return;
-        } else { // no passage in through direction or aimed direction: go motionless
+        } else {
+          // no passage in through direction or aimed direction: go motionless
           this.destinationNodeID = this.currentNodeID;
           this.direction = PacmanDirectionEnum.STILL;
 
@@ -68,28 +79,36 @@ export class PacmanPlayer extends PacmanCharacter {
   }
 
   drawPlayer(this: PacmanPlayer, canvas: Canvas): void {
-    if (PacmanState.gameState === PacmanStateEnum.GHOST_DEATH_PAUSE)
-      return;
+    if (PacmanState.gameState === PacmanStateEnum.GHOST_DEATH_PAUSE) return;
 
-    this.isDead ? this.drawDeathImage(canvas) : this.draw(canvas);
+    if (this.isDead) {
+      this.drawDeathImage(canvas);
+    } else {
+      this.draw(canvas);
+    }
   }
 
   drawDeathImage(this: PacmanPlayer, canvas: Canvas): void {
-    const elapsedTimeSinceDeath = PacmanState.now - this.deathTime;
+    const elapsedTimeSinceDeath = PacmanState.now - (this.deathTime ?? 0);
 
     if (elapsedTimeSinceDeath <= 500) {
-      this._drawNormal(canvas, PacmanSprites.spritesTree.getValue('pacman/default.png'));
+      this._drawNormal(
+        canvas,
+        PacmanSprites.spritesTree.getValue("pacman/default.png"),
+      );
       return;
     } else {
       const deathImageIndex = Math.ceil((elapsedTimeSinceDeath - 500) / 100);
 
       if (deathImageIndex <= 10) {
-        this._drawNormal(canvas, PacmanSprites.spritesTree.getValue(`pacd/${deathImageIndex}.png`));
+        this._drawNormal(
+          canvas,
+          PacmanSprites.spritesTree.getValue(`pacd/${deathImageIndex}.png`),
+        );
         PacmanState.gameState = PacmanStateEnum.PLAYER_DEATH_ANIMATING;
       } else if (deathImageIndex > 15) {
         PacmanState.gameState = PacmanStateEnum.PLAYER_DEATH_END;
       }
-
 
       return;
     }

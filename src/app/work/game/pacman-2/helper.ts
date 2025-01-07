@@ -83,5 +83,7 @@ export class PacmanHelper {
       case PacmanDirectionEnum.RIGHT:
         return PacmanDirectionEnum.LEFT;
     }
+
+    throw new Error(`no direction given?`);
   }
 }

@@ -66,6 +66,10 @@ export class LexiconReader {
     const termId = this._lexicon[term];
     const postings = this.invertedIndex[termId];
 
+    if (!postings) {
+      return 0;
+    }
+
     for (let i = 0; i < postings.length; i += 2) {
       if (postings[i] === item.id) {
         return postings[i + 1];
@@ -78,6 +82,10 @@ export class LexiconReader {
   getDocumentFrequency(term: string): number {
     const termId = this._lexicon[term];
     const postings = this.invertedIndex[termId];
+
+    if (!postings) {
+      return 0;
+    }
 
     return postings.length / 2;
   }

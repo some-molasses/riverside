@@ -1,12 +1,18 @@
-import { Molasses } from "../../../../molasses";
-import { MathVector } from "../../../../tools/math/vector";
-import { Canvas } from "../../../../components/canvas.component";
-import { PacmanEntityEnum, PacmanDirectionEnum, PacmanHelper, PacmanStateEnum } from "../../helper";
-import { PacmanCharacter } from "./character";
+/* eslint-disable @typescript-eslint/no-this-alias */
+import { Canvas } from "@/app/work/utils/components/canvas.component";
+import { Molasses } from "@/app/work/utils/molasses";
+import { MathVector } from "@/app/work/utils/tools/math/vector";
+import {
+  PacmanDirectionEnum,
+  PacmanEntityEnum,
+  PacmanHelper,
+  PacmanStateEnum,
+} from "../../helper";
 import { PacmanConstants } from "../constants";
 import { PacmanMapNode } from "../map-node";
-import { PacmanPlayer } from "./player";
 import { PacmanState } from "../state";
+import { PacmanCharacter } from "./character";
+import { PacmanPlayer } from "./player";
 
 interface PacmanGhostCreationData {
   name: PacmanEntityEnum;
@@ -30,7 +36,9 @@ export class PacmanGhost extends PacmanCharacter {
    * Sets the character's new destination node
    */
   direct(this: PacmanGhost): void {
-    const currentNode: PacmanMapNode = PacmanMapNode.getNodeByID(this.currentNodeID);
+    const currentNode: PacmanMapNode = PacmanMapNode.getNodeByID(
+      this.currentNodeID,
+    );
 
     // re-aim ghosts
     let ghostTargetAngle = -1;
@@ -41,9 +49,17 @@ export class PacmanGhost extends PacmanCharacter {
     // start box navigation
     if (Molasses.anyEqual([this.currentNodeID], ["bt", "bo", "bu"])) {
       if (this.isDead) {
-        if (((this.currentNodeID == "bt" && this.direction != PacmanDirectionEnum.RIGHT)
-          || (this.currentNodeID == "bo" && (Molasses.anyEqual([this.aimDirection], [PacmanDirectionEnum.DOWN, PacmanDirectionEnum.UP])))
-          || (this.currentNodeID == "bu" && this.direction != PacmanDirectionEnum.LEFT))) {
+        if (
+          (this.currentNodeID == "bt" &&
+            this.direction != PacmanDirectionEnum.RIGHT) ||
+          (this.currentNodeID == "bo" &&
+            Molasses.anyEqual(
+              [this.aimDirection],
+              [PacmanDirectionEnum.DOWN, PacmanDirectionEnum.UP],
+            )) ||
+          (this.currentNodeID == "bu" &&
+            this.direction != PacmanDirectionEnum.LEFT)
+        ) {
           this.reviveGhost(false);
           this.direction = PacmanDirectionEnum.STILL;
           return;
@@ -65,17 +81,21 @@ export class PacmanGhost extends PacmanCharacter {
 
     // determine exit
 
-    let exitID = currentNode.exitAt(this.aimDirection);
+    const exitID = currentNode.exitAt(this.aimDirection!);
     let exitValid = true;
 
     if (this.currentNodeID == "bp" && exitID == "bo" && !this.isDead) {
       exitValid = false;
     }
 
-    if (exitValid
-      && exitID != null
-      && !PacmanHelper.areOppositeDirection(this.direction, this.aimDirection)
-      && (Math.random() <= (1 - this.stupidifier) || Molasses.anyEqual([this.currentNodeID], ["bt", "bo", "bu"]) || this.isDead)) {
+    if (
+      exitValid &&
+      exitID != null &&
+      !PacmanHelper.areOppositeDirection(this.direction!, this.aimDirection!) &&
+      (Math.random() <= 1 - this.stupidifier ||
+        Molasses.anyEqual([this.currentNodeID], ["bt", "bo", "bu"]) ||
+        this.isDead)
+    ) {
       this.destinationNodeID = exitID;
       this.direction = this.aimDirection;
 
@@ -131,18 +151,30 @@ export class PacmanGhost extends PacmanCharacter {
           nextBestDir = PacmanDirectionEnum.UP;
       }
 
-      let nextBestExitID = currentNode.exitAt(nextBestDir);
-      if (nextBestExitID != null && !(nextBestExitID == "bo" && currentNode.ID == "bp" && !this.isDead) && !PacmanHelper.areOppositeDirection(this.direction, nextBestDir)) {
+      const nextBestExitID = currentNode.exitAt(nextBestDir);
+      if (
+        nextBestExitID != null &&
+        !(nextBestExitID == "bo" && currentNode.ID == "bp" && !this.isDead) &&
+        !PacmanHelper.areOppositeDirection(this.direction!, nextBestDir)
+      ) {
         this.destinationNodeID = nextBestExitID;
         this.direction = nextBestDir;
 
         this.distanceToDest = currentNode.distanceToNode(nextBestExitID);
-      } else {// difficult to find a good path, just find a feasible one
-        let randomFactor = Math.floor(Math.random() * currentNode.exits.length);
+      } else {
+        // difficult to find a good path, just find a feasible one
+        const randomFactor = Math.floor(
+          Math.random() * currentNode.exits.length,
+        );
         for (let i = 0; i < currentNode.exits.length; i++) {
-          let index = (i + randomFactor) % currentNode.exits.length;
-          let exitDir = currentNode.directionTo(currentNode.exits[index]);
-          if (PacmanHelper.areOppositeDirection(this.direction, exitDir) || (currentNode.exits[index] == "bo" && currentNode.ID == "bp" && !this.isDead)) {
+          const index = (i + randomFactor) % currentNode.exits.length;
+          const exitDir = currentNode.directionTo(currentNode.exits[index]);
+          if (
+            PacmanHelper.areOppositeDirection(this.direction!, exitDir) ||
+            (currentNode.exits[index] == "bo" &&
+              currentNode.ID == "bp" &&
+              !this.isDead)
+          ) {
             if (i == currentNode.exits.length - 1) {
               console.error("problem with Character.direct()");
               break;
@@ -152,7 +184,9 @@ export class PacmanGhost extends PacmanCharacter {
           } else {
             this.destinationNodeID = currentNode.exits[index];
 
-            this.distanceToDest = currentNode.distanceToNode(currentNode.exits[index]);
+            this.distanceToDest = currentNode.distanceToNode(
+              currentNode.exits[index],
+            );
             this.direction = exitDir;
             break;
           }
@@ -167,15 +201,27 @@ export class PacmanGhost extends PacmanCharacter {
    * Draws a ghost
    */
   drawGhost(this: PacmanGhost, canvas: Canvas) {
-    if (PacmanState.gameState === PacmanStateEnum.GHOST_DEATH_PAUSE && this.isDead && !this.deadAndFleeingToBase) {
-      canvas.drawText(`${PacmanGhost.getNextDeathScore()}`,
+    if (
+      PacmanState.gameState === PacmanStateEnum.GHOST_DEATH_PAUSE &&
+      this.isDead &&
+      !this.deadAndFleeingToBase
+    ) {
+      canvas.drawText(
+        `${PacmanGhost.getNextDeathScore()}`,
         this.x + this.width / 2,
         this.y + this.width / 2,
         PacmanConstants.CYAN_TEXT_COLOR,
         true,
-        16)
+        16,
+      );
       return;
-    } else if (Molasses.orEquals(PacmanState.gameState, [PacmanStateEnum.PLAYER_DEATH_ANIMATING, PacmanStateEnum.PLAYER_DEATH_END]) || PacmanState.isLevelEndFlashing()) {
+    } else if (
+      Molasses.orEquals(PacmanState.gameState, [
+        PacmanStateEnum.PLAYER_DEATH_ANIMATING,
+        PacmanStateEnum.PLAYER_DEATH_END,
+      ]) ||
+      PacmanState.isLevelEndFlashing()
+    ) {
       return;
     }
 
@@ -202,7 +248,7 @@ export class PacmanGhost extends PacmanCharacter {
 
   /**
    * Reaims this ghost character to its target
-   * 
+   *
    * @returns the precise angle to the target
    */
   reAimGhost(this: PacmanCharacter): number {
@@ -210,8 +256,8 @@ export class PacmanGhost extends PacmanCharacter {
 
     const target = {
       x: player.x,
-      y: player.y
-    }
+      y: player.y,
+    };
 
     // determine ghost AI
 
@@ -225,7 +271,7 @@ export class PacmanGhost extends PacmanCharacter {
         break;
       case PacmanEntityEnum.CYAN:
       case PacmanEntityEnum.ORANGE:
-        tryCutoff = (Math.random() < 0.5);
+        tryCutoff = Math.random() < 0.5;
         break;
     }
 
@@ -264,9 +310,15 @@ export class PacmanGhost extends PacmanCharacter {
 
     // get angle
 
-    let angleToTarget = new MathVector(target.x - this.x, -(target.y - this.y)).direction;
+    let angleToTarget = new MathVector(target.x - this.x, -(target.y - this.y))
+      .direction;
 
-    if ((this.name == PacmanEntityEnum.ORANGE && !this.isDead && this.distanceTo(player) <= PacmanConstants.ORANGE_COWER_DISTANCE) || (this.isFleeing && !this.isDead)) {
+    if (
+      (this.name == PacmanEntityEnum.ORANGE &&
+        !this.isDead &&
+        this.distanceTo(player) <= PacmanConstants.ORANGE_COWER_DISTANCE) ||
+      (this.isFleeing && !this.isDead)
+    ) {
       angleToTarget = MathVector.mod2PI(angleToTarget + Math.PI);
     }
 
@@ -283,7 +335,8 @@ export class PacmanGhost extends PacmanCharacter {
           this.aimDirection = PacmanDirectionEnum.UP;
           break;
         default:
-          this.aimDirection = PacmanHelper.angleToCompassDirection(angleToTarget);
+          this.aimDirection =
+            PacmanHelper.angleToCompassDirection(angleToTarget);
       }
     } else {
       this.aimDirection = PacmanHelper.angleToCompassDirection(angleToTarget);
@@ -329,17 +382,19 @@ export class PacmanGhost extends PacmanCharacter {
       name: PacmanEntityEnum.ORANGE,
       x: PacmanConstants.NODE_COLS[6],
       y: PacmanConstants.NODE_ROWS[4],
-      colour: "orange", startNodeID: "bu",
+      colour: "orange",
+      startNodeID: "bu",
       startDelay: 5 * 1000,
       initialDirection: PacmanDirectionEnum.UP,
     }),
-  }
+  };
 
   static array = [
     PacmanGhost.list.red,
     PacmanGhost.list.pink,
     PacmanGhost.list.cyan,
-    PacmanGhost.list.orange];
+    PacmanGhost.list.orange,
+  ];
 
   static forEach(fn: (ghost: PacmanGhost) => void) {
     PacmanGhost.array.forEach((ghost) => {
@@ -348,6 +403,9 @@ export class PacmanGhost extends PacmanCharacter {
   }
 
   static getNextDeathScore(): number {
-    return PacmanConstants.GHOST_DEATH_SCORE * Math.pow(2, PacmanState.ghostsKilledInChase);
+    return (
+      PacmanConstants.GHOST_DEATH_SCORE *
+      Math.pow(2, PacmanState.ghostsKilledInChase)
+    );
   }
 }

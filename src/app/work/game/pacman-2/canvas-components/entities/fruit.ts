@@ -1,5 +1,5 @@
-import { Molasses } from "../../../../molasses";
-import { Canvas } from "../../../../components/canvas.component";
+import { Canvas } from "@/app/work/utils/components/canvas.component";
+import { Molasses } from "@/app/work/utils/molasses";
 import { PacmanEntityEnum } from "../../helper";
 import { PacmanConstants } from "../constants";
 import { PacmanMapNode } from "../map-node";
@@ -13,13 +13,23 @@ export class PacmanFruit extends PacmanPickup {
   constructor() {
     const node = PacmanFruit.getRandomFruitSpawnNode();
 
-    super(node.x, node.y, PacmanConstants.FRUIT_RADIUS, 'red', PacmanEntityEnum.FRUIT);
+    super(
+      node.x,
+      node.y,
+      PacmanConstants.FRUIT_RADIUS,
+      "red",
+      PacmanEntityEnum.FRUIT,
+    );
 
     this.fruitId = Math.min(PacmanState.collectedFruitCount + 1, 8);
   }
 
   draw(this: PacmanFruit, canvas: Canvas): void {
-    canvas.drawImage(PacmanSprites.spritesTree.getValue(`fruits/${this.fruitId}.png`), this.x, this.y);
+    canvas.drawImage(
+      PacmanSprites.spritesTree.getValue(`fruits/${this.fruitId}.png`),
+      this.x,
+      this.y,
+    );
   }
 
   eat(this: PacmanFruit): void {
@@ -28,8 +38,10 @@ export class PacmanFruit extends PacmanPickup {
   }
 
   private static getRandomFruitSpawnNode(): PacmanMapNode {
-    return Molasses.Array.get.randomElement(PacmanMapNode.map.filter((node: PacmanMapNode) => {
-      return node.canSpawnFruit;
-    }));
+    return Molasses.Array.get.randomElement(
+      PacmanMapNode.map.filter((node: PacmanMapNode) => {
+        return node.canSpawnFruit;
+      }),
+    )!;
   }
 }

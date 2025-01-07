@@ -1,11 +1,12 @@
 import { Molasses } from "@/app/work/utils/molasses";
 import { BST } from "@/app/work/utils/tools/bst";
 
-const PRIMARY_CONTAINER: HTMLElement =
-  document.getElementById("sprites-container")!;
-
 export class PacmanSprites extends BST<HTMLImageElement> {
   spritesContainer: HTMLElement;
+
+  static get PRIMARY_CONTAINER() {
+    return document.getElementById("sprites-container")!;
+  }
 
   constructor(spritesContainer: HTMLElement) {
     super();
@@ -88,5 +89,13 @@ export class PacmanSprites extends BST<HTMLImageElement> {
     this.addSprite(src + "/d2.png");
   }
 
-  static spritesTree = new PacmanSprites(PRIMARY_CONTAINER);
+  static _spritesTree: PacmanSprites;
+
+  static get spritesTree() {
+    if (!this._spritesTree) {
+      this._spritesTree = new PacmanSprites(this.PRIMARY_CONTAINER);
+    }
+
+    return this._spritesTree;
+  }
 }
