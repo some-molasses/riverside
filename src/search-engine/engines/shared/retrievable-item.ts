@@ -1,5 +1,6 @@
 import fs from "fs";
 import { access, readFile } from "fs/promises";
+import path from "path";
 import { LexiconEngine } from "../lexicon-engine/lexicon-engine";
 
 // As found in item-metadata.json files
@@ -48,7 +49,8 @@ export class RetrievableItem {
   }
 
   get source(): string {
-    return this.metadata.description ?? this.metadata.location;
+    const relPath = this.metadata.description ?? this.metadata.location;
+    return path.join(process.cwd(), relPath);
   }
 
   get tags(): string[] {
@@ -68,9 +70,9 @@ export class RetrievableItem {
     }
 
     try {
-      await access(this.location, fs.constants.F_OK);
+      await access(this.source, fs.constants.F_OK);
     } catch {
-      throw new Error(`${this.location} not found`);
+      throw new Error(`${this.source} not found`);
     }
 
     this._body = await readFile(this.source).then((file) => file.toString());
