@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Nunito, Quicksand } from "next/font/google";
 import { TopNav } from "./components/top-nav/top-nav";
@@ -25,6 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <SpeedInsights />
       <body className={`${titleFont.variable} ${bodyFont.variable}`}>
         <TopNav />
         {children}
