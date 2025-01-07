@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { Content } from "../components/content/content";
 import { PageContents } from "../components/page-contents/page-contents";
@@ -14,7 +14,15 @@ import "./portfolio.scss";
 
 const INPUT_TIMEOUT = 500;
 
-export default function Portfolio() {
+export default function PageWrapper() {
+  return (
+    <Suspense>
+      <Portfolio />
+    </Suspense>
+  );
+}
+
+function Portfolio() {
   const [query, setQuery] = useState<string>("");
   const [lastUpdate, setLastUpdate] = useState<number>(0);
   const input = useRef<HTMLInputElement>(null);
