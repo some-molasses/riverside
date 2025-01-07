@@ -1,13 +1,19 @@
 import { BST } from "./bst";
 
-type ListenerCondition = (keyboardListenerInstance: KeyboardListener, e: KeyboardEvent) => (boolean | Promise<boolean>);
-type ListenerAction = (keyboardListenerInstance: KeyboardListener, e: KeyboardEvent) => void;
+type ListenerCondition = (
+  keyboardListenerInstance: KeyboardListener,
+  e: KeyboardEvent,
+) => boolean | Promise<boolean>;
+type ListenerAction = (
+  keyboardListenerInstance: KeyboardListener,
+  e: KeyboardEvent,
+) => void;
 
 type KeyboardEventListener = {
-  condition: ListenerCondition,
-  action: ListenerAction,
-  id: number,
-}
+  condition: ListenerCondition;
+  action: ListenerAction;
+  id: number;
+};
 
 export class KeyboardListener {
   letters: boolean[] = [];
@@ -34,9 +40,9 @@ export class KeyboardListener {
 
   /**
    * Tracks a key being pressed down
-   * @param {KeyboardEvent} e 
+   * @param {KeyboardEvent} e
    */
-  keyDown = function (this: KeyboardListener, e: KeyboardEvent): void {
+  keyDown(e: KeyboardEvent): void {
     if (e.key.length == 1) {
       const letterKeycode = e.key.toLowerCase().charCodeAt(0);
       if (!isNaN(parseInt(e.key))) {
@@ -55,10 +61,20 @@ export class KeyboardListener {
 
   /**
    * Tracks a key being released
-   * @param {KeyboardEvent} e 
+   * @param {KeyboardEvent} e
    */
-  keyUp = function (this: KeyboardListener, e: KeyboardEvent): void {
-    const me = this;
+  keyUp(e: KeyboardEvent): void {
+    const removeMiscKey = (key: string) => {
+      try {
+        this.miscKeys.setValue(key, false);
+      } catch (e) {
+        if (e instanceof Error) {
+          if (e.message === this.miscKeys.getErrorMessages(key).notInTree) {
+            this.miscKeys.add(key, false);
+          }
+        }
+      }
+    };
 
     if (e.key.length == 1) {
       const letterKeycode = e.key.toLowerCase().charCodeAt(0);
@@ -74,24 +90,12 @@ export class KeyboardListener {
     }
 
     this.fireEventListeners(e);
-
-    function removeMiscKey(key: string) {
-      try {
-        me.miscKeys.setValue(key, false);
-      } catch (e) {
-        if (e instanceof Error) {
-          if (e.message === me.miscKeys.getErrorMessages(key).notInTree) {
-            me.miscKeys.add(key, false);
-          }
-        }
-      }
-    }
   }
 
   /**
    * Determines if the given key is down
    */
-  isKeyDown = function (this: KeyboardListener, key: string): boolean {
+  isKeyDown(key: string): boolean {
     if (key.length == 1) {
       const letterKeycode = key.toLowerCase().charCodeAt(0);
       if (!isNaN(parseInt(key))) {
@@ -119,16 +123,16 @@ export class KeyboardListener {
   /**
    * Determines if all keys are down
    */
-  areKeysDown(this: KeyboardListener, keys: string[], method: 'or' | 'and'): boolean {
+  areKeysDown(keys: string[], method: "or" | "and"): boolean {
     for (const key of keys) {
       if (this.isKeyDown(key)) {
-        if (method === 'or')
-          return true; // short circuit evaluation
-      } else if (method === 'and') // key is up
+        if (method === "or") return true; // short circuit evaluation
+      } else if (method === "and")
+        // key is up
         return false; // short circuit evaluation
     }
 
-    if (method === 'or') {
+    if (method === "or") {
       return false;
     } else {
       return true;
@@ -138,15 +142,18 @@ export class KeyboardListener {
   /**
    * NOTE: Words longer than four characters are likely to fail due to hardware constraints.
    */
-  isWordDown(this: KeyboardListener, word: string): boolean {
-    return this.areKeysDown(word.split(''), 'and');
+  isWordDown(word: string): boolean {
+    return this.areKeysDown(word.split(""), "and");
   }
 
   /**
    * Adds an event listener, to be fired whenever a key's pressed quality is changed.
    * @returns The id of the listener, used in removeEventListener
    */
-  addEventListener(this: KeyboardListener, condition: ListenerCondition, action: ListenerAction): number {
+  addEventListener(
+    condition: ListenerCondition,
+    action: ListenerAction,
+  ): number {
     this.listeners.push({
       condition: condition,
       action: action,
@@ -161,7 +168,7 @@ export class KeyboardListener {
    * Adds an event listener, to be fired whenever a key's pressed quality is changed.
    * @returns The id of the listener, used in removeEventListener
    */
-  addKeyboardEventListener(this: KeyboardListener, listener: KeyboardEventListener): number {
+  addKeyboardEventListener(listener: KeyboardEventListener): number {
     this.listeners.push(listener);
 
     this.nextListenerId++;
@@ -171,9 +178,8 @@ export class KeyboardListener {
   /**
    * Fires any event listeners whose conditions are satisfied
    */
-  fireEventListeners(this: KeyboardListener, event: KeyboardEvent): void {
-    if (this.listeners.length == 0)
-      return;
+  fireEventListeners(event: KeyboardEvent): void {
+    if (this.listeners.length == 0) return;
 
     this.listeners.forEach(async (listener: KeyboardEventListener) => {
       if (await listener.condition(this, event)) {
@@ -185,13 +191,16 @@ export class KeyboardListener {
   /**
    * Starts / stops logging clicks to the console
    */
-  logClicks = function (this: KeyboardListener): void {
+  logClicks(): void {
     if (this.loggingListenerId == -1) {
-      this.loggingListenerId = this.addEventListener(() => {
-        return true;
-      }, () => {
-        console.log("Current Keys: " + this.printPressedKeys());
-      });
+      this.loggingListenerId = this.addEventListener(
+        () => {
+          return true;
+        },
+        () => {
+          console.log("Current Keys: " + this.printPressedKeys());
+        },
+      );
     } else {
       const removed = this.removeEventListener(this.loggingListenerId);
 
@@ -205,7 +214,7 @@ export class KeyboardListener {
   /**
    * Returns a string of all keys currently pressed
    */
-  printPressedKeys = function (this: KeyboardListener): string {
+  printPressedKeys(): string {
     let output: string = "";
     const A_CODE = "a".charCodeAt(0);
 
@@ -229,7 +238,10 @@ export class KeyboardListener {
    * Removes an event listener.
    * @returns The event listener removed, or null if none was found
    */
-  removeEventListener(this: KeyboardListener, removedId: number): KeyboardEventListener {
+  removeEventListener(
+    this: KeyboardListener,
+    removedId: number,
+  ): KeyboardEventListener | null {
     for (let i = 0; i < this.listeners.length; i++) {
       if (this.listeners[i].id == removedId) {
         return this.listeners.splice(i, 1)[0];
@@ -240,12 +252,15 @@ export class KeyboardListener {
   }
 }
 
-function registerKeyboardListener(listener: KeyboardListener, target: EventTarget) {
-  target.addEventListener("keydown", function (e: KeyboardEvent) {
-    listener.keyDown(e);
+function registerKeyboardListener(
+  listener: KeyboardListener,
+  target: EventTarget,
+) {
+  target.addEventListener("keydown", (e) => {
+    listener.keyDown(e as KeyboardEvent);
   });
 
-  target.addEventListener("keyup", function (e: KeyboardEvent) {
-    listener.keyUp(e);
+  target.addEventListener("keyup", (e) => {
+    listener.keyUp(e as KeyboardEvent);
   });
 }

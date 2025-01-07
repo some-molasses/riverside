@@ -1,29 +1,28 @@
 export class MouseListener {
-  private _isClicked: boolean;
-  private _isHovering: boolean;
+  private _isClicked: boolean = false;
+  private _isHovering: boolean = false;
 
   private target: HTMLElement;
 
   constructor(target: HTMLElement) {
-    const me = this;
     this.target = target;
 
-    target.addEventListener('mousedown', () => {
-      me._isClicked = true;
+    target.addEventListener("mousedown", () => {
+      this._isClicked = true;
     });
-    target.addEventListener('mouseup', () => {
-      me._isClicked = false;
+    target.addEventListener("mouseup", () => {
+      this._isClicked = false;
     });
-    target.addEventListener('mouseenter', () => {
-      me._isHovering = true;
+    target.addEventListener("mouseenter", () => {
+      this._isHovering = true;
     });
-    target.addEventListener('mouseleave', () => {
-      me._isHovering = false;
+    target.addEventListener("mouseleave", () => {
+      this._isHovering = false;
     });
   }
 
-  get currentClick(): 'l' | 'r' {
-    return 'l';
+  get currentClick(): "l" | "r" {
+    return "l";
   }
 
   get isClicked(): boolean {

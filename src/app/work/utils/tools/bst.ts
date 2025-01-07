@@ -3,16 +3,16 @@
  */
 
 class BSTNode {
-  left: BSTNode;
-  right: BSTNode;
+  left: BSTNode | null;
+  right: BSTNode | null;
   value: any;
   key: string;
   ID: number;
 
   /**
    * A new BSTNode
-   * @param {String} key 
-   * @param {*} value 
+   * @param {String} key
+   * @param {*} value
    */
   constructor(key: string, value: any) {
     this.left = null;
@@ -27,13 +27,13 @@ class BSTNode {
 }
 
 /**
- * A binary search tree of strings, sorted in lexicographical order, 
+ * A binary search tree of strings, sorted in lexicographical order,
  * where every key is a string
  * @author River Stanley
  */
 
 export class BST<T = any> {
-  root: BSTNode;
+  root: BSTNode | null;
 
   constructor() {
     this.root = null;
@@ -49,18 +49,19 @@ export class BST<T = any> {
 
   /**
    * Adds a new node to the bst.  If it already exists, sets the value of that key to the given value.
-   * @param {String} key The value to sort the element by 
+   * @param {String} key The value to sort the element by
    * @param {*} value The value to store
    */
-  add = function (this: BST<T>, key: string, value: T): void {
+  add(this: BST<T>, key: string, value: T): void {
     if (typeof key != "string") {
       throw new Error(this.getErrorMessages(key).notAString);
     }
 
-    let newNode = new BSTNode(key, value);
+    const newNode = new BSTNode(key, value);
     let current = this.root;
 
-    if (current == null) { // empty BST
+    if (current == null) {
+      // empty BST
       this.root = newNode;
       return;
     }
@@ -69,8 +70,9 @@ export class BST<T = any> {
       if (current == null) {
         throw new Error(this.getErrorMessages(key).shouldNotBeNull);
       } else {
-        let cmp = current.key.localeCompare(key);
-        if (cmp < 0) { // current = 'a', str = 'b', go right
+        const cmp = current.key.localeCompare(key);
+        if (cmp < 0) {
+          // current = 'a', str = 'b', go right
           if (current.right == null) {
             current.right = newNode;
             break;
@@ -84,7 +86,8 @@ export class BST<T = any> {
           } else {
             current = current.left;
           }
-        } else if (cmp == 0) { // already existed in the tree
+        } else if (cmp == 0) {
+          // already existed in the tree
           current.value = value;
           break;
         }
@@ -98,20 +101,22 @@ export class BST<T = any> {
    * @returns {Boolean}
    */
 
-  containsKey = function (this: BST, key: string): boolean {
+  containsKey(this: BST, key: string): boolean {
     if (typeof key != "string") {
       throw new Error(this.getErrorMessages(key).notAString);
     }
 
     let current = this.root;
 
-    if (current == null) { // empty BST
+    if (current == null) {
+      // empty BST
       return false;
     }
 
     while (true) {
-      let cmp = current.key.localeCompare(key);
-      if (cmp < 0) { // current = 'a', str = 'b', go right
+      const cmp = current.key.localeCompare(key);
+      if (cmp < 0) {
+        // current = 'a', str = 'b', go right
         if (current.right == null) {
           return false;
         } else {
@@ -123,7 +128,8 @@ export class BST<T = any> {
         } else {
           current = current.left;
         }
-      } else if (cmp == 0) { // found it
+      } else if (cmp == 0) {
+        // found it
         return true;
       }
     }
@@ -134,15 +140,15 @@ export class BST<T = any> {
       notAString: `${key} is not a string`,
       notInTree: `${key} is not in the tree`,
       shouldNotBeNull: `should not have been null`,
-    }
+    };
   }
 
   /**
-   * Returns the value at the key. 
+   * Returns the value at the key.
    * @requires The key is present in the BST
-   * @param {String} key 
+   * @param {String} key
    */
-  getValue = function (this: BST, key: string): T {
+  getValue(this: BST, key: string): T {
     if (typeof key != "string") {
       throw new Error(this.getErrorMessages(key).notAString);
     } else if (!this.containsKey(key)) {
@@ -154,12 +160,13 @@ export class BST<T = any> {
       if (current == null) {
         throw new Error(this.getErrorMessages(key).shouldNotBeNull);
       } else {
-        let cmp = current.key.localeCompare(key);
+        const cmp = current.key.localeCompare(key);
         if (cmp < 0) {
           current = current.right;
         } else if (cmp > 0) {
           current = current.left;
-        } else if (cmp == 0) { // already existed in the tree
+        } else if (cmp == 0) {
+          // already existed in the tree
           return current.value;
         }
       }
@@ -167,13 +174,13 @@ export class BST<T = any> {
   }
 
   /**
-   * Sets the value at the key to the given new value. 
+   * Sets the value at the key to the given new value.
    * @requires The key is present in the BST
-   * @param {String} key 
-   * @param {*} value 
+   * @param {String} key
+   * @param {*} value
    */
 
-  setValue = function (this: BST, key: string, newValue: T): void {
+  setValue(key: string, newValue: T): void {
     if (typeof key != "string") {
       throw new Error(this.getErrorMessages(key).notAString);
     } else if (!this.containsKey(key)) {
@@ -182,13 +189,14 @@ export class BST<T = any> {
 
     let current = this.root;
     while (true) {
-      let cmp = current.key.localeCompare(key);
+      const cmp = current!.key.localeCompare(key);
       if (cmp < 0) {
-        current = current.right;
+        current = current!.right;
       } else if (cmp > 0) {
-        current = current.left;
-      } else if (cmp == 0) { // already existed in the tree
-        current.value = newValue;
+        current = current!.left;
+      } else if (cmp == 0) {
+        // already existed in the tree
+        current!.value = newValue;
         return;
       }
     }
@@ -196,10 +204,10 @@ export class BST<T = any> {
 
   /**
    * Removes a node from the bst
-   * @param {String} key 
+   * @param {String} key
    * @author credit to Dave Tompkins, University of Waterloo Instructor, for the node removal algorithm
    */
-  remove = function (this: BST, key: string): void {
+  remove(this: BST, key: string): void {
     // 1: FIND THE STRING IN THE BST
     if (typeof key != "string") {
       throw new Error(this.getErrorMessages(key).notAString);
@@ -213,16 +221,17 @@ export class BST<T = any> {
     let current = this.root;
     let directionToCurrent = 0;
     while (true) {
-      let cmp = current.key.localeCompare(key);
+      const cmp = current!.key.localeCompare(key);
       if (cmp < 0) {
         parent = current;
-        current = current.right;
+        current = current!.right;
         directionToCurrent = 1;
       } else if (cmp > 0) {
         parent = current;
-        current = current.left;
+        current = current!.left;
         directionToCurrent = -1;
-      } else if (cmp == 0) { // found the node!
+      } else if (cmp == 0) {
+        // found the node!
         break;
       }
     }
@@ -236,7 +245,7 @@ export class BST<T = any> {
     //   Then, replace the REPLACER node with its right child.  If that is null, great.  Note that as the leftmost node of the subtree,
     //     it will not have a left child.
 
-    if (current.left == null && current.right == null) {
+    if (current!.left == null && current!.right == null) {
       if (parent == null) {
         this.root = null; // removing the final node of the tree
       } else {
@@ -246,28 +255,29 @@ export class BST<T = any> {
           parent.left = null;
         }
       }
-    } else if (current.left == null) {
+    } else if (current!.left == null) {
       if (parent == null) {
-        this.root = current.right; // removing the root node of the tree
+        this.root = current!.right; // removing the root node of the tree
       } else {
         if (directionToCurrent == 1) {
-          parent.right = current.right;
+          parent.right = current!.right;
         } else if (directionToCurrent == -1) {
-          parent.left = current.right;
+          parent.left = current!.right;
         }
       }
-    } else if (current.right == null) {
+    } else if (current!.right == null) {
       if (parent == null) {
-        this.root = current.left; // removing the root node of the tree
+        this.root = current!.left; // removing the root node of the tree
       } else {
         if (directionToCurrent == 1) {
-          parent.right = current.left;
+          parent.right = current!.left;
         } else if (directionToCurrent == -1) {
-          parent.left = current.left;
+          parent.left = current!.left;
         }
       }
-    } else { // both children exist
-      let replacer = current.right;
+    } else {
+      // both children exist
+      let replacer = current!.right;
       let replacerParent = current;
       while (true) {
         if (replacer.left != null) {
@@ -278,10 +288,10 @@ export class BST<T = any> {
         }
       }
       // update the children of the replacer and its parent
-      replacer.left = current.left;
-      if (current.ID != replacerParent.ID) {
-        replacerParent.left = replacer.right;
-        replacer.right = current.right;
+      replacer.left = current!.left;
+      if (current!.ID != replacerParent!.ID) {
+        replacerParent!.left = replacer.right;
+        replacer.right = current!.right;
       }
 
       // replace
@@ -300,11 +310,11 @@ export class BST<T = any> {
   // Displaying
 
   // Logs the BST to the console as a list and an object
-  log = function (): void {
+  log(): void {
     console.log(this);
-    let printed = this.print();
+    const printed = this.print();
     if (printed == "") {
-      console.log("[empty]")
+      console.log("[empty]");
     } else {
       console.log(printed);
     }
@@ -313,12 +323,17 @@ export class BST<T = any> {
   /**
    * Logs the BST as a tree-styled list
    */
-  logTree = function (): void {
+  logTree(): void {
     console.log(this);
-    let printed = BST.printBranch(this.root, 0, this.depth, this.maxKeyLength);
+    const printed = BST.printBranch(
+      this.root,
+      0,
+      this.depth,
+      this.maxKeyLength,
+    );
     // let printed = "currently unoperational";
     if (printed == "") {
-      console.log("[empty]")
+      console.log("[empty]");
     } else {
       console.log(printed);
     }
@@ -329,67 +344,94 @@ export class BST<T = any> {
    * @returns {String} the BST, as a sorted list
    */
 
-  print = function (): string {
+  print(): string {
     return BST.printNode(this.root);
   }
 
   /**
    * Prints the values of node and all of its children, in order
-   * @param {BSTNode} node 
+   * @param {BSTNode} node
    */
 
-  static printNode = function (node: BSTNode): string {
+  static printNode(node: BSTNode | null): string {
     if (node == null) {
       return "";
     } else {
-      return BST.printNode(node.left) + node.key + ": " + node.value + "\n" + BST.printNode(node.right);
+      return (
+        BST.printNode(node.left) +
+        node.key +
+        ": " +
+        node.value +
+        "\n" +
+        BST.printNode(node.right)
+      );
     }
   }
 
   /**
    * Creates a string of the values of node and all of its children, in order, with branch decorations
-   * @param {BSTNode} node 
-   * @param {Number} nodeDepth 
+   * @param {BSTNode} node
+   * @param {Number} nodeDepth
    * @param {Number} treeDepth
    * @param {Number} keyLen
    * @returns {String}
    */
 
-  static printBranch = function (node: BSTNode, nodeDepth: number, treeDepth: number, keyLen: number): string {
+  static printBranch(
+    node: BSTNode | null,
+    nodeDepth: number,
+    treeDepth: number,
+    keyLen: number,
+  ): string {
     if (node == null) {
       return "";
     } else {
-      let lengthEqualizer = keyLen - node.key.length;
-      let branchLen = (keyLen) * nodeDepth;
-      let content = "-".repeat(branchLen) + "_".repeat(lengthEqualizer) + node.key;
+      const lengthEqualizer = keyLen - node.key.length;
+      const branchLen = keyLen * nodeDepth;
+      const content =
+        "-".repeat(branchLen) + "_".repeat(lengthEqualizer) + node.key;
 
-      return BST.printBranch(node.left, nodeDepth + 1, treeDepth, keyLen) + content + "\n" + BST.printBranch(node.right, nodeDepth + 1, treeDepth, keyLen);
+      return (
+        BST.printBranch(node.left, nodeDepth + 1, treeDepth, keyLen) +
+        content +
+        "\n" +
+        BST.printBranch(node.right, nodeDepth + 1, treeDepth, keyLen)
+      );
     }
   }
 
   /**
    * Returns the length of the longest key in the node's subtree, node included.
-   * @param {BSTNode} node 
+   * @param {BSTNode} node
    * @returns {Number}
    */
-  static getMaxKeyChild = function (node: BSTNode): number {
+  static getMaxKeyChild(node: BSTNode | null): number {
     if (node == null) {
       return 0;
     } else {
-      return Math.max(BST.getMaxKeyChild(node.left), BST.getMaxKeyChild(node.right), node.key.length);
+      return Math.max(
+        BST.getMaxKeyChild(node.left),
+        BST.getMaxKeyChild(node.right),
+        node.key.length,
+      );
     }
   }
 
   /**
-   * Returns the depth of the node's largest subtree, + 1 
-   * @param {BSTNode} node 
+   * Returns the depth of the node's largest subtree, + 1
+   * @param {BSTNode} node
    * @returns {Number}
    */
-  static getNodeChildDepth = function (node: BSTNode): number {
+  static getNodeChildDepth(node: BSTNode | null): number {
     if (node == null) {
       return 0;
     } else {
-      return Math.max(BST.getNodeChildDepth(node.left), BST.getNodeChildDepth(node.right)) + 1;
+      return (
+        Math.max(
+          BST.getNodeChildDepth(node.left),
+          BST.getNodeChildDepth(node.right),
+        ) + 1
+      );
     }
   }
 }
