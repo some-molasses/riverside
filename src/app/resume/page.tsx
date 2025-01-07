@@ -1,6 +1,6 @@
 import { Content } from "../components/content/content";
 import { Footer } from "../components/footer/footer";
-import { Page } from "../components/page/page";
+import { PageContents } from "../components/page-contents/page-contents";
 import { Titles } from "../components/titles/titles";
 import "./resume.scss";
 import { EducationSection } from "./sections/education";
@@ -10,7 +10,7 @@ import { SkillsSection } from "./sections/skills";
 
 export default function Resume() {
   return (
-    <Page id="resume-page">
+    <PageContents id="resume-page">
       <Content>
         <Titles
           title="river stanley"
@@ -22,6 +22,6 @@ export default function Resume() {
         <ProjectsSection />
         <Footer />
       </Content>
-    </Page>
+    </PageContents>
   );
 }

@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { Content } from "../components/content/content";
-import { Page } from "../components/page/page";
+import { PageContents } from "../components/page-contents/page-contents";
 import {
   Heading1,
   Span,
@@ -49,7 +49,7 @@ export default function Portfolio() {
   }, [lastUpdate]);
 
   return (
-    <Page id="portfolio-page">
+    <PageContents id="portfolio-page">
       <Content>
         <div id="titles">
           <Heading1>project search</Heading1>
@@ -69,6 +69,6 @@ export default function Portfolio() {
         <hr id="top-divider" />
         {!isLoading ? <ResultList items={data?.items} /> : null}
       </Content>
-    </Page>
+    </PageContents>
   );
 }

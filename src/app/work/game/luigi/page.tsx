@@ -5,7 +5,7 @@ import { CenterOverflow } from "@/app/components/center-overflow/center-overflow
 import { Content } from "@/app/components/content/content";
 import { Footer } from "@/app/components/footer/footer";
 import { ClientSideMarkdown } from "@/app/components/markdown/client-markdown";
-import { Page } from "@/app/components/page/page";
+import { PageContents } from "@/app/components/page-contents/page-contents";
 import { Titles } from "@/app/components/titles/titles";
 import { Heading2 } from "@/app/components/typography/variants/typography-variants";
 import Script from "next/script";
@@ -13,7 +13,7 @@ import "./luigi.scss";
 
 export default function Luigi() {
   return (
-    <Page id="luigi-page">
+    <PageContents id="luigi-page">
       <Content>
         <Titles title={"Mario 1-1"} />
 
@@ -35,7 +35,7 @@ export default function Luigi() {
       </Content>
 
       <Script src="/works/games/luigi/scripts/luigi.js" />
-    </Page>
+    </PageContents>
   );
 }
 

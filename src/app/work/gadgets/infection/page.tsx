@@ -5,7 +5,7 @@ import { Content } from "@/app/components/content/content";
 import { Footer } from "@/app/components/footer/footer";
 import { Column, Row } from "@/app/components/layout/layout";
 import { ClientSideMarkdown } from "@/app/components/markdown/client-markdown";
-import { Page } from "@/app/components/page/page";
+import { PageContents } from "@/app/components/page-contents/page-contents";
 import { Titles } from "@/app/components/titles/titles";
 import { useEffect, useState } from "react";
 import { RunInfectionModel } from "./infection";
@@ -23,7 +23,7 @@ export default function Infection() {
   }, [initialized, setInitialized]);
 
   return (
-    <Page id="infection-page">
+    <PageContents id="infection-page">
       <Content>
         <Titles title={"Infection Modelling"} />
 
@@ -41,7 +41,7 @@ export default function Infection() {
 
         <Footer />
       </Content>
-    </Page>
+    </PageContents>
   );
 }
 

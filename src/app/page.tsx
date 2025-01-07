@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Content } from "./components/content/content";
-import { Page } from "./components/page/page";
+import { PageContents } from "./components/page-contents/page-contents";
 import {
   Heading1,
   Heading2,
@@ -12,7 +12,7 @@ import "./home.scss";
 
 export default function Home() {
   return (
-    <Page id="homepage">
+    <PageContents id="homepage">
       <div className="img-container">
         <Image src="/fall/october.jpg" alt="" fill />
       </div>
@@ -26,7 +26,7 @@ export default function Home() {
         <WritingSection />
         <LeaderSection />
       </Content>
-    </Page>
+    </PageContents>
   );
 }
 

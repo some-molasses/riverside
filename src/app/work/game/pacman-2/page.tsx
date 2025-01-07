@@ -3,7 +3,7 @@
 import { Content } from "@/app/components/content/content";
 import { Footer } from "@/app/components/footer/footer";
 import { ClientSideMarkdown } from "@/app/components/markdown/client-markdown";
-import { Page } from "@/app/components/page/page";
+import { PageContents } from "@/app/components/page-contents/page-contents";
 import { Titles } from "@/app/components/titles/titles";
 import {
   Heading2,
@@ -26,7 +26,7 @@ export default function PacmanV2() {
   }, [initialized, setInitialized]);
 
   return (
-    <Page id="pacman-v2-page">
+    <PageContents id="pacman-v2-page">
       <Content>
         <Titles title="Pac-Man" />
 
@@ -45,7 +45,7 @@ export default function PacmanV2() {
 
         <Footer />
       </Content>
-    </Page>
+    </PageContents>
   );
 }
 
