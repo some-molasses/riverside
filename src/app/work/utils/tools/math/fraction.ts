@@ -6,7 +6,7 @@ import { Molasses } from "../../molasses";
 export class MathFrac {
   numerator: number;
   denominator: number;
-  type: string;
+  type?: string;
 
   constructor(num: number, denom: number, type?: string) {
     if (!num && num !== 0) throw new Error(`Bad numerator: ${num}`);
@@ -52,7 +52,7 @@ export class MathFrac {
    * IDEMPOTENT?: NO
    */
   add(frac: MathFrac): MathFrac {
-    let localClone = frac.clone();
+    const localClone: MathFrac = frac.clone();
 
     localClone.scale(this.denominator);
     this.scale(frac.denominator);
@@ -60,7 +60,6 @@ export class MathFrac {
     this.numerator += localClone.numerator;
     this.condense();
 
-    localClone = null;
     return this;
   }
 
@@ -70,9 +69,11 @@ export class MathFrac {
    * IDEMPOTENT?: NO
    */
   subtract(frac: MathFrac): MathFrac {
-    let additiveInverse = new MathFrac(-frac.clone().numerator, frac.clone().denominator);
+    const additiveInverse: MathFrac = new MathFrac(
+      -frac.clone().numerator,
+      frac.clone().denominator,
+    );
     this.add(additiveInverse);
-    additiveInverse = null;
     return this;
   }
 
@@ -107,10 +108,13 @@ export class MathFrac {
     this.assertDefined();
     frac.assertDefined();
 
-    let multiplicativeInverse = new MathFrac(frac.denominator, frac.numerator, "multiplicative inverse");
+    const multiplicativeInverse = new MathFrac(
+      frac.denominator,
+      frac.numerator,
+      "multiplicative inverse",
+    );
     this.multiplyBy(multiplicativeInverse);
 
-    multiplicativeInverse = null;
     return this;
   }
 
@@ -153,11 +157,13 @@ export class MathFrac {
    * Simplifies the fraction (e.g. 2/4 => 1/2)
    * SAFE?: NO
    * IDEMPOTENT?: yes
-   * 
+   *
    * Returns the fraction for chaining
    */
   condense(): MathFrac {
-    const divisionFactor = Math.abs(Molasses.gcd(this.numerator, this.denominator));
+    const divisionFactor = Math.abs(
+      Molasses.gcd(this.numerator, this.denominator),
+    );
 
     this.numerator /= divisionFactor;
     this.denominator /= divisionFactor;
@@ -174,9 +180,14 @@ export class MathFrac {
    * Determines if this and another MathFrac are equal
    */
   isEqualTo(other: MathFrac): boolean {
-    if (this.numerator == other.numerator && this.denominator == other.denominator) {
+    if (
+      this.numerator == other.numerator &&
+      this.denominator == other.denominator
+    ) {
       return true;
     }
+
+    return false;
   }
 
   /**
@@ -201,10 +212,9 @@ export class MathFrac {
    */
   static add(a: MathFrac, b: MathFrac): MathFrac {
     const ac: MathFrac = a.clone();
-    let bc: MathFrac = b.clone();
+    const bc: MathFrac = b.clone();
 
     ac.add(bc);
-    bc = null;
     return ac;
   }
 
@@ -215,10 +225,9 @@ export class MathFrac {
    */
   static subtract(a: MathFrac, b: MathFrac): MathFrac {
     const ac: MathFrac = a.clone();
-    let bc: MathFrac = b.clone();
+    const bc: MathFrac = b.clone();
 
     ac.subtract(bc);
-    bc = null;
     return ac;
   }
 
@@ -229,10 +238,9 @@ export class MathFrac {
    */
   static multiply(a: MathFrac, b: MathFrac): MathFrac {
     const ac: MathFrac = a.clone();
-    let bc: MathFrac = b.clone();
+    const bc: MathFrac = b.clone();
 
     ac.multiplyBy(bc);
-    bc = null;
     return ac;
   }
 
@@ -243,15 +251,14 @@ export class MathFrac {
    */
   static divide(a: MathFrac, b: MathFrac): MathFrac {
     const ac: MathFrac = a.clone();
-    let bc: MathFrac = b.clone();
+    const bc: MathFrac = b.clone();
 
     ac.divideBy(bc);
-    bc = null;
     return ac;
   }
 
   static createFromInt(n: number): MathFrac {
-    if (typeof n !== 'number') throw new Error(`Bad type of n ${n}`);
+    if (typeof n !== "number") throw new Error(`Bad type of n ${n}`);
     return new MathFrac(n, 1);
   }
 

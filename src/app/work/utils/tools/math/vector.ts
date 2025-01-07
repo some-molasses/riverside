@@ -100,7 +100,7 @@ export class MathVector {
    * Returns the mathematical result of (direction mod 2pi)
    * @param {Number} direction
    */
-  static mod2PI = function (direction: number): number {
+  static mod2PI(direction: number): number {
     if (direction < 0) {
       direction = (direction % (2 * Math.PI)) + 2 * Math.PI;
     } else if (direction >= 2 * Math.PI) {
@@ -108,13 +108,13 @@ export class MathVector {
     }
 
     return direction;
-  };
+  }
 
   /**
    * Returns the mathematical result of (direction mod pi)
    * @param {Number} direction
    */
-  static modPI = function (direction: number): number {
+  static modPI(direction: number): number {
     if (direction < 0) {
       direction = (direction % Math.PI) + Math.PI;
     } else if (direction >= Math.PI) {
@@ -122,35 +122,35 @@ export class MathVector {
     }
 
     return direction;
-  };
+  }
 
   /**
    * Resets the vector to a unit vector, in the given direction
    * @param {Number} direction the new direction in RADIANS
    */
-  resetToUnit = function (direction: number): void {
+  resetToUnit(direction: number): void {
     // reset direction such that 0 <= dir'n <= 2pi
     direction = MathVector.mod2PI(direction);
 
     // update x, y
     this.x = Math.sin(direction);
     this.y = Math.cos(direction);
-  };
+  }
 
   /**
    * Shaves off any 0.00000000000001s from the vector components
    */
-  roundNegligible = function (): void {
+  roundNegligible(): void {
     const placesOfNegligibility = 10;
     this.x = Math.round(this.x * placesOfNegligibility) / placesOfNegligibility;
     this.y = Math.round(this.y * placesOfNegligibility) / placesOfNegligibility;
-  };
+  }
 
   /**
    * Rotates the direction of the vector
    * @param {Number} direction the new direction
    */
-  setDirection = function (direction: number): void {
+  setDirection(direction: number): void {
     // reset direction such that 0 <= dir'n <= 2pi
     direction = MathVector.mod2PI(direction);
 
@@ -159,17 +159,17 @@ export class MathVector {
     this.y = mag * Math.cos(direction);
 
     this.roundNegligible();
-  };
+  }
 
   /**
    * Returns a new MathVector, developed from a magnitude and direction instead of x and y
    * @param {Number} mag the magnitude of the new MathVector
    * @param {Number} dirn the direction of the new MathVector
    */
-  static newFromDirection = function (mag: number, dirn: number): MathVector {
+  static newFromDirection(mag: number, dirn: number): MathVector {
     const newVector = new MathVector(1, 1);
     newVector.resetToUnit(dirn);
     newVector.setMagnitude(mag);
     return newVector;
-  };
+  }
 }
