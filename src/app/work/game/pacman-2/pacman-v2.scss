@@ -1,68 +1,78 @@
-#canvas-container {
-  display: flex;
-}
+#pacman-v2-page {
+  .horizontal-grid {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    gap: 32px;
+    align-items: center;
+  }
 
-canvas {
-  width: 448px;
-  height: 608px;
-  border: 4px solid #d3d3d3;
-  background-color: black;
-  z-index: 5;
-  margin: auto;
-  margin-top: 2em;
-  transition: all 0.5s linear;
-}
+  #canvas-container {
+    display: flex;
+    margin: 2em 0;
+  }
 
-#controls {
-  text-align: center;
-  padding: 0.5em 1em 0 24px;
-}
+  canvas {
+    margin: auto;
+    width: 448px;
+    height: 608px;
+    border: 4px solid #d3d3d3;
+    background-color: black;
+    z-index: 5;
+    transition: all 0.5s linear;
+  }
 
-.pac-controls-table {
-  margin: auto;
-}
+  #controls {
+    text-align: center;
+    padding: 0.5em 1em 0 24px;
+  }
 
-.pac-controls-table td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 1em;
-  background-color: var(--secondary-bg-color);
-}
+  .pac-controls-table {
+    margin: auto;
+  }
 
-.pac-controls-table td.hide-cell {
-  visibility: hidden;
-}
+  .pac-controls-table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 1em;
+    background-color: var(--background-faint);
+  }
 
-.pacman-hallway-comparison > div {
-  padding: 0 2em;
-}
+  .pac-controls-table td.hide-cell {
+    visibility: hidden;
+  }
 
-.pacman-hallway-comparison img {
-  padding: 3em;
-  width: calc(100% - 6em);
-}
+  .pacman-hallway-comparison > div {
+    padding: 0 2em;
+  }
 
-.in-text-image {
-  padding: 3em;
-}
+  .pacman-hallway-comparison img {
+    padding: 3em;
+    width: calc(100% - 6em);
+  }
 
-.in-text-image img {
-  margin: auto;
-  display: block;
-  border: 2px solid var(--primary-accent-color);
-}
+  .in-text-image {
+    padding: 3em;
+  }
 
-.in-text-image p {
-  text-align: center;
-}
-
-.sprite {
-  display: none;
-  z-index: -10;
-}
-
-@media only screen and (max-width: 770px) {
   .in-text-image img {
-    width: 100%;
+    margin: auto;
+    display: block;
+    border: 2px solid var(--primary-accent-color);
+  }
+
+  .in-text-image p {
+    text-align: center;
+  }
+
+  .sprite {
+    display: none;
+    z-index: -10;
+  }
+
+  @media only screen and (max-width: 770px) {
+    .in-text-image img {
+      width: 100%;
+    }
   }
 }

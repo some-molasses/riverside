@@ -15,14 +15,6 @@
   }
 
   #writing-work-body {
-    h1,
-    h2,
-    h3 {
-      margin-top: 16px;
-      padding-bottom: 4px;
-      border-bottom: 1px solid var(--background-faint);
-    }
-
     font-size: 11pt;
 
     li {
@@ -53,13 +45,6 @@
         padding-top: 0;
       }
     }
-  }
-
-  .caption {
-    font-size: 10pt;
-    text-align: center;
-    width: 100%;
-    margin-top: -12px;
   }
 
   img {

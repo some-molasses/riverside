@@ -37,7 +37,6 @@ export class PacmanPage {
   stupidiferInterval: ReturnType<typeof setInterval> | undefined;
 
   constructor() {
-    debugger;
     PacmanMapNode.generateMap(this.canvas);
     this.restartGame(PacmanRestartTypesEnum.FULL);
 

@@ -10,7 +10,7 @@ export namespace DescriptionFactory {
   }
 }
 
-const MAXIMUM_LENGTH_WORDS = 60;
+const MAXIMUM_LENGTH_WORDS = 40;
 
 export class DescriptionFactory {
   outputEngine: OutputEngine;

@@ -6,7 +6,7 @@ No other libraries were used in this project.
 
 ## Design
 
-This is my second attempt at creating a Pac-Man game to upload to this portfolio. I still need to re-upload the first to this new iteration of my website.
+This is my second attempt at creating a Pac-Man game to upload to this portfolio. The first version is coming soon - I still need to re-upload it to this new iteration of my website.
 
 You can immediately spot a few differences, including the graphics and the 'High Scores' feature. Looking at the
 code, the differences become far starker.
@@ -25,23 +25,23 @@ This worked perfectly fine while the character moved at 1 pixel/second. However,
 navigation system began to break. Ghosts and players would often try to turn at an intersection and fail, which
 proved to severely hinder gameplay.
 
-![](/siteimages/pac/html-content/pacman-pre-hall.png)
+![](/works/games/pacman-2/images/writeup/pacman-pre-hall.png)
 [caption](In this frame, Pac-Man is approaching the intersection. If he travels at 1px/second, he will reach the intersection next frame and be able to turn.)
 
-![](/siteimages/pac/html-content/pacman-past-hall.png)
+![](/works/games/pacman-2/images/writeup/pacman-past-hall.png)
 [caption](However, if he is moving at **2px/second**, he will pass by the intersection, never turning no matter how much the player tries, since he is _always touching a wall_.)
 
 Hence, Pac-Man Version 2 implements an entirely different navigation strategy: a graph of nodes. Instead of
 deciding whether the character can move based on whether they are touching a wall, the characters' movements
 are based on whether there is a _path_ in that direction.
 
-![](/siteimages/pac/html-content/node-map.png)
+![](/works/games/pacman-2/images/writeup/node-map.png)
 [caption](The node-based navigation structure of Pac-Man Version 2.)
 
 This means that, looking at the code, one can see that _there are no walls_. The walls no longer exist in
 this version of the code &#8212; there are only paths.
 
-![](/siteimages/pac/html-content/node-map-no-walls.png)
+![](/works/games/pacman-2/images/writeup/node-map-no-walls.png)
 [caption](Even with the walls removed, the game works as normal.)
 
 This approach has resolved the navigation problems, and improved gameplay immensely.

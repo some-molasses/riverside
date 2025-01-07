@@ -65,14 +65,16 @@ export class PacmanHelper {
    * @param {Number} a
    * @param {Number} b
    */
-  static areOppositeDirection(a: PacmanDirectionEnum, b: PacmanDirectionEnum) {
+  static areOppositeDirection(a?: PacmanDirectionEnum, b?: PacmanDirectionEnum) {
     return a == PacmanHelper.getOppositeDirection(b);
   }
 
   /**
    * Returns the opposite compass direction to d
    */
-  static getOppositeDirection(d: PacmanDirectionEnum): PacmanDirectionEnum {
+  static getOppositeDirection(
+    d: PacmanDirectionEnum | undefined,
+  ): PacmanDirectionEnum | undefined {
     switch (d) {
       case PacmanDirectionEnum.UP:
         return PacmanDirectionEnum.DOWN;
@@ -84,6 +86,6 @@ export class PacmanHelper {
         return PacmanDirectionEnum.LEFT;
     }
 
-    throw new Error(`no direction given?`);
+    return undefined;
   }
 }

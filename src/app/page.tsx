@@ -23,9 +23,7 @@ export default function Home() {
         </div>
         {/* @todo add links to all sections */}
         <SoftwareSection />
-        <hr />
         <WritingSection />
-        <hr />
         <LeaderSection />
       </Content>
     </Page>

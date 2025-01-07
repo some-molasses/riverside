@@ -62,7 +62,7 @@ export class PacmanSprites extends BST<HTMLImageElement> {
 
   private addSprite(name: string): void {
     const location: string =
-        Molasses.getRelativeUrlPath("siteimages/pac") + "/" + name,
+        Molasses.getRelativeUrlPath("works/games/pacman-2/images") + "/" + name,
       sprite: HTMLImageElement = Molasses.createElement({
         type: "img",
         classList: "sprite",

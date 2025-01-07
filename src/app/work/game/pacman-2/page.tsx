@@ -5,69 +5,86 @@ import { Footer } from "@/app/components/footer/footer";
 import { ClientSideMarkdown } from "@/app/components/markdown/client-markdown";
 import { Page } from "@/app/components/page/page";
 import { Titles } from "@/app/components/titles/titles";
-import { useEffect } from "react";
+import {
+  Heading2,
+  Paragraph,
+  Span,
+} from "@/app/components/typography/variants/typography-variants";
+import { useEffect, useState } from "react";
 import { PacmanPage } from "./pacman-v2";
 import "./pacman-v2.scss";
 
 export default function PacmanV2() {
+  const [initialized, setInitialized] = useState<boolean>(false);
   useEffect(() => {
-    setTimeout(() => {
-      new PacmanPage();
-    }, 1000);
-  }, []);
+    if (!initialized) {
+      setTimeout(() => {
+        new PacmanPage();
+      }, 500);
+      setInitialized(true);
+    }
+  }, [initialized, setInitialized]);
 
   return (
     <Page id="pacman-v2-page">
       <Content>
-        <Titles title={"Pac-man"} />
+        <Titles title="Pac-Man" />
 
         <div id="canvas-container"></div>
 
-        <h2>Controls</h2>
-        <div className="horizontal-grid">
-          <div>
-            <table className="pac-controls-table">
-              <tbody>
-                <tr>
-                  <td className="hide-cell"></td>
-                  <td>W</td>
-                  <td className="hide-cell"></td>
-                </tr>
-                <tr>
-                  <td>A</td>
-                  <td>S</td>
-                  <td>D</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div>
-            <h3 style={{ textAlign: "center" }}>or</h3>
-          </div>
-          <div>
-            <table className="pac-controls-table">
-              <tbody>
-                <tr>
-                  <td className="hide-cell"></td>
-                  <td>&#x2191;</td>
-                  <td className="hide-cell"></td>
-                </tr>
-                <tr>
-                  <td>&#x2190;</td>
-                  <td>&#x2193;</td>
-                  <td>&#x2192;</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <p>Press any of the movement keys shown above to start.</p>
+        <Heading2>Controls</Heading2>
+
+        <Controls />
+
+        <Paragraph className="">
+          Press any of the movement keys shown above to start.
+        </Paragraph>
         <div id="sprites-container"></div>
 
-        <ClientSideMarkdown src="/works/games/lunar-defence/description.md" />
+        <ClientSideMarkdown src="/works/games/pacman-2/description.md" />
 
         <Footer />
       </Content>
     </Page>
   );
 }
+
+const Controls: React.FC = () => (
+  <div className="horizontal-grid">
+    <div>
+      <table className="pac-controls-table">
+        <tbody>
+          <tr>
+            <td className="hide-cell"></td>
+            <td>W</td>
+            <td className="hide-cell"></td>
+          </tr>
+          <tr>
+            <td>A</td>
+            <td>S</td>
+            <td>D</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <Span>or</Span>
+    </div>
+    <div>
+      <table className="pac-controls-table">
+        <tbody>
+          <tr>
+            <td className="hide-cell"></td>
+            <td>&#x2191;</td>
+            <td className="hide-cell"></td>
+          </tr>
+          <tr>
+            <td>&#x2190;</td>
+            <td>&#x2193;</td>
+            <td>&#x2192;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+);
