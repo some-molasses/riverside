@@ -27,7 +27,7 @@ export default async function WritingWork({
       <Content>
         <Titles title={title} subtitle={subtitle} />
         <div id="writing-work-body" className={tags.join(" ")}>
-          <ServerSideMarkdown contents={await work.getTextBody()} />
+          <ServerSideMarkdown contents={await work.getNonRetrievalTextBody()} />
         </div>
         <Footer />
       </Content>

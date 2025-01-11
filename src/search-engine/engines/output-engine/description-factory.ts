@@ -21,8 +21,12 @@ export class DescriptionFactory {
     this.outputEngine = outputEngine;
   }
 
+  private get retriever() {
+    return this.outputEngine.retriever;
+  }
+
   async getDescription(item: RetrievableItem, query: string): Promise<string> {
-    const itemContents = await item.getTextBody();
+    const itemContents = this.retriever.lexiconReader.getTextBody(item);
 
     const cleanedBody = itemContents // try to remove images, captions, etc.
       .replaceAll(/!?\[.*\]/g, "")

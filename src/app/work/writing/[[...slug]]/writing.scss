@@ -6,6 +6,10 @@
   .titles {
     padding-bottom: 16px;
     border-bottom: 1px solid var(--background-faint);
+
+    h1 {
+      border-bottom: none;
+    }
   }
 
   h1,

@@ -2,7 +2,7 @@ import path from "path";
 
 export class MetadataEngine {
   private static readonly METADATA_DIRECTORY_PATH = path.join(
-    process.cwd(),
+    // process.cwd(),
     "src/search-engine/data/metadata",
   );
 
@@ -20,5 +20,6 @@ export class MetadataEngine {
       this.METADATA_DIRECTORY_PATH,
       "inverted_index.json",
     ),
+    TEXT_BODIES: path.join(this.METADATA_DIRECTORY_PATH, "text-bodies.json"),
   };
 }

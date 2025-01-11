@@ -45,7 +45,11 @@ export class QueryEngine {
   }
 
   async retrieveItem(itempath: string): Promise<RetrievableItem | null> {
-    const configPath = path.join(process.cwd(), itempath, "item-metadata.json");
+    const configPath = path.join(
+      // process.cwd(),
+      itempath,
+      "item-metadata.json",
+    );
 
     try {
       await access(configPath, fs.constants.F_OK);
@@ -61,7 +65,11 @@ export class QueryEngine {
     return RetrievableItem.constructFromConfig(
       await config,
       -1, // @todo set ids
-      path.join(process.cwd(), itempath, "main.md"),
+      path.join(
+        // process.cwd(),
+        itempath,
+        "main.md",
+      ),
     );
   }
 }

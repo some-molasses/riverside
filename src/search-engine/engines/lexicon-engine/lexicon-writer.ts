@@ -2,7 +2,7 @@ import { SearchIndexer } from "@/search-engine/search-indexer";
 import { writeFileSync } from "fs";
 import { MetadataEngine } from "../metadata-engine/metadata-engine";
 import { RetrievableItem } from "../shared/retrievable-item";
-import { PostingsList } from "./lexicon-engine";
+import { LexiconEngine, PostingsList } from "./lexicon-engine";
 
 /**
  * Handles lexicon construction during indexing.
@@ -15,6 +15,7 @@ export class LexiconWriter {
 
   invertedIndex: PostingsList[] = [];
   docLengths: number[] = [];
+  textBodies: string[] = [];
 
   constructor(indexer: SearchIndexer) {
     this.indexer = indexer;
@@ -26,7 +27,10 @@ export class LexiconWriter {
    * Does not write the inverted index to any file
    */
   async indexDocumentTerms(item: RetrievableItem) {
-    const termIds = this.convertTokensToTermIds(await item.getTokens());
+    const textBody = await item.getNonRetrievalTextBody();
+    const termIds = this.convertTokensToTermIds(
+      LexiconEngine.tokenize(textBody),
+    );
     const termCounts = this.getTermCounts(termIds);
 
     for (const [termId, count] of termCounts) {
@@ -38,6 +42,7 @@ export class LexiconWriter {
     }
 
     this.docLengths[item.id] = termIds.length;
+    this.textBodies[item.id] = textBody;
   }
 
   /**
@@ -57,6 +62,11 @@ export class LexiconWriter {
     writeFileSync(
       MetadataEngine.FILEPATHS.LEXICON,
       JSON.stringify(this.termToIds),
+    );
+
+    writeFileSync(
+      MetadataEngine.FILEPATHS.TEXT_BODIES,
+      JSON.stringify(this.textBodies),
     );
   }
 

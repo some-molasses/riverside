@@ -10,7 +10,7 @@ export class IndexingEngine {
   static readonly ACCEPTED_FILENAMES = ["page.tsx", "main.md"];
   static readonly ITEM_METADATA_FILENAME = "item-metadata.json";
   static readonly INDEXED_METADATA_FILEPATH = path.join(
-    process.cwd(),
+    // process.cwd(),
     "src/search-engine/data",
     "metadata.json",
   );
@@ -26,7 +26,7 @@ export class IndexingEngine {
     const items: RetrievableItem[] = [
       ...(await this.findAllItemsInDirectory(["writing-database"])),
       ...(await this.findAllItemsInDirectory(["src/app"])),
-    ];
+    ].sort((a, b) => (a.date < b.date ? 1 : -1));
 
     // assign IDs
     items.forEach((item, index) => (item.metadata.id = index));
@@ -52,14 +52,23 @@ export class IndexingEngine {
   private async findAllItemsInDirectory(
     subpath: string[],
   ): Promise<RetrievableItem[]> {
-    const dirPath = path.join(process.cwd(), ...subpath);
+    const dirPath = path.join(
+      // process.cwd(),
+      ...subpath,
+    );
     const directoryItems = await readdir(dirPath);
 
     // Determine whether any sub-directories are present
     const lstats = await Promise.all(
       directoryItems.map(async (item) => ({
         item,
-        lstat: await lstat(path.join(process.cwd(), ...subpath, item)),
+        lstat: await lstat(
+          path.join(
+            // process.cwd(),
+            ...subpath,
+            item,
+          ),
+        ),
       })),
     );
 
@@ -83,9 +92,13 @@ export class IndexingEngine {
     if (lstat.isDirectory()) {
       return await this.findAllItemsInDirectory([...directoryPath, fileName]);
     } else if (IndexingEngine.ACCEPTED_FILENAMES.includes(fileName)) {
-      const mainPath = path.join(process.cwd(), ...directoryPath, fileName);
+      const mainPath = path.join(
+        // process.cwd(),
+        ...directoryPath,
+        fileName,
+      );
       const configPath = path.join(
-        process.cwd(),
+        // process.cwd(),
         ...directoryPath,
         IndexingEngine.ITEM_METADATA_FILENAME,
       );

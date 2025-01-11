@@ -15,6 +15,7 @@ export class LexiconReader {
   private _isInitialized: boolean = false;
   private _lexicon: Record<string, number> = {};
   private _documentLengths: number[] = [];
+  private _textBodies: string[] = [];
 
   constructor(retriever: SearchRetriever) {
     this.retriever = retriever;
@@ -33,6 +34,9 @@ export class LexiconReader {
     );
     this._documentLengths = JSON.parse(
       (await readFile(MetadataEngine.FILEPATHS.DOC_LENGTHS)).toString(),
+    );
+    this._textBodies = JSON.parse(
+      (await readFile(MetadataEngine.FILEPATHS.TEXT_BODIES)).toString(),
     );
 
     this._isInitialized = true;
@@ -56,6 +60,10 @@ export class LexiconReader {
       this._documentLengths.reduce((acc, l) => acc + l, 0) /
       this._documentLengths.length
     );
+  }
+
+  getTextBody(item: RetrievableItem): string {
+    return this._textBodies[item.id];
   }
 
   getDocumentLength(documentId: number): number {
