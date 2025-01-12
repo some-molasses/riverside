@@ -3,7 +3,7 @@ import { Footer } from "@/app/components/footer/footer";
 import { ServerSideMarkdown } from "@/app/components/markdown/server-markdown";
 import { PageContents } from "@/app/components/page-contents/page-contents";
 import { Titles } from "@/app/components/titles/titles";
-import { SearchRetriever } from "@/search-engine/search-retriever";
+import { SearchRetriever } from "@/app/search-engine/search-retriever";
 import "./writing.scss";
 
 export default async function WritingWork({

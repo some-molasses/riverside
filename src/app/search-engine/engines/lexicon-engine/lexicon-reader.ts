@@ -1,4 +1,4 @@
-import { SearchRetriever } from "@/search-engine/search-retriever";
+import { SearchRetriever } from "@/app/search-engine/search-retriever";
 import { readFile } from "fs/promises";
 import { MetadataEngine } from "../metadata-engine/metadata-engine";
 import { RetrievableItem } from "../shared/retrievable-item";

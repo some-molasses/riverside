@@ -1,4 +1,4 @@
-import { SearchRetriever } from "@/search-engine/search-retriever";
+import { SearchRetriever } from "@/app/search-engine/search-retriever";
 import { type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {

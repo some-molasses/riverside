@@ -2,7 +2,7 @@ import {
   Heading2,
   Span,
 } from "@/app/components/typography/variants/typography-variants";
-import { QueryResult } from "@/search-engine/engines/shared/query-result";
+import { QueryResult } from "@/app/search-engine/engines/shared/query-result";
 import Image from "next/image";
 import Link from "next/link";
 import "./search-result.scss";

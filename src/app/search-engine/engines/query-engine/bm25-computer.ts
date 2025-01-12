@@ -1,4 +1,4 @@
-import { SearchRetriever } from "@/search-engine/search-retriever";
+import { SearchRetriever } from "@/app/search-engine/search-retriever";
 
 /**
  * Computers BM25 scores for ranking, whether that be document ranking or query-biased summary ranking

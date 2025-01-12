@@ -1,4 +1,4 @@
-import { SearchIndexer } from "@/search-engine/search-indexer";
+import { SearchIndexer } from "@/app/search-engine/search-indexer";
 
 import { writeFileSync } from "fs";
 import {

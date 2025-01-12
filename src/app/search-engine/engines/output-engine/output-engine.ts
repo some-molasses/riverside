@@ -1,7 +1,7 @@
 import {
   RetrievalOptions,
   SearchRetriever,
-} from "@/search-engine/search-retriever";
+} from "@/app/search-engine/search-retriever";
 import { QueryResult } from "../shared/query-result";
 import {
   RetrievableItem,

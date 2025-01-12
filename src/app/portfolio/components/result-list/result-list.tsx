@@ -1,4 +1,4 @@
-import { QueryResult } from "@/search-engine/engines/shared/query-result";
+import { QueryResult } from "@/app/search-engine/engines/shared/query-result";
 import { SearchResult } from "../search-result/search-result";
 
 export const ResultList: React.FC<{ items: QueryResult[] }> = ({ items }) => {

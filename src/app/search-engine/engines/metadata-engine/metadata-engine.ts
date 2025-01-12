@@ -3,7 +3,7 @@ import path from "path";
 export class MetadataEngine {
   private static readonly METADATA_DIRECTORY_PATH = path.join(
     // process.cwd(),
-    "src/search-engine/data/metadata",
+    "src/app/search-engine/data/metadata",
   );
 
   static readonly FILEPATHS = {

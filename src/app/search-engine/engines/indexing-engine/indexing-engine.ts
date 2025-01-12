@@ -1,4 +1,4 @@
-import { SearchIndexer } from "@/search-engine/search-indexer";
+import { SearchIndexer } from "@/app/search-engine/search-indexer";
 import { existsSync, Stats } from "fs";
 import { lstat, readdir, readFile } from "fs/promises";
 import path from "path";
@@ -11,7 +11,7 @@ export class IndexingEngine {
   static readonly ITEM_METADATA_FILENAME = "item-metadata.json";
   static readonly INDEXED_METADATA_FILEPATH = path.join(
     // process.cwd(),
-    "src/search-engine/data",
+    "src/app/search-engine/data",
     "metadata.json",
   );
 
