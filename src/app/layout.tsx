@@ -15,8 +15,8 @@ const bodyFont = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "some-molasses",
-  description: "River Stanley's personal website",
+  title: "river-stanley.me",
+  description: "The portfolio of River Stanley",
 };
 
 export default function RootLayout({
