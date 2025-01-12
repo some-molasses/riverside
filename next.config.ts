@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
 
   outputFileTracingIncludes: {
     "/api/search/items": ["./**/*.md", "./**/*.json"],
+    "/app/work/writing/\\[\\[\\.\\.\\.slug\\]\\]": ["./**/*.md", "./**/*.json"],
   },
 };
 
