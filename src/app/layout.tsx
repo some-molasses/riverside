@@ -26,7 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <SpeedInsights />
+      <head>
+        <SpeedInsights />
+      </head>
       <body className={`${titleFont.variable} ${bodyFont.variable}`}>
         <TopNav />
         {children}
