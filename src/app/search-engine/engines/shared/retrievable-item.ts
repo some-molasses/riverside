@@ -76,7 +76,7 @@ export class RetrievableItem {
     try {
       await access(this.source, fs.constants.F_OK);
     } catch {
-      throw new Error(`${this.source} not found`);
+      throw new Error(`${this.source} not found for document ${this.title}`);
     }
 
     this._body = await readFile(this.source).then((file) => file.toString());

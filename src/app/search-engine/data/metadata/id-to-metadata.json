@@ -13,6 +13,7 @@
   {
     "title": "LA Times Search Engine",
     "date": "December 2024",
+    "description": "src/app/work/code-projects/latimes-search/description.md",
     "tags": [
       "coding"
     ],

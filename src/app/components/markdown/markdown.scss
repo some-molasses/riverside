@@ -1,4 +1,10 @@
 .markdown-section {
+  h1,
+  h2,
+  h3 {
+    margin-top: 24px;
+  }
+
   a {
     color: var(--light-1);
   }
@@ -14,5 +20,6 @@
     display: block;
     margin: auto;
     padding: 16px 24px;
+    max-width: 100%;
   }
 }
