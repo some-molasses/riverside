@@ -13,7 +13,7 @@ import "./home.scss";
 
 export const revalidate = 24 * 60 * 60; // in seconds; revalidate each day
 
-export default function Home() {
+export default async function Home() {
   const date = new Date().getDate();
 
   const getImage = (): string => {
