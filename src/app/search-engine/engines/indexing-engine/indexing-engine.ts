@@ -31,15 +31,11 @@ export class IndexingEngine {
     // assign IDs
     items.forEach((item, index) => (item.metadata.id = index));
 
-    // register metadata / tokens
-    await Promise.all(
-      items.flatMap((item) => {
-        return [
-          this.indexer.metadataWriter.registerItemMetadata(item),
-          this.indexer.lexiconWriter.indexDocumentTerms(item),
-        ];
-      }),
-    );
+    // actively do NOT do this in parallel so as to have a consistent inverted index, lexicon across indexing runs
+    for (const item of items) {
+      this.indexer.metadataWriter.registerItemMetadata(item);
+      this.indexer.lexiconWriter.indexDocumentTerms(item);
+    }
 
     this.indexer.metadataWriter.writeMetadataFiles();
     this.indexer.lexiconWriter.writeLexicon();
