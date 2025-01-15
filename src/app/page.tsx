@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CenterOverflow } from "./components/center-overflow/center-overflow";
 import { Content } from "./components/content/content";
 import { PageContents } from "./components/page-contents/page-contents";
 import {
@@ -10,12 +11,29 @@ import {
 } from "./components/typography/variants/typography-variants";
 import "./home.scss";
 
+export const revalidate = 24 * 60 * 60; // in seconds; revalidate each day
+
 export default function Home() {
+  const date = new Date().getDate();
+
+  const getImage = (): string => {
+    switch (date % 2) {
+      case 0:
+        return "/fall/october.jpg";
+      case 1:
+        return "/fall/rocks.jpg";
+      case 2:
+      default:
+        return "/fall/goose.jpg";
+    }
+  };
   return (
     <PageContents id="homepage">
-      <div className="img-container">
-        <Image src="/fall/october.jpg" alt="" fill />
-      </div>
+      <CenterOverflow>
+        <div className="img-container">
+          <Image src={getImage()} alt="" fill />
+        </div>
+      </CenterOverflow>
       <Content>
         <div id="titles">
           <Heading1>river stanley</Heading1>

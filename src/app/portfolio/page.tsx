@@ -34,9 +34,9 @@ function Portfolio() {
     return await res.json();
   }, []);
 
-  const filters = searchParams.get("filter") ?? "";
+  const filter = searchParams.get("filter") ?? "";
   const { data, isLoading } = useSWR(
-    `/api/search/items?tags=${filters}&q=${query}`,
+    `/api/search/items?tags=${filter}&q=${query}`,
     fetcher,
   );
 
@@ -46,9 +46,7 @@ function Portfolio() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      // if (Date.now() - INPUT_TIMEOUT > lastUpdate) {
       setQuery(input.current?.value ?? "");
-      // }
     }, INPUT_TIMEOUT);
 
     return () => {
@@ -56,12 +54,37 @@ function Portfolio() {
     };
   }, [lastUpdate]);
 
+  const getTitles = (): { title: string; subtitle: string } => {
+    switch (filter) {
+      case "writing": {
+        return {
+          title: "writings library",
+          subtitle: "musings about the most important unimportant things",
+        };
+      }
+      case "coding": {
+        return {
+          title: "code projects",
+          subtitle: "games, tools, and minimal missing semicolons",
+        };
+      }
+      default: {
+        return {
+          title: "project search",
+          subtitle: "a database of many things I have done",
+        };
+      }
+    }
+  };
+
+  const { title, subtitle } = getTitles();
+
   return (
     <PageContents id="portfolio-page">
       <Content>
         <div id="titles">
-          <Heading1>project search</Heading1>
-          <Span>a database of many things I have done</Span>
+          <Heading1>{title}</Heading1>
+          <Span>{subtitle}</Span>
         </div>
         <div id="search-container">
           <input
