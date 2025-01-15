@@ -34,7 +34,7 @@ export class IndexingEngine {
     // actively do NOT do this in parallel so as to have a consistent inverted index, lexicon across indexing runs
     for (const item of items) {
       this.indexer.metadataWriter.registerItemMetadata(item);
-      this.indexer.lexiconWriter.indexDocumentTerms(item);
+      await this.indexer.lexiconWriter.indexDocumentTerms(item);
     }
 
     this.indexer.metadataWriter.writeMetadataFiles();
