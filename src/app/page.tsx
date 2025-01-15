@@ -11,7 +11,7 @@ import {
 } from "./components/typography/variants/typography-variants";
 import "./home.scss";
 
-export const revalidate = 24 * 60 * 60; // in seconds; revalidate each day
+export const revalidate = 86400; // 24h in seconds; revalidate each day
 
 export default async function Home() {
   const date = new Date().getDate();
