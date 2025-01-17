@@ -47,11 +47,35 @@
     .result-image {
       position: relative;
       width: 150px;
-      // height: 125px;
 
       img {
         object-fit: cover;
-        // height:;
+      }
+    }
+
+    .bottom-row {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .result-tags {
+      display: flex;
+      flex-direction: row;
+      gap: 4px;
+      margin-top: 12px;
+
+      .result-tag {
+        cursor: pointer;
+        padding: 4px;
+        transform-origin: var(--transition);
+        background-color: var(--background);
+        border: 1px solid var(--background-faint);
+
+        font-size: 11px;
+
+        &:hover {
+          color: var(--light-1);
+        }
       }
     }
   }

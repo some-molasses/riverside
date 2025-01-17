@@ -55,17 +55,49 @@ function Portfolio() {
   }, [lastUpdate]);
 
   const getTitles = (): { title: string; subtitle: string } => {
-    switch (filter) {
-      case "writing": {
-        return {
-          title: "writings library",
-          subtitle: "musings about the most important unimportant things",
-        };
-      }
+    switch (filter.toLowerCase()) {
       case "coding": {
         return {
           title: "code projects",
           subtitle: "games, tools, and minimal missing semicolons",
+        };
+      }
+      case "game": {
+        return {
+          title: "games",
+          subtitle:
+            "pushing javascript canvas to do more than it was probably meant for",
+        };
+      }
+      case "mathnews": {
+        return {
+          title: "mathNEWS",
+          subtitle: "the reason i'm now cited on wikipedia",
+        };
+      }
+      case "poem": {
+        return {
+          title: "poetry",
+          subtitle:
+            "sentiments, neat writing tricks, and completley arbitrary line breaks",
+        };
+      }
+      case "recipe": {
+        return {
+          title: "food for thought",
+          subtitle: "or thoughts for food? perhaps both!",
+        };
+      }
+      case "short-story": {
+        return {
+          title: "short stories",
+          subtitle: "inspired by things and maybe even people",
+        };
+      }
+      case "writing": {
+        return {
+          title: "writings library",
+          subtitle: "musings about the most important unimportant things",
         };
       }
       default: {
