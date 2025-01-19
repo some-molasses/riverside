@@ -5,6 +5,7 @@ import {
 import { QueryResult } from "@/app/search-engine/engines/shared/query-result";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 import "./search-result.scss";
 
 export const SearchResult: React.FC<{
@@ -29,10 +30,10 @@ export const SearchResult: React.FC<{
     <li className="search-result">
       <Link className="search-result-inner" href={getHref()}>
         <div className="result-text-panel">
-          {subtitle ? (
-            <>
-              <Heading2 className="result-title">{title}</Heading2>
-              <div className="result-subtitle-row">
+          <Heading2 className="result-title">{title}</Heading2>
+          <div className="result-subtitle-row">
+            {subtitle ? (
+              <>
                 <Span className="result-subtitle">{subtitle}</Span>
                 <Span className="result-date">
                   {new Date(date).toLocaleDateString("en-CA", {
@@ -40,27 +41,31 @@ export const SearchResult: React.FC<{
                     year: "numeric",
                   })}
                 </Span>
-              </div>
-            </>
-          ) : (
-            <>
-              <Heading2 className="result-title">{title}</Heading2>
-              <div className="result-subtitle-row">
+              </>
+            ) : (
+              <>
                 <Span className="result-date">
                   {new Date(date).toLocaleDateString("en-CA", {
                     month: "long",
                     year: "numeric",
                   })}
                 </Span>
-              </div>
-            </>
-          )}
+              </>
+            )}
+          </div>
           <div className="result-description">
             <div
               dangerouslySetInnerHTML={{
                 __html: item.description ?? undefined,
               }}
             />
+          </div>
+          <div className="bottom-row">
+            <div className="result-tags">
+              {item.metadata.tags.sort().map((tag) => (
+                <TagPill key={tag} tag={tag} />
+              ))}
+            </div>
           </div>
         </div>
         {item.metadata.thumbnail ? (
@@ -74,5 +79,13 @@ export const SearchResult: React.FC<{
         ) : null}
       </Link>
     </li>
+  );
+};
+
+const TagPill: React.FC<{ tag: string }> = ({ tag }) => {
+  return (
+    <Link className="result-tag" href={`/portfolio?filter=${tag}`}>
+      {tag}
+    </Link>
   );
 };
