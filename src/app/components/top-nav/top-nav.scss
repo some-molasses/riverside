@@ -1,21 +1,107 @@
-#top-nav {
-  padding: 0 32px;
+@import "../../mixins.scss";
+#top-nav-container {
+  #top-nav {
+    $side-padding: 32px;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+    height: 70px;
 
-  .top-nav-item {
-    padding: 24px 32px;
-    background-color: var(--background);
-    transition: var(--transition);
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
-    &:hover,
-    &:focus-visible {
-      background-color: var(--background-faint);
+    #top-nav-left {
+      padding-left: $side-padding;
+    }
+
+    .top-nav-item {
+      padding: 24px 32px;
+      height: 100%;
+      background-color: var(--background);
+      transition: var(--transition);
+      display: inline-block;
       cursor: pointer;
+
+      &:hover,
+      &:focus-visible {
+        background-color: var(--background-faint);
+      }
+    }
+
+    #desktop-nav-items {
+      display: none;
+
+      flex-direction: row;
+      height: 100%;
+      padding: 0 $side-padding;
+    }
+
+    #mobile-nav {
+      padding: 24px $side-padding;
+      height: 100%;
+      transition: var(--transition);
+      cursor: pointer;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      &:hover,
+      &:focus-visible {
+        background-color: var(--background-faint);
+      }
+    }
+
+    @include desktop-only {
+      #desktop-nav-items {
+        display: flex;
+      }
+
+      #mobile-nav {
+        display: none;
+      }
+    }
+  }
+
+  #mobile-nav-items {
+    transition: 0.5s ease;
+    height: 0;
+    overflow: hidden;
+    &.active {
+      height: 200px;
+    }
+
+    #mobile-nav-items-inner {
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background-color: #555;
+
+      .mobile-nav-item {
+        transition: var(--transition);
+        cursor: pointer;
+
+        width: 100%;
+        height: 100%;
+        display: block;
+        text-align: center;
+        background-color: var(--background-faint);
+
+        .contents {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        &:hover,
+        &:focus-visible {
+          background-color: var(--background-faint);
+        }
+      }
     }
   }
 }
