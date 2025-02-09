@@ -33,6 +33,7 @@ export class MarkdownFormatter {
       .replaceAll(
         /\[caption\]\(([^\)]+)\)/gs,
         (_, caption) => `<div class="caption">${caption}</div>`,
-      );
+      )
+      .replaceAll(/\[linebreak\]/g, `<br/>`);
   }
 }

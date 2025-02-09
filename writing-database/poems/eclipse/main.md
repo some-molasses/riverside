@@ -18,7 +18,7 @@ it’s not the aimless firefighters, awaiting outside the firehall the quiet of 
 
 it’s not even the crackle of fireworks, jealous in the distance.
 
--/- 
+[linebreak]
 
 it’s not the ghostly light emanating from the clouds.
 
@@ -26,7 +26,7 @@ it’s not the ghostly light emanating from the clouds.
 
 > the piercing gaze of the omnipotent.
 
--/-
+[linebreak]
 
 it’s the way that five minutes later,
 
