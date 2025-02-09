@@ -1,35 +1,62 @@
-interface PlayerData {
-  id: number;
-  remainingTime: number;
-  lastTimerStart: number;
+namespace CoolDownGame {
+  export interface PlayerData {
+    id: "cool" | "down";
+    remainingTime: number;
+    lastTimerStart: number;
+  }
+
+  export interface Guess {
+    player: "cool" | "down";
+    country: string;
+    points: number;
+  }
 }
 
 const STARTING_TIME = 15 * 1000;
 
 export class CoolDownGame {
-  static p1: PlayerData = {
-    id: 1,
+  static interval: NodeJS.Timeout;
+
+  static p1: CoolDownGame.PlayerData = {
+    id: "cool",
     remainingTime: STARTING_TIME,
     lastTimerStart: 0,
   };
-  static p2: PlayerData = {
-    id: 2,
+  static p2: CoolDownGame.PlayerData = {
+    id: "down",
     remainingTime: STARTING_TIME,
     lastTimerStart: 0,
   };
 
   static activePlayer = CoolDownGame.p1;
+  static guesses: CoolDownGame.Guess[] = [];
+
+  static get inactivePlayer() {
+    if (this.activePlayer === CoolDownGame.p1) {
+      return CoolDownGame.p2;
+    } else {
+      return CoolDownGame.p1;
+    }
+  }
 
   static updateTimer() {
     const now = Date.now();
 
     const remaining =
-      CoolDownGame.p1.lastTimerStart + CoolDownGame.p1.remainingTime - now;
+      CoolDownGame.activePlayer.lastTimerStart +
+      CoolDownGame.activePlayer.remainingTime -
+      now;
 
-    const s = Math.round((remaining / 1000) % 60);
-    const ms = Math.round(remaining % 1000);
+    const s = Math.max(Math.round((remaining / 1000) % 60), 0);
+    const ms = Math.max(Math.round(remaining % 1000), 0);
 
     document.getElementById("timer-text")!.innerText = `${s}:${ms}`;
+    document.getElementById(`${CoolDownGame.activePlayer.id}-time`)!.innerText =
+      `${s}:${ms}`;
+
+    if (remaining < 0) {
+      CoolDownGame.endGame();
+    }
 
     const range = STARTING_TIME;
     const inverseRemaining = range - remaining;
@@ -53,32 +80,66 @@ export class CoolDownGame {
       return; // add visible error
     }
 
+    if (CoolDownGame.guesses.map((g) => g.country).includes(country)) {
+      console.error(`${country} previously guessed`);
+      return; // add visible error
+    }
+
     const latitude = CoolDownGame.getLatitude(country);
 
     const percentageCool = (90 - Math.abs(latitude)) / 90;
     const percentageDown = Math.abs(latitude - 90) / 180;
 
+    // update time
     CoolDownGame.activePlayer.remainingTime -=
       Date.now() - CoolDownGame.activePlayer.lastTimerStart;
+    CoolDownGame.activePlayer.lastTimerStart = Date.now();
+    const pointsForGuess = Math.round(
+      3000 * percentageCool + 3000 * percentageDown,
+    );
 
-    CoolDownGame.activePlayer.remainingTime +=
-      5000 * percentageCool + 5000 * percentageDown;
+    CoolDownGame.activePlayer.remainingTime += pointsForGuess;
+
+    CoolDownGame.updateTimer();
+
+    // switch out player
+    CoolDownGame.guesses.push({
+      country,
+      player: CoolDownGame.activePlayer.id,
+      points: pointsForGuess,
+    });
+
+    document.getElementById(
+      `${CoolDownGame.activePlayer.id}-guesses`,
+    )!.innerHTML += `<div class="guess">${country} (${pointsForGuess})</div>`;
 
     CoolDownGame.activePlayer =
-      CoolDownGame.activePlayer.id === 1 ? CoolDownGame.p2 : CoolDownGame.p1;
+      CoolDownGame.activePlayer.id === "cool"
+        ? CoolDownGame.p2
+        : CoolDownGame.p1;
 
     CoolDownGame.activePlayer.lastTimerStart = Date.now();
 
     document.getElementById("current-player")!.innerText =
-      `player ${CoolDownGame.activePlayer.id}`;
+      `team ${CoolDownGame.activePlayer.id}`;
 
     const input = document.getElementById("country-input") as HTMLInputElement;
     input!.value = "";
   }
 
+  static endGame() {
+    clearInterval(CoolDownGame.interval);
+
+    document.getElementById("playable-center-col")!.classList.remove("active");
+    document.getElementById("endgame-center-col")!.classList.add("active");
+
+    document.getElementById("winning-team")!.innerHTML =
+      `team ${CoolDownGame.inactivePlayer.id} wins!`;
+  }
+
   static init() {
     const input = document.getElementById("country-input") as HTMLInputElement;
-    input.placeholder = "player 1: enter any country to begin";
+    input.placeholder = "enter any country or continent to begin";
 
     this.p1.lastTimerStart = Date.now();
     this.p2.lastTimerStart = Date.now();
@@ -89,7 +150,7 @@ export class CoolDownGame {
       }
     });
 
-    setInterval(() => {
+    CoolDownGame.interval = setInterval(() => {
       CoolDownGame.updateTimer();
     }, 16);
   }

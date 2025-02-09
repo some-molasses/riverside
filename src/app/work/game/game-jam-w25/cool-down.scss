@@ -9,6 +9,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    background: linear-gradient(180deg, var(--background), blue);
 
     height: 100%;
     padding: 24px;
@@ -23,6 +24,18 @@
       &#right-col {
         text-align: right;
       }
+
+      .team-name {
+        font-size: 24px;
+      }
+
+      .time-remaining {
+        font-size: 20px;
+      }
+
+      .guess {
+        font-size: 12px;
+      }
     }
 
     #center-col {
@@ -30,6 +43,17 @@
       flex-direction: column;
       align-items: center;
       flex-grow: 1;
+
+      .center-col-main {
+        display: none;
+        width: 100%;
+
+        &.active {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      }
     }
 
     #country-input-desc {

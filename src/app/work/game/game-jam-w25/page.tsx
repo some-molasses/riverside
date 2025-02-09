@@ -22,22 +22,35 @@ export default function CoolDownPage() {
     <PageContents id="cool-down-page">
       <CenterOverflow>
         <div id="cool-down-main">
-          <div className="side-col" id="left-col">
-            team cool
-          </div>
+          <SideColumn id="cool" side="left" />
           <div id="center-col">
             <div id="timer">
-              <span id="timer-text">10:00:00</span>
-              <span id="current-player">player 1</span>
+              <span id="timer-text">15:000</span>
+              <span id="current-player">team cool</span>
             </div>
-            <input id="country-input"></input>
-            <Span id="country-input-desc">enter a country or continent</Span>
+            <div className="center-col-main active" id="playable-center-col">
+              <input id="country-input"></input>
+              <Span id="country-input-desc">enter a country or continent</Span>
+            </div>
+            <div className="center-col-main" id="endgame-center-col">
+              <Span id="winning-team">team wins</Span>
+            </div>
           </div>
-          <div className="side-col" id="right-col">
-            team down
-          </div>
+          <SideColumn id="down" side="right" />
         </div>
       </CenterOverflow>
     </PageContents>
   );
 }
+
+const SideColumn: React.FC<{ id: string; side: string }> = ({ id, side }) => {
+  return (
+    <div className="side-col" id={`${side}-col`}>
+      <div className="guess-list" id={`${id}-guesses`}></div>
+      <span className="time-remaining" id={`${id}-time`}>
+        15:00:00
+      </span>
+      <span className="team-name">team {id}</span>
+    </div>
+  );
+};
