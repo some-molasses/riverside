@@ -1,3 +1,5 @@
+@import "../../../mixins.scss";
+
 .item-title {
   display: flex;
   flex-direction: column;
@@ -5,7 +7,12 @@
 
   > div {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
+
+    @include desktop-only {
+      flex-direction: row;
+      font-style: normal;
+    }
   }
 }
