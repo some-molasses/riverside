@@ -1,5 +1,11 @@
-#titles {
+.titles {
   display: flex;
   flex-direction: column;
   gap: 4px;
+
+  &.white {
+    h1 {
+      border-color: white;
+    }
+  }
 }

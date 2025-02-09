@@ -5,6 +5,42 @@
     height: 100%;
   }
 
+  .cooldown-contents {
+    display: none;
+    width: 100%;
+    height: 100%;
+
+    &.active {
+      display: flex;
+    }
+
+    &#tutorial-contents {
+      width: 100%;
+      max-width: var(--content-width);
+      margin: auto;
+      flex-direction: column;
+    }
+
+    &#game-contents {
+      flex-direction: row;
+    }
+  }
+
+  #start-button {
+    display: block;
+    margin: auto;
+    padding: 8px 48px;
+    border: 1px solid white;
+
+    cursor: pointer;
+    transition: var(--transition);
+
+    &:hover {
+      background-color: white;
+      color: blue;
+    }
+  }
+
   #cool-down-main {
     display: flex;
     flex-direction: row;
@@ -42,6 +78,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       flex-grow: 1;
 
       .center-col-main {
@@ -60,12 +97,22 @@
       font-style: italic;
       color: #eee;
     }
+
+    #restart-text {
+      font-size: 10px;
+      font-style: italic;
+    }
   }
 
   input {
     background-color: white;
     color: #333;
     outline: none;
+
+    &.error {
+      animation: shake 0.25s;
+      animation-iteration-count: 2;
+    }
   }
 
   #timer {
@@ -85,5 +132,42 @@
 
   #country-input {
     width: 100%;
+  }
+
+  // source: w3schools
+  @keyframes shake {
+    0% {
+      transform: translate(1px, 1px) rotate(0deg);
+    }
+    10% {
+      transform: translate(-1px, -2px) rotate(-1deg);
+    }
+    20% {
+      transform: translate(-3px, 0px) rotate(1deg);
+    }
+    30% {
+      transform: translate(3px, 2px) rotate(0deg);
+    }
+    40% {
+      transform: translate(1px, -1px) rotate(1deg);
+    }
+    50% {
+      transform: translate(-1px, 2px) rotate(-1deg);
+    }
+    60% {
+      transform: translate(-3px, 1px) rotate(0deg);
+    }
+    70% {
+      transform: translate(3px, 1px) rotate(-1deg);
+    }
+    80% {
+      transform: translate(-1px, -1px) rotate(1deg);
+    }
+    90% {
+      transform: translate(1px, 2px) rotate(0deg);
+    }
+    100% {
+      transform: translate(1px, -2px) rotate(-1deg);
+    }
   }
 }

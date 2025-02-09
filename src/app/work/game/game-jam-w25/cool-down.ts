@@ -8,23 +8,25 @@ namespace CoolDownGame {
   export interface Guess {
     player: "cool" | "down";
     country: string;
-    points: number;
   }
 }
-
-const STARTING_TIME = 15 * 1000;
 
 export class CoolDownGame {
   static interval: NodeJS.Timeout;
 
+  static STARTING_SECONDS = 20;
+  static STARTING_TIME = CoolDownGame.STARTING_SECONDS * 1000;
+
+  static pointsPerMetric = 3000;
+
   static p1: CoolDownGame.PlayerData = {
     id: "cool",
-    remainingTime: STARTING_TIME,
+    remainingTime: CoolDownGame.STARTING_TIME,
     lastTimerStart: 0,
   };
   static p2: CoolDownGame.PlayerData = {
     id: "down",
-    remainingTime: STARTING_TIME,
+    remainingTime: CoolDownGame.STARTING_TIME,
     lastTimerStart: 0,
   };
 
@@ -37,6 +39,10 @@ export class CoolDownGame {
     } else {
       return CoolDownGame.p1;
     }
+  }
+
+  static get input(): HTMLInputElement {
+    return document.getElementById("country-input") as HTMLInputElement;
   }
 
   static updateTimer() {
@@ -58,7 +64,7 @@ export class CoolDownGame {
       CoolDownGame.endGame();
     }
 
-    const range = STARTING_TIME;
+    const range = CoolDownGame.STARTING_TIME;
     const inverseRemaining = range - remaining;
     const red = Math.max(Math.min(inverseRemaining / range, 1), 0) * 255;
     const blue = Math.max(Math.min(remaining / range, 1) * 255, 0);
@@ -68,51 +74,68 @@ export class CoolDownGame {
       `linear-gradient(180deg, var(--background), ${colour})`;
   }
 
-  static getLatitude(country: string): number {
-    return this.countries[
-      country.trim().toLowerCase() as keyof typeof CoolDownGame.countries
+  static getData(country: string) {
+    return CoolDownGame.countryData[
+      country.trim().toLowerCase() as keyof typeof CoolDownGame.countryData
     ];
   }
 
+  static shakeInput() {
+    CoolDownGame.input.classList.add("error");
+    setTimeout(() => {
+      CoolDownGame.input.classList.remove("error");
+    }, 500);
+  }
+
   static tryCountry(country: string) {
-    if (CoolDownGame.getLatitude(country) === undefined) {
-      console.error(`${country} invalid`);
+    if (CoolDownGame.getData(country) === undefined) {
+      CoolDownGame.shakeInput();
       return; // add visible error
     }
 
     if (CoolDownGame.guesses.map((g) => g.country).includes(country)) {
-      console.error(`${country} previously guessed`);
+      CoolDownGame.shakeInput();
       return; // add visible error
     }
 
-    const latitude = CoolDownGame.getLatitude(country);
+    const { avg_latitude: latitude, avg_temp: temperature } =
+      CoolDownGame.getData(country);
 
-    const percentageCool = (90 - Math.abs(latitude)) / 90;
-    const percentageDown = Math.abs(latitude - 90) / 180;
+    const percentageHot =
+      (temperature - CoolDownGame.minTemp) /
+      (CoolDownGame.maxTemp - CoolDownGame.minTemp);
+    const percentageCool = 1 - percentageHot;
+
+    const percentageDown = Math.max(45 - latitude, 0) / 180;
 
     // update time
     CoolDownGame.activePlayer.remainingTime -=
       Date.now() - CoolDownGame.activePlayer.lastTimerStart;
     CoolDownGame.activePlayer.lastTimerStart = Date.now();
-    const pointsForGuess = Math.round(
-      3000 * percentageCool + 3000 * percentageDown,
+
+    const coolPoints = Math.round(
+      CoolDownGame.pointsPerMetric * percentageCool,
+    );
+    const downPoints = Math.round(
+      CoolDownGame.pointsPerMetric * percentageDown,
     );
 
-    CoolDownGame.activePlayer.remainingTime += pointsForGuess;
+    CoolDownGame.activePlayer.remainingTime += coolPoints + downPoints;
 
     CoolDownGame.updateTimer();
 
-    // switch out player
+    // log guess
     CoolDownGame.guesses.push({
       country,
       player: CoolDownGame.activePlayer.id,
-      points: pointsForGuess,
     });
 
     document.getElementById(
       `${CoolDownGame.activePlayer.id}-guesses`,
-    )!.innerHTML += `<div class="guess">${country} (${pointsForGuess})</div>`;
+    )!.innerHTML +=
+      `<div class="guess">${country} (${coolPoints} + ${downPoints})</div>`;
 
+    // switch out player
     CoolDownGame.activePlayer =
       CoolDownGame.activePlayer.id === "cool"
         ? CoolDownGame.p2
@@ -122,9 +145,13 @@ export class CoolDownGame {
 
     document.getElementById("current-player")!.innerText =
       `team ${CoolDownGame.activePlayer.id}`;
+    CoolDownGame.input.value = "";
 
-    const input = document.getElementById("country-input") as HTMLInputElement;
-    input!.value = "";
+    // update points per metric
+    console.log(CoolDownGame.pointsPerMetric);
+    if (CoolDownGame.activePlayer === CoolDownGame.p1) {
+      CoolDownGame.pointsPerMetric *= 0.9;
+    }
   }
 
   static endGame() {
@@ -137,9 +164,9 @@ export class CoolDownGame {
       `team ${CoolDownGame.inactivePlayer.id} wins!`;
   }
 
-  static init() {
-    const input = document.getElementById("country-input") as HTMLInputElement;
-    input.placeholder = "enter any country or continent to begin";
+  static startGame() {
+    const input = CoolDownGame.input;
+    input.placeholder = "enter any country to begin";
 
     this.p1.lastTimerStart = Date.now();
     this.p2.lastTimerStart = Date.now();
@@ -153,209 +180,221 @@ export class CoolDownGame {
     CoolDownGame.interval = setInterval(() => {
       CoolDownGame.updateTimer();
     }, 16);
+
+    document.getElementById("tutorial-contents")!.classList.remove("active");
+    document.getElementById("game-contents")!.classList.add("active");
   }
 
-  static readonly countries = {
-    afghanistan: 33,
-    albania: 41,
-    algeria: 28,
-    andorra: 42.5,
-    angola: -12.5,
-    "antigua and barbuda": 17.05,
-    argentina: -34,
-    armenia: 40,
-    australia: -25,
-    austria: 47.3333,
-    azerbaijan: 40.5,
-    bahamas: 24.25,
-    bahrain: 26,
-    bangladesh: 24,
-    barbados: 13.1667,
-    belarus: 53,
-    belgium: 50.8333,
-    belize: 17.25,
-    benin: 9.5,
-    bhutan: 27.5,
-    bolivia: -17,
-    "bosnia and herzegovina": 44,
-    botswana: -22,
-    brazil: -10,
-    brunei: 4.5,
-    bulgaria: 43,
-    "burkina faso": 13,
-    burundi: -3.5,
-    "cabo verde": 16,
-    cambodia: 13,
-    cameroon: 6,
-    canada: 60,
-    "central african republic": 7,
-    chad: 15,
-    chile: -30,
-    china: 35,
-    colombia: 4,
-    comoros: -12.1667,
-    "congo, democratic republic of the": -2,
-    "congo, republic of the": -1,
-    "costa rica": 10,
-    croatia: 45.1667,
-    cuba: 21.5,
-    cyprus: 35,
-    "czech republic": 49.75,
-    denmark: 56,
-    djibouti: 11.5,
-    dominica: 15.4167,
-    "dominican republic": 19,
-    ecuador: -2,
-    egypt: 27,
-    "el salvador": 13.8333,
-    "equatorial guinea": 2,
-    eritrea: 15,
-    estonia: 59,
-    eswatini: -26.5,
-    ethiopia: 8,
-    fiji: -18,
-    finland: 64,
-    france: 46,
-    gabon: -1,
-    gambia: 13.4667,
-    georgia: 42,
-    germany: 51,
-    ghana: 8,
-    greece: 39,
-    grenada: 12.1167,
-    guatemala: 15.5,
-    guinea: 11,
-    "guinea-bissau": 12,
-    guyana: 5,
-    haiti: 19,
-    honduras: 15,
-    hungary: 47,
-    iceland: 65,
-    india: 20,
-    indonesia: -5,
-    iran: 32,
-    iraq: 33,
-    ireland: 53,
-    israel: 31.5,
-    italy: 42.8333,
-    jamaica: 18.25,
-    japan: 36,
-    jordan: 31,
-    kazakhstan: 48,
-    kenya: 1,
-    kiribati: 1.4167,
-    "north korea": 40,
-    "south korea": 37,
-    kuwait: 29.5,
-    kyrgyzstan: 41,
-    laos: 18,
-    latvia: 57,
-    lebanon: 33.8333,
-    lesotho: -29.5,
-    liberia: 6.5,
-    libya: 25,
-    liechtenstein: 47.1667,
-    lithuania: 56,
-    luxembourg: 49.75,
-    madagascar: -20,
-    malawi: -13.5,
-    malaysia: 2.5,
-    maldives: 3.25,
-    mali: 17,
-    malta: 35.8333,
-    "marshall islands": 9,
-    mauritania: 20,
-    mauritius: -20.2833,
-    mexico: 23,
-    micronesia: 6.9167,
-    moldova: 47,
-    monaco: 43.7333,
-    mongolia: 46,
-    montenegro: 42,
-    morocco: 32,
-    mozambique: -18.25,
-    myanmar: 22,
-    namibia: -22,
-    nauru: -0.5333,
-    nepal: 28,
-    netherlands: 52.5,
-    "new zealand": -41,
-    nicaragua: 13,
-    niger: 16,
-    nigeria: 10,
-    "north macedonia": 41.8333,
-    norway: 62,
-    oman: 21,
-    pakistan: 30,
-    palau: 7.5,
-    panama: 9,
-    "papua new guinea": -6,
-    paraguay: -23,
-    peru: -10,
-    philippines: 13,
-    poland: 52,
-    portugal: 39.5,
-    qatar: 25.5,
-    romania: 46,
-    russia: 60,
-    rwanda: -2,
-    "saint kitts and nevis": 17.3333,
-    "saint lucia": 13.8833,
-    "saint vincent and the grenadines": 13.25,
-    samoa: -13.5833,
-    "san marino": 43.9333,
-    "sao tome and principe": 1,
-    "saudi arabia": 25,
-    senegal: 14,
-    serbia: 44,
-    seychelles: -4.5833,
-    "sierra leone": 8.5,
-    singapore: 1.3667,
-    slovakia: 48.6667,
-    slovenia: 46,
-    "solomon islands": -8,
-    somalia: 10,
-    "south africa": -29,
-    "south sudan": 7.5,
-    spain: 40,
-    "sri lanka": 7,
-    sudan: 15,
-    suriname: 4,
-    sweden: 62,
-    switzerland: 47,
-    syria: 35,
-    taiwan: 23.5,
-    tajikistan: 39,
-    tanzania: -6,
-    thailand: 15,
-    "timor-leste": -8.8333,
-    togo: 8,
-    tonga: -20,
-    "trinidad and tobago": 11,
-    tunisia: 34,
-    turkey: 39,
-    turkmenistan: 40,
-    tuvalu: -8,
-    uganda: 1,
-    ukraine: 49,
-    "united arab emirates": 24,
-    "united kingdom": 54,
-    "united states": 38,
-    uruguay: -33,
-    uzbekistan: 41,
-    vanuatu: -16,
-    "vatican city": 41.9,
-    venezuela: 8,
-    vietnam: 16,
-    yemen: 15,
-    zambia: -15,
-    zimbabwe: -19,
-    africa: 1,
-    asia: 34,
-    europe: 47,
-    "north america": 45,
-    "south america": -15,
-    oceania: -50,
-    antarctica: -90,
+  static init() {
+    document.getElementById("start-button")!.addEventListener("click", () => {
+      CoolDownGame.startGame();
+    });
+  }
+
+  static readonly countryData: {
+    [name: string]: { avg_temp: number; avg_latitude: number };
+  } = {
+    afghanistan: { avg_temp: 12, avg_latitude: 33 },
+    albania: { avg_temp: 15, avg_latitude: 41 },
+    algeria: { avg_temp: 25, avg_latitude: 28 },
+    andorra: { avg_temp: 10, avg_latitude: 42.5 },
+    angola: { avg_temp: 21, avg_latitude: -12.5 },
+    "antigua and barbuda": { avg_temp: 27, avg_latitude: 17.05 },
+    argentina: { avg_temp: 14, avg_latitude: -34 },
+    armenia: { avg_temp: 11, avg_latitude: 40 },
+    australia: { avg_temp: 21, avg_latitude: -25 },
+    austria: { avg_temp: 8, avg_latitude: 47.3333 },
+    azerbaijan: { avg_temp: 12, avg_latitude: 40.5 },
+    bahamas: { avg_temp: 25, avg_latitude: 24.25 },
+    bahrain: { avg_temp: 27, avg_latitude: 26 },
+    bangladesh: { avg_temp: 25, avg_latitude: 24 },
+    barbados: { avg_temp: 26, avg_latitude: 13.1667 },
+    belarus: { avg_temp: 7, avg_latitude: 53 },
+    belgium: { avg_temp: 10, avg_latitude: 50.8333 },
+    belize: { avg_temp: 25, avg_latitude: 17.25 },
+    benin: { avg_temp: 27, avg_latitude: 9.5 },
+    bhutan: { avg_temp: 12, avg_latitude: 27.5 },
+    bolivia: { avg_temp: 20, avg_latitude: -17 },
+    "bosnia and herzegovina": { avg_temp: 10, avg_latitude: 44 },
+    botswana: { avg_temp: 22, avg_latitude: -22 },
+    brazil: { avg_temp: 25, avg_latitude: -10 },
+    brunei: { avg_temp: 27, avg_latitude: 4.5 },
+    bulgaria: { avg_temp: 11, avg_latitude: 43 },
+    "burkina faso": { avg_temp: 28, avg_latitude: 13 },
+    burundi: { avg_temp: 20, avg_latitude: -3.5 },
+    "cabo verde": { avg_temp: 24, avg_latitude: 16 },
+    cambodia: { avg_temp: 27, avg_latitude: 13 },
+    cameroon: { avg_temp: 25, avg_latitude: 6 },
+    canada: { avg_temp: -5, avg_latitude: 60 },
+    "central african republic": { avg_temp: 26, avg_latitude: 7 },
+    chad: { avg_temp: 28, avg_latitude: 15 },
+    chile: { avg_temp: 14, avg_latitude: -30 },
+    china: { avg_temp: 9, avg_latitude: 35 },
+    colombia: { avg_temp: 24, avg_latitude: 4 },
+    comoros: { avg_temp: 25, avg_latitude: -12.1667 },
+    "congo, democratic republic of the": { avg_temp: 25, avg_latitude: -2 },
+    "congo, republic of the": { avg_temp: 25, avg_latitude: -1 },
+    "costa rica": { avg_temp: 25, avg_latitude: 10 },
+    croatia: { avg_temp: 14, avg_latitude: 45.1667 },
+    cuba: { avg_temp: 25, avg_latitude: 21.5 },
+    cyprus: { avg_temp: 19, avg_latitude: 35 },
+    "czech republic": { avg_temp: 8, avg_latitude: 49.75 },
+    denmark: { avg_temp: 8, avg_latitude: 56 },
+    djibouti: { avg_temp: 30, avg_latitude: 11.5 },
+    dominica: { avg_temp: 26, avg_latitude: 15.4167 },
+    "dominican republic": { avg_temp: 25, avg_latitude: 19 },
+    ecuador: { avg_temp: 20, avg_latitude: -2 },
+    egypt: { avg_temp: 22, avg_latitude: 27 },
+    "el salvador": { avg_temp: 25, avg_latitude: 13.8333 },
+    "equatorial guinea": { avg_temp: 25, avg_latitude: 2 },
+    eritrea: { avg_temp: 25, avg_latitude: 15 },
+    estonia: { avg_temp: 5, avg_latitude: 59 },
+    eswatini: { avg_temp: 20, avg_latitude: -26.5 },
+    ethiopia: { avg_temp: 20, avg_latitude: 8 },
+    fiji: { avg_temp: 25, avg_latitude: -18 },
+    finland: { avg_temp: 2, avg_latitude: 64 },
+    france: { avg_temp: 11, avg_latitude: 46 },
+    gabon: { avg_temp: 25, avg_latitude: -1 },
+    gambia: { avg_temp: 27, avg_latitude: 13.4667 },
+    georgia: { avg_temp: 12, avg_latitude: 42 },
+    germany: { avg_temp: 9, avg_latitude: 51 },
+    ghana: { avg_temp: 27, avg_latitude: 8 },
+    greece: { avg_temp: 18, avg_latitude: 39 },
+    grenada: { avg_temp: 26, avg_latitude: 12.1167 },
+    guatemala: { avg_temp: 25, avg_latitude: 15.5 },
+    guinea: { avg_temp: 27, avg_latitude: 11 },
+    "guinea-bissau": { avg_temp: 27, avg_latitude: 12 },
+    guyana: { avg_temp: 27, avg_latitude: 5 },
+    haiti: { avg_temp: 25, avg_latitude: 19 },
+    honduras: { avg_temp: 25, avg_latitude: 15 },
+    hungary: { avg_temp: 11, avg_latitude: 47 },
+    iceland: { avg_temp: 2, avg_latitude: 65 },
+    india: { avg_temp: 24, avg_latitude: 20 },
+    indonesia: { avg_temp: 27, avg_latitude: -5 },
+    iran: { avg_temp: 17, avg_latitude: 32 },
+    iraq: { avg_temp: 22, avg_latitude: 33 },
+    ireland: { avg_temp: 10, avg_latitude: 53 },
+    israel: { avg_temp: 20, avg_latitude: 31.5 },
+    italy: { avg_temp: 15, avg_latitude: 42.8333 },
+    jamaica: { avg_temp: 27, avg_latitude: 18.25 },
+    japan: { avg_temp: 15, avg_latitude: 36 },
+    jordan: { avg_temp: 18, avg_latitude: 31 },
+    kazakhstan: { avg_temp: 6, avg_latitude: 48 },
+    kenya: { avg_temp: 20, avg_latitude: 1 },
+    kiribati: { avg_temp: 28, avg_latitude: 1.4167 },
+    "north korea": { avg_temp: 8, avg_latitude: 40 },
+    "south korea": { avg_temp: 12, avg_latitude: 37 },
+    kuwait: { avg_temp: 28, avg_latitude: 29.5 },
+    kyrgyzstan: { avg_temp: 10, avg_latitude: 41 },
+    laos: { avg_temp: 25, avg_latitude: 18 },
+    latvia: { avg_temp: 6, avg_latitude: 57 },
+    lebanon: { avg_temp: 18, avg_latitude: 33.8333 },
+    lesotho: { avg_temp: 15, avg_latitude: -29.5 },
+    liberia: { avg_temp: 27, avg_latitude: 6.5 },
+    libya: { avg_temp: 22, avg_latitude: 25 },
+    liechtenstein: { avg_temp: 10, avg_latitude: 47.1667 },
+    lithuania: { avg_temp: 6, avg_latitude: 56 },
+    luxembourg: { avg_temp: 9, avg_latitude: 49.75 },
+    madagascar: { avg_temp: 25, avg_latitude: -20 },
+    malawi: { avg_temp: 22, avg_latitude: -13.5 },
+    malaysia: { avg_temp: 27, avg_latitude: 2.5 },
+    maldives: { avg_temp: 28, avg_latitude: 3.25 },
+    mali: { avg_temp: 28, avg_latitude: 17 },
+    malta: { avg_temp: 19, avg_latitude: 35.8333 },
+    "marshall islands": { avg_temp: 27, avg_latitude: 9 },
+    mauritania: { avg_temp: 28, avg_latitude: 20 },
+    mauritius: { avg_temp: 25, avg_latitude: -20.2833 },
+    mexico: { avg_temp: 21, avg_latitude: 23 },
+    micronesia: { avg_temp: 27, avg_latitude: 6.9167 },
+    moldova: { avg_temp: 10, avg_latitude: 47 },
+    monaco: { avg_temp: 16, avg_latitude: 43.7333 },
+    mongolia: { avg_temp: -2, avg_latitude: 46 },
+    montenegro: { avg_temp: 14, avg_latitude: 42 },
+    morocco: { avg_temp: 18, avg_latitude: 32 },
+    mozambique: { avg_temp: 25, avg_latitude: -18.25 },
+    myanmar: { avg_temp: 27, avg_latitude: 22 },
+    namibia: { avg_temp: 20, avg_latitude: -22 },
+    nauru: { avg_temp: 28, avg_latitude: -0.5333 },
+    nepal: { avg_temp: 15, avg_latitude: 28 },
+    netherlands: { avg_temp: 10, avg_latitude: 52.5 },
+    "new zealand": { avg_temp: 10, avg_latitude: -41 },
+    nicaragua: { avg_temp: 27, avg_latitude: 13 },
+    niger: { avg_temp: 28, avg_latitude: 16 },
+    nigeria: { avg_temp: 27, avg_latitude: 10 },
+    "north macedonia": { avg_temp: 12, avg_latitude: 41.8333 },
+    norway: { avg_temp: 2, avg_latitude: 62 },
+    oman: { avg_temp: 28, avg_latitude: 21 },
+    pakistan: { avg_temp: 21, avg_latitude: 30 },
+    palau: { avg_temp: 28, avg_latitude: 7.5 },
+    panama: { avg_temp: 27, avg_latitude: 9 },
+    "papua new guinea": { avg_temp: 25, avg_latitude: -6 },
+    paraguay: { avg_temp: 24, avg_latitude: -23 },
+    peru: { avg_temp: 19, avg_latitude: -10 },
+    philippines: { avg_temp: 27, avg_latitude: 13 },
+    poland: { avg_temp: 8, avg_latitude: 52 },
+    portugal: { avg_temp: 16, avg_latitude: 39.5 },
+    qatar: { avg_temp: 28, avg_latitude: 25.5 },
+    romania: { avg_temp: 10, avg_latitude: 46 },
+    russia: { avg_temp: -5, avg_latitude: 60 },
+    rwanda: { avg_temp: 20, avg_latitude: -2 },
+    "saint kitts and nevis": { avg_temp: 27, avg_latitude: 17.3333 },
+    "saint lucia": { avg_temp: 27, avg_latitude: 13.8833 },
+    "saint vincent and the grenadines": { avg_temp: 27, avg_latitude: 13.25 },
+    samoa: { avg_temp: 27, avg_latitude: -13.5833 },
+    "san marino": { avg_temp: 14, avg_latitude: 43.9333 },
+    "sao tome and principe": { avg_temp: 25, avg_latitude: 1 },
+    "saudi arabia": { avg_temp: 28, avg_latitude: 25 },
+    senegal: { avg_temp: 27, avg_latitude: 14 },
+    serbia: { avg_temp: 11, avg_latitude: 44 },
+    seychelles: { avg_temp: 27, avg_latitude: -4.5833 },
+    "sierra leone": { avg_temp: 27, avg_latitude: 8.5 },
+    singapore: { avg_temp: 28, avg_latitude: 1.3667 },
+    slovakia: { avg_temp: 9, avg_latitude: 48.6667 },
+    slovenia: { avg_temp: 10, avg_latitude: 46 },
+    "solomon islands": { avg_temp: 27, avg_latitude: -8 },
+    somalia: { avg_temp: 27, avg_latitude: 10 },
+    "south africa": { avg_temp: 17, avg_latitude: -29 },
+    "south sudan": { avg_temp: 27, avg_latitude: 7.5 },
+    spain: { avg_temp: 15, avg_latitude: 40 },
+    "sri lanka": { avg_temp: 27, avg_latitude: 7 },
+    sudan: { avg_temp: 28, avg_latitude: 15 },
+    suriname: { avg_temp: 27, avg_latitude: 4 },
+    sweden: { avg_temp: 2, avg_latitude: 62 },
+    switzerland: { avg_temp: 8, avg_latitude: 47 },
+    syria: { avg_temp: 18, avg_latitude: 35 },
+    taiwan: { avg_temp: 23, avg_latitude: 23.5 },
+    tajikistan: { avg_temp: 12, avg_latitude: 39 },
+    tanzania: { avg_temp: 25, avg_latitude: -6 },
+    thailand: { avg_temp: 27, avg_latitude: 15 },
+    "timor-leste": { avg_temp: 27, avg_latitude: -8.8333 },
+    togo: { avg_temp: 27, avg_latitude: 8 },
+    tonga: { avg_temp: 25, avg_latitude: -20 },
+    "trinidad and tobago": { avg_temp: 27, avg_latitude: 11 },
+    tunisia: { avg_temp: 20, avg_latitude: 34 },
+    turkey: { avg_temp: 13, avg_latitude: 39 },
+    turkmenistan: { avg_temp: 15, avg_latitude: 40 },
+    tuvalu: { avg_temp: 28, avg_latitude: -8 },
+    uganda: { avg_temp: 20, avg_latitude: 1 },
+    ukraine: { avg_temp: 7, avg_latitude: 49 },
+    "united arab emirates": { avg_temp: 28, avg_latitude: 24 },
+    "united kingdom": { avg_temp: 10, avg_latitude: 54 },
+    "united states": { avg_temp: 12, avg_latitude: 38 },
+    uruguay: { avg_temp: 17, avg_latitude: -33 },
+    uzbekistan: { avg_temp: 15, avg_latitude: 41 },
+    vanuatu: { avg_temp: 25, avg_latitude: -16 },
+    "vatican city": { avg_temp: 15, avg_latitude: 41.9 },
+    venezuela: { avg_temp: 27, avg_latitude: 8 },
+    vietnam: { avg_temp: 25, avg_latitude: 16 },
+    yemen: { avg_temp: 25, avg_latitude: 15 },
+    zambia: { avg_temp: 22, avg_latitude: -15 },
+    zimbabwe: { avg_temp: 20, avg_latitude: -19 },
   };
+
+  static minTemp = Object.values(CoolDownGame.countryData)
+    .map(({ avg_temp }) => avg_temp)
+    .reduce((prev, current) => Math.min(prev, current), Infinity);
+
+  static maxTemp = Object.values(CoolDownGame.countryData)
+    .map(({ avg_temp }) => avg_temp)
+    .reduce((prev, current) => Math.max(prev, current), -Infinity);
 }
