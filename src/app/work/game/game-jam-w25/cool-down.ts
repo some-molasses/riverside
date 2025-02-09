@@ -90,10 +90,12 @@ export class CoolDownGame {
   static tryCountry(country: string) {
     if (CoolDownGame.getData(country) === undefined) {
       CoolDownGame.shakeInput();
+      console.log(`Invalid input: ${country} not recognized`);
       return; // add visible error
     }
 
     if (CoolDownGame.guesses.map((g) => g.country).includes(country)) {
+      console.log(`Invalid input: ${country} previously guessed`);
       CoolDownGame.shakeInput();
       return; // add visible error
     }
@@ -183,6 +185,8 @@ export class CoolDownGame {
 
     document.getElementById("tutorial-contents")!.classList.remove("active");
     document.getElementById("game-contents")!.classList.add("active");
+
+    CoolDownGame.guesses = [];
   }
 
   static init() {

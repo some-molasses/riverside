@@ -28,38 +28,40 @@ export const SearchResult: React.FC<{
 
   return (
     <li className="search-result">
-      <Link className="search-result-inner" href={getHref()}>
+      <div className="search-result-inner">
         <div className="result-text-panel">
-          <Heading2 className="result-title">{title}</Heading2>
-          <div className="result-subtitle-row">
-            {subtitle ? (
-              <>
-                <Span className="result-subtitle">{subtitle}</Span>
-                <Span className="result-date">
-                  {new Date(date).toLocaleDateString("en-CA", {
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </Span>
-              </>
-            ) : (
-              <>
-                <Span className="result-date">
-                  {new Date(date).toLocaleDateString("en-CA", {
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </Span>
-              </>
-            )}
-          </div>
-          <div className="result-description">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: item.description ?? undefined,
-              }}
-            />
-          </div>
+          <Link className="result-link" href={getHref()}>
+            <Heading2 className="result-title">{title}</Heading2>
+            <div className="result-subtitle-row">
+              {subtitle ? (
+                <>
+                  <Span className="result-subtitle">{subtitle}</Span>
+                  <Span className="result-date">
+                    {new Date(date).toLocaleDateString("en-CA", {
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </Span>
+                </>
+              ) : (
+                <>
+                  <Span className="result-date">
+                    {new Date(date).toLocaleDateString("en-CA", {
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </Span>
+                </>
+              )}
+            </div>
+            <div className="result-description">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: item.description ?? undefined,
+                }}
+              />
+            </div>
+          </Link>
           <div className="bottom-row">
             <div className="result-tags">
               {item.metadata.tags.sort().map((tag) => (
@@ -70,14 +72,16 @@ export const SearchResult: React.FC<{
         </div>
         {item.metadata.thumbnail ? (
           <div className="result-image">
-            <Image
-              src={item.metadata.thumbnail.replace("public/", "/")}
-              alt=""
-              fill
-            />
+            <Link className="result-link" href={getHref()}>
+              <Image
+                src={item.metadata.thumbnail.replace("public/", "/")}
+                alt=""
+                fill
+              />
+            </Link>
           </div>
         ) : null}
-      </Link>
+      </div>
     </li>
   );
 };
