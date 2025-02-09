@@ -1,0 +1,65 @@
+#cool-down-page {
+  height: calc(100vh - 70px);
+
+  .center-overflow {
+    height: 100%;
+  }
+
+  #cool-down-main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 100%;
+    padding: 24px;
+
+    .side-col {
+      width: 200px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      &#right-col {
+        text-align: right;
+      }
+    }
+
+    #center-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    #country-input-desc {
+      font-style: italic;
+      color: #eee;
+    }
+  }
+
+  input {
+    background-color: white;
+    color: #333;
+    outline: none;
+  }
+
+  #timer {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    #timer-text {
+      font-size: 48px;
+    }
+
+    #current-player {
+      font-size: 11px;
+    }
+  }
+
+  #country-input {
+    width: 100%;
+  }
+}
