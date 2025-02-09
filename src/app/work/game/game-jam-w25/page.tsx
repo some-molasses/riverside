@@ -34,10 +34,10 @@ export default function CoolDownPage() {
             <div id="center-col">
               <div id="timer">
                 <span id="timer-text">{CoolDownGame.STARTING_SECONDS}:000</span>
-                <span id="current-player">team cool</span>
+                <span id="current-player">team left</span>
               </div>
               <div className="center-col-main active" id="playable-center-col">
-                <input id="country-input"></input>
+                <input id="country-input" autoComplete="off"></input>
                 <Span id="country-input-desc">enter a country</Span>
               </div>
               <div className="center-col-main" id="endgame-center-col">
@@ -60,7 +60,7 @@ const SideColumn: React.FC<{ id: string; side: string }> = ({ id, side }) => {
       <span className="time-remaining" id={`${id}-time`}>
         {CoolDownGame.STARTING_SECONDS}:000
       </span>
-      <span className="team-name">team {id}</span>
+      <span className="team-name">team {side}</span>
     </div>
   );
 };

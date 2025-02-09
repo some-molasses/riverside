@@ -1,6 +1,7 @@
 namespace CoolDownGame {
   export interface PlayerData {
     id: "cool" | "down";
+    side: "left" | "right";
     remainingTime: number;
     lastTimerStart: number;
   }
@@ -21,11 +22,13 @@ export class CoolDownGame {
 
   static p1: CoolDownGame.PlayerData = {
     id: "cool",
+    side: "left",
     remainingTime: CoolDownGame.STARTING_TIME,
     lastTimerStart: 0,
   };
   static p2: CoolDownGame.PlayerData = {
     id: "down",
+    side: "right",
     remainingTime: CoolDownGame.STARTING_TIME,
     lastTimerStart: 0,
   };
@@ -108,7 +111,10 @@ export class CoolDownGame {
       (CoolDownGame.maxTemp - CoolDownGame.minTemp);
     const percentageCool = 1 - percentageHot;
 
-    const percentageDown = Math.max(45 - latitude, 0) / 180;
+    const percentageUp =
+      (latitude - CoolDownGame.minLat) /
+      (CoolDownGame.maxLat - CoolDownGame.minLat);
+    const percentageDown = 1 - percentageUp;
 
     // update time
     CoolDownGame.activePlayer.remainingTime -=
@@ -134,8 +140,10 @@ export class CoolDownGame {
 
     document.getElementById(
       `${CoolDownGame.activePlayer.id}-guesses`,
-    )!.innerHTML +=
-      `<div class="guess">${country} (${coolPoints} + ${downPoints})</div>`;
+    )!.innerHTML += `<div class="guess">
+        <span class="countryName">${country}</span>
+        <span class="countryScore">(${Math.round(percentageCool * 100)}% cool, ${Math.round(percentageDown * 100)}% down)</span>
+      </div>`;
 
     // switch out player
     CoolDownGame.activePlayer =
@@ -146,7 +154,7 @@ export class CoolDownGame {
     CoolDownGame.activePlayer.lastTimerStart = Date.now();
 
     document.getElementById("current-player")!.innerText =
-      `team ${CoolDownGame.activePlayer.id}`;
+      `team ${CoolDownGame.activePlayer.side}`;
     CoolDownGame.input.value = "";
 
     // update points per metric
@@ -163,7 +171,7 @@ export class CoolDownGame {
     document.getElementById("endgame-center-col")!.classList.add("active");
 
     document.getElementById("winning-team")!.innerHTML =
-      `team ${CoolDownGame.inactivePlayer.id} wins!`;
+      `team ${CoolDownGame.inactivePlayer.side} wins!`;
   }
 
   static startGame() {
@@ -400,5 +408,13 @@ export class CoolDownGame {
 
   static maxTemp = Object.values(CoolDownGame.countryData)
     .map(({ avg_temp }) => avg_temp)
+    .reduce((prev, current) => Math.max(prev, current), -Infinity);
+
+  static minLat = Object.values(CoolDownGame.countryData)
+    .map(({ avg_latitude }) => avg_latitude)
+    .reduce((prev, current) => Math.min(prev, current), Infinity);
+
+  static maxLat = Object.values(CoolDownGame.countryData)
+    .map(({ avg_latitude }) => avg_latitude)
     .reduce((prev, current) => Math.max(prev, current), -Infinity);
 }

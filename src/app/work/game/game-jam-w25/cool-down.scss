@@ -71,6 +71,13 @@
 
       .guess {
         font-size: 12px;
+
+        display: flex;
+        flex-direction: column;
+
+        .countryScore {
+          font-size: 10px;
+        }
       }
     }
 
