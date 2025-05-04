@@ -142,7 +142,11 @@ export class CoolDownGame {
       `${CoolDownGame.activePlayer.id}-guesses`,
     )!.innerHTML += `<div class="guess">
         <span class="countryName">${country}</span>
-        <span class="countryScore">(${Math.round(percentageCool * 100)}% cool, ${Math.round(percentageDown * 100)}% down)</span>
+        <span class="countryScore">(${Math.round(
+          percentageCool * 100,
+        )}% cool, ${Math.round(percentageDown * 100)}% down, gained ${
+          Math.round((coolPoints + downPoints) / 100) / 10
+        } s)</span>
       </div>`;
 
     // switch out player
