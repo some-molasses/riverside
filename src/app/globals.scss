@@ -12,7 +12,7 @@ body {
 }
 
 body {
-  color: var(--foreground);
+  color: var(--text);
   background: var(--background);
   font-family: var(--title-font);
   -webkit-font-smoothing: antialiased;
@@ -67,6 +67,7 @@ br {
 p {
   line-height: 1.5em;
   margin: 1em 0;
+  color: var(--text);
 }
 
 h1,
@@ -75,6 +76,7 @@ h3 {
   margin-top: 16px;
   padding-bottom: 4px;
   border-bottom: 1px solid var(--background-faint);
+  color: var(--text);
 }
 
 code {
