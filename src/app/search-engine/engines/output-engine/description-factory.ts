@@ -38,7 +38,7 @@ export class DescriptionFactory {
         .replaceAll(/\(.*\)/g, "") ?? "";
 
     const sentences: DescriptionFactory.Sentence[] = this.mergeSentences(
-      Array.from(cleanedBody?.matchAll(/[^.!?]+[.!?]/g)).map(
+      Array.from(cleanedBody?.matchAll(/[^.!?\n]+[.!?\n]/g)).map(
         (match, index) => ({
           string: match[0].substring(0, match[0].length - 1).trim(),
           punctuation: match[0][match[0].length - 1],
