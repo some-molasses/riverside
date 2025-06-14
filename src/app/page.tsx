@@ -107,16 +107,15 @@ const WritingSection: React.FC<{}> = ({}) => {
 const LeaderSection: React.FC<{}> = ({}) => {
   return (
     <section className="homepage-section">
-      <Heading2>ocassional leader</Heading2>
-      <Paragraph>
-        creator of silly little writings for a world in need
-      </Paragraph>
+      <Heading2>occasional leader</Heading2>
+      <Paragraph>it just keeps happening</Paragraph>
       <ul className="homepage-list">
         <HomepageListItem>
           math<b>NEWS</b> editor
         </HomepageListItem>
         <HomepageListItem>
-          board member of the Mathematics Society of the University of Waterloo
+          councillor and past director of the Mathematics Society of the
+          University of Waterloo
         </HomepageListItem>
         <HomepageListItem>
           campus ambassador for the University of Waterloo Faculty of
