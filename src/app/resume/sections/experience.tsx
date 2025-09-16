@@ -8,6 +8,34 @@ export const ExperienceSection: React.FC = () => {
       <Heading2>Experience</Heading2>
       <div>
         <ExperienceItem
+          name="Backend Engineer"
+          team="Lake House"
+          date="Summer 2025"
+          company="Splunk"
+        >
+          <li>
+            <HL terms="project">Independently overhauled</HL> a bespoke{" "}
+            <HL terms="quality">testing framework</HL> to enable parallel code
+            execution, leading to a 6.6x (or 51 minute) reduction in time to
+            first failure
+          </li>
+          <li>
+            Implemented{" "}
+            <HL terms="backend">parallel log4j logger / appender apparatus</HL>{" "}
+            to enable distinguishing concurrent log output, eliminating shared
+            resources between previously-serial threads
+          </li>
+          <li>
+            Added custom workarounds to{" "}
+            <HL terms="backend">Amazon EMR Serverless</HL> instances to further
+            enable log tracking
+          </li>
+          <li>
+            Distributed approximately 300 food baskets weekly at food banks in
+            San Francisco&apos;s SoMa and Mission districts
+          </li>
+        </ExperienceItem>
+        <ExperienceItem
           name="Software Developer"
           team="Cards"
           date="Summer 2024"
