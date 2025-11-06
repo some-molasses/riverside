@@ -8,6 +8,34 @@ export const ExperienceSection: React.FC = () => {
       <Heading2>Experience</Heading2>
       <div>
         <ExperienceItem
+          name="Software Engineer"
+          team="Forward-deployed engineering"
+          date="Fall 2025"
+          company="Ramp"
+        >
+          <li>
+            <HL terms="project backend">
+              Architected, coordinated, and implemented an integration
+            </HL>{" "}
+            with a key healthcare reporting & compliance partner, unlocking an
+            estimated 20+ significant enterprise sales leads
+          </li>
+          <li>
+            <HL terms="project frontend">Architected and implemented</HL> bulk
+            expense attendee uploads, enabling over 5000 attendee uploads in a
+            month and achieving table stakes for a key client to re-sign
+          </li>
+          <li>
+            <HL terms="backend frontend">Implemented self-enroll onboarding</HL>{" "}
+            for a new healthcare reporting feature, reducing friction and CX
+            support requirements
+          </li>
+          <li>
+            Recorded video communications to unveil and demonstrate new features
+            for key enterprise clients
+          </li>
+        </ExperienceItem>
+        <ExperienceItem
           name="Backend Engineer"
           team="Lake House"
           date="Summer 2025"
@@ -227,7 +255,7 @@ const ExperienceItem: React.FC<{
   date: string;
   company: string;
   children: React.ReactNode;
-}> = ({ name, date, company, children }) => {
+}> = ({ name, team, date, company, children }) => {
   return (
     <div className="experience-item">
       <div className="item-left">
@@ -236,7 +264,11 @@ const ExperienceItem: React.FC<{
         <div className="line-bottom"></div>
       </div>
       <div className="item-right">
-        <ItemTitle title={name} bottomLeft={company} bottomRight={date} />
+        <ItemTitle
+          title={name}
+          bottomLeft={[company, team].filter(Boolean).join(" | ")}
+          bottomRight={date}
+        />
         <div className="description">
           <ul>{children}</ul>
         </div>
