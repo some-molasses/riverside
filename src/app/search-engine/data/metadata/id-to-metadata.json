@@ -1,5 +1,16 @@
 [
   {
+    "title": "black walnut / imperial city",
+    "date": "September 12 2025",
+    "tags": [
+      "mathNEWS",
+      "writing",
+      "poem"
+    ],
+    "id": 0,
+    "location": "writing-database\\mathnews\\v159\\i1\\black-walnut\\main.md"
+  },
+  {
     "title": "squirrel",
     "date": "July 11 2025",
     "tags": [
@@ -7,7 +18,7 @@
       "mathNEWS",
       "short-story"
     ],
-    "id": 0,
+    "id": 1,
     "location": "writing-database\\mathnews\\v158\\i5\\squirrel\\main.md"
   },
   {
@@ -17,7 +28,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 1,
+    "id": 2,
     "location": "writing-database\\mathnews\\v158\\i4\\mnm-followup\\main.md"
   },
   {
@@ -28,7 +39,7 @@
       "mathNEWS"
     ],
     "thumbnail": "public/works/writing/mathnews/wd-tournament/sutro-final.png",
-    "id": 2,
+    "id": 3,
     "location": "writing-database\\mathnews\\v158\\i3\\tournament\\main.md"
   },
   {
@@ -38,7 +49,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 3,
+    "id": 4,
     "location": "writing-database\\mathnews\\v158\\i2\\self-exposure\\main.md"
   },
   {
@@ -48,7 +59,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 4,
+    "id": 5,
     "location": "writing-database\\mathnews\\v158\\i1\\ted-nelson\\main.md"
   },
   {
@@ -60,7 +71,7 @@
       "poem"
     ],
     "thumbnail": "public/works/writing/mathnews/steeple.png",
-    "id": 5,
+    "id": 6,
     "location": "writing-database\\mathnews\\v158\\i1\\steeple\\main.md"
   },
   {
@@ -70,7 +81,7 @@
     "tags": [
       "coding"
     ],
-    "id": 6,
+    "id": 7,
     "location": "src\\app\\work\\code-projects\\mathnews-search\\page.tsx"
   },
   {
@@ -81,7 +92,7 @@
       "mathNEWS"
     ],
     "thumbnail": "public/works/coding/cs452/mother-mother.jpg",
-    "id": 7,
+    "id": 8,
     "location": "writing-database\\mathnews\\v157\\i5\\dont-take-trains\\main.md"
   },
   {
@@ -92,7 +103,7 @@
     "tags": [
       "coding"
     ],
-    "id": 8,
+    "id": 9,
     "location": "src\\app\\work\\code-projects\\cs452\\page.tsx"
   },
   {
@@ -102,7 +113,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 9,
+    "id": 10,
     "location": "writing-database\\mathnews\\v157\\i3\\golden-promise\\main.md"
   },
   {
@@ -113,7 +124,7 @@
       "game",
       "coding"
     ],
-    "id": 10,
+    "id": 11,
     "location": "src\\app\\work\\game\\game-jam-w25\\page.tsx"
   },
   {
@@ -124,7 +135,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 11,
+    "id": 12,
     "location": "writing-database\\mathnews\\v157\\i2\\tau-ceti\\main.md"
   },
   {
@@ -135,7 +146,7 @@
       "mathNEWS",
       "poem"
     ],
-    "id": 12,
+    "id": 13,
     "location": "writing-database\\mathnews\\v157\\i1\\null-ptr-granola-bar\\main.md"
   },
   {
@@ -146,7 +157,7 @@
       "game",
       "coding"
     ],
-    "id": 13,
+    "id": 14,
     "location": "src\\app\\work\\code-projects\\old-portfolio\\page.tsx"
   },
   {
@@ -156,7 +167,7 @@
     "tags": [
       "coding"
     ],
-    "id": 14,
+    "id": 15,
     "location": "src\\app\\work\\code-projects\\latimes-search\\page.tsx"
   },
   {
@@ -167,7 +178,7 @@
       "mathNEWS",
       "short-story"
     ],
-    "id": 15,
+    "id": 16,
     "location": "writing-database\\mathnews\\v156\\i6\\the-last-rabbit\\main.md"
   },
   {
@@ -178,7 +189,7 @@
       "mathNEWS",
       "recipe"
     ],
-    "id": 16,
+    "id": 17,
     "location": "writing-database\\mathnews\\v156\\i6\\sinusoidal-soup\\main.md"
   },
   {
@@ -190,7 +201,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 17,
+    "id": 18,
     "location": "writing-database\\mathnews\\v156\\i5\\noor-food-market\\main.md"
   },
   {
@@ -200,7 +211,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 18,
+    "id": 19,
     "location": "writing-database\\mathnews\\v156\\i4\\uncapturable\\main.md"
   },
   {
@@ -212,7 +223,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 19,
+    "id": 20,
     "location": "writing-database\\mathnews\\v156\\i3\\gespeg\\main.md"
   },
   {
@@ -224,7 +235,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 20,
+    "id": 21,
     "location": "writing-database\\mathnews\\v156\\i2\\gespeg\\main.md"
   },
   {
@@ -236,7 +247,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 21,
+    "id": 22,
     "location": "writing-database\\mathnews\\v156\\i1\\gespeg\\main.md"
   },
   {
@@ -246,7 +257,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 22,
+    "id": 23,
     "location": "writing-database\\mathnews\\v155\\i6\\evocation-of-water-that-falls\\main.md"
   },
   {
@@ -257,7 +268,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 23,
+    "id": 24,
     "location": "writing-database\\mathnews\\v155\\i4\\edge-of-the-edge\\main.md"
   },
   {
@@ -267,7 +278,7 @@
       "writing",
       "poem"
     ],
-    "id": 24,
+    "id": 25,
     "location": "writing-database\\poems\\eclipse\\main.md"
   },
   {
@@ -277,7 +288,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 25,
+    "id": 26,
     "location": "writing-database\\mathnews\\v154\\i3\\mnm-machines\\main.md"
   },
   {
@@ -287,7 +298,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 26,
+    "id": 27,
     "location": "writing-database\\mathnews\\v154\\i2\\picards\\main.md"
   },
   {
@@ -298,7 +309,7 @@
       "mathNEWS",
       "poem"
     ],
-    "id": 27,
+    "id": 28,
     "location": "writing-database\\mathnews\\v154\\i1\\market-trail\\main.md"
   },
   {
@@ -309,7 +320,7 @@
       "mathNEWS",
       "short-story"
     ],
-    "id": 28,
+    "id": 29,
     "location": "writing-database\\mathnews\\v153\\i6\\the-mouse-the-bear-and-the-storm\\main.md"
   },
   {
@@ -319,7 +330,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 29,
+    "id": 30,
     "location": "writing-database\\mathnews\\v153\\i5\\rejuvenation\\main.md"
   },
   {
@@ -330,7 +341,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 30,
+    "id": 31,
     "location": "writing-database\\mathnews\\v153\\i4\\tahinis\\main.md"
   },
   {
@@ -341,7 +352,7 @@
       "mathNEWS",
       "poem"
     ],
-    "id": 31,
+    "id": 32,
     "location": "writing-database\\mathnews\\v152\\i5\\well-rounded-graduate\\main.md"
   },
   {
@@ -352,7 +363,7 @@
       "mathNEWS",
       "recipe"
     ],
-    "id": 32,
+    "id": 33,
     "location": "writing-database\\mathnews\\v151\\i6\\tomato-soup\\main.md"
   },
   {
@@ -362,7 +373,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 33,
+    "id": 34,
     "location": "writing-database\\mathnews\\v151\\i3\\cathedral-beams\\main.md"
   },
   {
@@ -372,7 +383,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 34,
+    "id": 35,
     "location": "writing-database\\mathnews\\v151\\i1\\here\\main.md"
   },
   {
@@ -383,7 +394,7 @@
       "mathNEWS",
       "recipe"
     ],
-    "id": 35,
+    "id": 36,
     "location": "writing-database\\mathnews\\v150\\i5\\falafel\\main.md"
   },
   {
@@ -394,7 +405,7 @@
       "mathNEWS",
       "short-story"
     ],
-    "id": 36,
+    "id": 37,
     "location": "writing-database\\mathnews\\v150\\i4\\the-lake\\main.md"
   },
   {
@@ -404,7 +415,7 @@
       "writing",
       "mathNEWS"
     ],
-    "id": 37,
+    "id": 38,
     "location": "writing-database\\mathnews\\v149\\i3\\hearts\\main.md"
   },
   {
@@ -416,7 +427,7 @@
       "game",
       "coding"
     ],
-    "id": 38,
+    "id": 39,
     "location": "src\\app\\work\\game\\pacman-2\\page.tsx"
   },
   {
@@ -427,7 +438,7 @@
     "tags": [
       "coding"
     ],
-    "id": 39,
+    "id": 40,
     "location": "src\\app\\work\\gadgets\\infection\\page.tsx"
   },
   {
@@ -439,7 +450,7 @@
       "game",
       "coding"
     ],
-    "id": 40,
+    "id": 41,
     "location": "src\\app\\work\\game\\luigi\\page.tsx"
   },
   {
@@ -451,7 +462,7 @@
       "game",
       "coding"
     ],
-    "id": 41,
+    "id": 42,
     "location": "src\\app\\work\\game\\lunar-defence\\page.tsx"
   }
 ]
