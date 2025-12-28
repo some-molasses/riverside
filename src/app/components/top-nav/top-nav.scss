@@ -1,4 +1,5 @@
-@import "../../mixins.scss";
+@use "../../mixins.scss" as *;
+
 #top-nav-container {
   #top-nav {
     $side-padding: 32px;

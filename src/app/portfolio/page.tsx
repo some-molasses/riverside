@@ -97,13 +97,13 @@ function Portfolio() {
       case "writing": {
         return {
           title: "writings library",
-          subtitle: "musings about the most important unimportant things",
+          subtitle: "words",
         };
       }
       default: {
         return {
           title: "project search",
-          subtitle: "a database of many things I have done",
+          subtitle: "a database of things I have done",
         };
       }
     }

@@ -34,6 +34,11 @@ export class MarkdownFormatter {
         /\[caption\]\(([^\)]+)\)/gs,
         (_, caption) => `<div class="caption">${caption}</div>`,
       )
+      .replaceAll(
+        /\[blockquote\]\(([^\)]+)\)\(([^\)]+)\)/gs,
+        (_, body, author) =>
+          `<div class="quote"><div class="quote-body">${body}</div><div class="quote-author">${author}</div></div>`,
+      )
       .replaceAll(/\[linebreak\]/g, `<br/>`);
   }
 }

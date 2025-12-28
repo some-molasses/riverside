@@ -22,4 +22,24 @@
     padding: 16px 24px;
     max-width: 100%;
   }
+
+  .quote {
+    display: flex;
+    margin-left: 16px;
+    padding-left: 16px;
+    gap: 8px;
+    flex-direction: column;
+    border-left: 2px solid var(--text-faint);
+    color: var(--text-faint);
+
+    .quote-body,
+    p {
+      color: var(--text-faint);
+    }
+
+    .quote-author {
+      text-align: right;
+      font-size: 0.8em;
+    }
+  }
 }
