@@ -3,7 +3,7 @@
 import { CenterOverflow } from "@/app/components/center-overflow/center-overflow";
 import { Content } from "@/app/components/content/content";
 import { Footer } from "@/app/components/footer/footer";
-import { Column, Row } from "@/app/components/layout/layout";
+import { Column, Row } from "@/app/components/layout/layout-components";
 import { ClientSideMarkdown } from "@/app/components/markdown/client-markdown";
 import { PageContents } from "@/app/components/page-contents/page-contents";
 import { Titles } from "@/app/components/titles/titles";
