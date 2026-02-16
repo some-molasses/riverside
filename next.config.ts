@@ -1,11 +1,20 @@
 import type { NextConfig } from "next";
 
+const itemSources = [
+  "./writing-database/**/*.md",
+  "./public/**/*.md",
+  "./src/app/**/*.md",
+  "./**/metadata.json",
+  "./**/item-metadata.json",
+  "./src/app/search-engine/**/*.json",
+];
+
 const nextConfig: NextConfig = {
   /* config options here */
 
   outputFileTracingIncludes: {
-    "/api/search/items": ["./**/*.md", "./**/*.json"],
-    "/app/work/writing/\\[\\[\\.\\.\\.slug\\]\\]": ["./**/*.md", "./**/*.json"],
+    "/api/search/items": itemSources,
+    "/app/work/writing/\\[\\[\\.\\.\\.slug\\]\\]": itemSources,
   },
 };
 
